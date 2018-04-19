@@ -4,8 +4,17 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+
+batarang:
+  name: Batarang
+  stock: 3
+  price: 40.00
+  description: The only weapon you'll ever need.
+  merchant: merchant_one
+
+lasso:
+  name: Lasso of Truth
+  stock: 10
+  price: 234.99
+  description: Lasso
+  merchant: merchant_one
