@@ -1,9 +1,9 @@
 require "test_helper"
 
 describe Product do
-  let(:product) { Product.new }
-
-  it "must be valid" do
-    value(product).must_be :valid?
+  describe 'relations' do
+    it 'has a list of categories' do
+      product = products(:batarang)
+    end
   end
 end
