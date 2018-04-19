@@ -1,9 +1,17 @@
 require "test_helper"
 
 describe Order do
-  let(:order) { Order.new }
+  it 'is valid with one order item' do
 
-  it "must be valid" do
-    value(order).must_be :valid?
+  end
+
+  it 'is valid with multiple order items' do
+
+  end
+
+  it 'is not valid with 0 order items' do
+
+  end
+
   end
 end
