@@ -2,10 +2,10 @@
 
 one:
   quantity: 1
-  product_id: 1
-  order_id: 1
+  product: batarang
+  order: one
 
 two:
-  quantity: 1
-  product_id: 1
-  order_id: 1
+  quantity: 2
+  product: lasso
+  order: two

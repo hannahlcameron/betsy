@@ -1,21 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  customer_name: MyString
-  customer_email: MyString
-  credit_card: MyString
-  CVV: MyString
-  CC_expiration: MyString
-  status: MyString
-  shipping_address: MyString
-  billing_address: MyString
+  customer_name: Peter Parker
+  customer_email: iluvheros@fan.net
+  credit_card: 1234567891011121
+  CVV: 987
+  CC_expiration: 09/35
+  status: pending
+  shipping_address: 1234 Lovelace Ave Seattle WA 98103
+  billing_address: 98103
 
 two:
-  customer_name: MyString
-  customer_email: MyString
-  credit_card: MyString
-  CVV: MyString
-  CC_expiration: MyString
-  status: MyString
-  shipping_address: MyString
-  billing_address: MyString
+  customer_name: Jane Foster
+  customer_email: desertphenom@smartypants.com
+  credit_card: 9876543210111213
+  CVV: 786
+  CC_expiration: 03/23
+  status: pending
+  shipping_address: 109 Desert Road Nowhere AZ 29843
+  billing_address: 29843
