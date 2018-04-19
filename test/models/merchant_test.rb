@@ -44,11 +44,15 @@ describe Merchant do
     it "connects product and product_id" do
       merchant = Merchant.first
 
-      product = Product.first
+      product = Product.new(name: "Green Lantern Ring", stock: 1, price: 57.00)
 
+      # act
       product.merchant = merchant
+      product.must_be :valid?
 
-      product.merchant_id.must_equal merchant.id
+      product.save
+
+      merchant.product_ids.must_include product.id
     end
 
   end # relations

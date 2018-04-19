@@ -1,9 +1,18 @@
 require "test_helper"
 
 describe Review do
-  let(:review) { Review.new }
+  describe "validations" do
 
-  it "must be valid" do
-    value(review).must_be :valid?
-  end
+    it "must have a rating" do
+      
+    end
+
+    # rating must be an integer
+
+    # rating must be between 1 and 5 inclusive
+
+  end # validations
+
+  describe "relations" do
+  end # relations
 end
