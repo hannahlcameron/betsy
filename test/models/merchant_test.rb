@@ -40,5 +40,16 @@ describe Merchant do
   end # validations
 
   describe "relations" do
+
+    it "connects product and product_id" do
+      merchant = Merchant.first
+
+      product = Product.first
+
+      product.merchant = merchant
+
+      product.merchant_id.must_equal merchant.id
+    end
+
   end # relations
 end
