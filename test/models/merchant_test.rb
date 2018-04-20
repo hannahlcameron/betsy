@@ -52,7 +52,7 @@ describe Merchant do
 
       product.save
 
-      merchant.product_ids.must_include product.id
+      merchant.products.must_include product
     end
 
   end # relations
