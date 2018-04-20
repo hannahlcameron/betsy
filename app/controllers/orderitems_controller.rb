@@ -1,13 +1,13 @@
 class OrderitemsController < ApplicationController
-  before_action :find_order_item, only: [:edit, :update, :destroy]
+  before_action :find_order_item, only: [:update, :destroy]
 
-  def index
-  end
+  # def index
+  # end
   # not sure we need this one
 
-  def new
-    @orderitem = OrderItem.new
-  end
+  # def new
+  #   @orderitem = OrderItem.new
+  # end
 
   def create
     @orderitem = OrderItem.new(order_item_params)
@@ -18,9 +18,12 @@ class OrderitemsController < ApplicationController
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
       render "products/show", status: :bad_request
+    end
   end
 
-  def edit; end
+  # def edit
+  #   puts "ran inside of edit"
+  # end
 
   def update
     @orderitem.assign_attributes(order_item_params)
@@ -31,11 +34,11 @@ class OrderitemsController < ApplicationController
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
       render "products/show", status: :bad_request
-
+    end
   end
 
-  def show; end
-  # do we even need this?
+  # def show; end
+  # # do we even need this?
 
   def destroy
     @orderitem.destroy
