@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419210206) do
+ActiveRecord::Schema.define(version: 20180420175356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20180419210206) do
     t.string "customer_name"
     t.string "customer_email"
     t.string "credit_card"
-    t.string "CVV"
-    t.string "CC_expiration"
+    t.string "cvv"
+    t.string "cc_expiration"
     t.string "status"
     t.string "shipping_address"
     t.string "billing_address"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180419210206) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
+    t.text "description"
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
 
