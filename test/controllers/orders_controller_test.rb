@@ -1,7 +1,39 @@
 require "test_helper"
-require 'pry'
 
 describe OrdersController do
+
+  describe "index" do
+
+    it "sends a success response when there are many orders" do
+      Order.count.must_be :>, 0
+      get orders_path
+      must_respond_with :success
+    end
+
+    it "sends a success response when there are no orders" do
+      Order.destroy_all
+      Order.count.must_equal 0
+      get orders_path
+      must_respond_with :success
+    end
+
+  end
+
+  describe "show" do
+
+    it "sends success if the order exists" do
+      order = Order.first
+      get order_path(order)
+      must_respond_with :success
+    end
+
+    it "sends not_found if the order does not exist" do
+      order_id = Order.last.id + 1
+      get order_path(order_id)
+      must_respond_with :not_found
+    end
+
+  end # show
 
   describe "create" do
 
@@ -21,7 +53,7 @@ describe OrdersController do
 
   describe "update" do
 
-    it "incorporates customer information and changes status to paid" do
+    it "incorporates complete customer information and changes status to paid" do
       order = Order.create(status: "pending")
 
       order_item = OrderItem.create(quantity: 1, product: Product.first, order: order)
@@ -30,10 +62,48 @@ describe OrdersController do
         customer_name: "Barry Allen",
         customer_email: "run@nike.com",
         credit_card: "1123581321345589",
-        CVV: 890,
+        CVV: "890",
         CC_expiration: "09/20",
         shipping_address: "200 Washington St., Central City, NJ, 23456",
         billing_address: "23456"
+      }
+
+      must_redirect_to order_path(order)
+
+      Order.last.status.must_equal "paid"
+    end
+
+    it "does not allow the transaction to go through if there are no items in the cart" do
+      order = Order.create(status: "pending")
+
+      patch order_path(order), params: {
+        customer_name: "Barry Allen",
+        customer_email: "run@nike.com",
+        credit_card: "1123581321345589",
+        CVV: "890",
+        CC_expiration: "09/20",
+        shipping_address: "200 Washington St., Central City, NJ, 23456",
+        billing_address: "23456"
+      }
+
+      must_respond_with :redirect
+
+      Order.last.status.must_equal "pending"
+    end
+
+    it "does not allow the transaction to go through if the customer data is incomplete" do
+      order = Order.create(status: "pending")
+
+      order_item = OrderItem.create(quantity: 1, product: Product.first, order: order)
+
+      patch order_path(order), params: {
+        customer_name: "",
+        customer_email: "",
+        credit_card: "",
+        CVV: "",
+        CC_expiration: "",
+        shipping_address: "",
+        billing_address: ""
       }
 
       must_redirect_to order_path(order)

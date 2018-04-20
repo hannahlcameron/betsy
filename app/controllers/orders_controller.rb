@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
 
-require 'pry'
+  before_action :order_params, only: [:show, :update]
 
   def index
+    @order = Order.all
   end
 
-  def show
-  end
+  def show; end
   #
   # def new
   # end
@@ -27,21 +27,22 @@ require 'pry'
   # end
   #
   def update
-    order = Order.find(params[:id])
-    order.assign_attributes(customer_params)
+    @order.assign_attributes(customer_params)
 
-    if order.order_items.count > 0
-      order.assign_attributes(status: "paid")
+    if @order.order_items.count > 0
+      @order.assign_attributes(status: "paid")
 
-      if order.save
-        flash[:success] = "Thank you! Order has been placed."
-        redirect_to order_path(order)
+      if @order.save
+        flash[:success] = "Thank you! Your order has been placed."
+        redirect_to order_path(@order)
       else
-        
+        flash[:failure] = "The customer information was incomplete."
+        redirect_to order_path(@order)
       end
 
     else
       flash[:failure] = "There are no items to check out"
+      redirect_back(fallback_location: root_path)
     end
 
   end
@@ -50,6 +51,11 @@ require 'pry'
   # end
 
   private
+  def order_params
+    @order = Order.find_by(id: params[:id])
+    head :not_found unless @order
+  end
+
   def customer_params
     return params.permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
   end
