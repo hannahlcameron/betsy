@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
     end
   end
   #
-  # non-restful view action for editing order_item quantities 
+  # non-restful view action for editing order_item quantities
   # put customer info form here and edit quantities
   # def edit
   # end
