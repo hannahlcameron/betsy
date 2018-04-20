@@ -1,9 +1,15 @@
 require "test_helper"
 
 describe Category do
-  let(:category) { Category.new }
+  describe 'relations' do
+    it 'connects category and products' do
+      product = Product.first
 
-  it "must be valid" do
-    value(category).must_be :valid?
+      category = Category.new(name: 'Accessories')
+      category.products.push(product)
+
+      category.valid?.must_equal true
+      category.products.must_include product
+    end
   end
 end
