@@ -35,6 +35,13 @@ describe Review do
       Review.count.must_equal @old_review_count
     end
 
+    it "a valid rating can be created" do
+      @review.rating = 3
+      @review.must_be :valid?
+      @review.save
+      Review.count.must_equal @old_review_count + 1
+    end
+
   end # validations
 
   describe "relations" do
