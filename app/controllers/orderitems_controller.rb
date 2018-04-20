@@ -2,8 +2,8 @@ class OrderitemsController < ApplicationController
   before_action :find_order_item, only: [:edit, :update, :destroy]
 
   def index
-
   end
+  # not sure we need this one
 
   def new
     @orderitem = OrderItem.new
@@ -23,7 +23,7 @@ class OrderitemsController < ApplicationController
   def edit; end
 
   def update
-    @order_item.assign_attributes(order_item_params)
+    @orderitem.assign_attributes(order_item_params)
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
@@ -35,14 +35,23 @@ class OrderitemsController < ApplicationController
   end
 
   def show; end
+  # do we even need this?
 
   def destroy
+    @orderitem.destroy
+
+    redirect_to "order/show"
   end
 
   private
 
   def order_item_params
     params.require(:orderitem).permit(:order_id, :product_id, :quantity)
+  end
+
+  def find_order_item
+    @orderitem = OrderItem.find_by(id: params[:id])
+    head :not_found unless @orderitem
   end
 
 end
