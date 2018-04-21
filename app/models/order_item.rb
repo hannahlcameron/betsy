@@ -5,7 +5,7 @@ class OrderItem < ApplicationRecord
   validate :available_quantity
 
   def available_quantity
-    unless product.stock.to_i >= quantity
+    unless product.stock >= quantity
       errors[:quantity] << 'Not enough stock'
     end
   end
