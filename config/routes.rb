@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :orderitems do
   end
 
-  resources :products do
+  resources :products, only: [:index, :show]
+
+  resources :merchants do
+    resources :products
   end
 
 end

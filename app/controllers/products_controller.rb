@@ -14,9 +14,10 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
 
     if @product.save
-      # do something
+      flash[:success] = 'Successfully added product'
+      redirect_to merchant_products_path
     else
-      render :new
+    render :new
     end
   end
 
