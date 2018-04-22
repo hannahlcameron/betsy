@@ -1,12 +1,12 @@
 <section>
-  <img src=www.lorempixel.com alt="placeholder image">
+  <img src=http://lorempixel.com/300/300 alt="placeholder image">
   <div>
     <h4><%= @product.name %></h4>
-    <p><%= @product.details %></p>
+    <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
     <ul>
       <li><%= link_to "Add to cart", new_orderitem_path %></li>
-      <li><%= link_to "See More from @product.merchant", merchant_products_path %><li>
+      <li><%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %><li>
     </ul>
   </div>
 </section>
