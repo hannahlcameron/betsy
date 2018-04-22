@@ -17,16 +17,25 @@ class ProductsController < ApplicationController
       flash[:success] = 'Successfully added product'
       redirect_to merchant_products_path
     else
-    render :new
+      flash.now[:failure] = 'Product not created'
+      render :new, status: :bad_request
     end
   end
 
   def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
+    @product.assign_attributes(product_params)
+
+    if @product.save
+      flash[:succes] = "Successfully updated product #{@product.id}"
+      redirect_to merchant_products_path
+    else
+      flash.now[:failure] = 'Product not updated'
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy # this will likely be replaced or used 'non-restfully' - can retire an item but not destroy it
@@ -40,6 +49,6 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    render_404 unless @product
+    head :not_found unless @product
   end
 end
