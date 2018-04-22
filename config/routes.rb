@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :orderitems
   resources :products
+  resources :merchants do
+    resources :products, only [:index, :new]
   resources :order
-  get 'order/viewcart', to: 'orders#viewcart', as: viewcart
+  get '/viewcart', to: 'order#viewcart', as: 'viewcart'
 
 end
