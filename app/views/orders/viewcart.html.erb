@@ -1,0 +1,8 @@
+ <section>
+   <% @current_order.each do |item| %>
+    <div>
+      <p><%= item.product_id %></p>
+      <%= link_to "Remove Item", orderitem_path, method: :delete, data: { confirm: "With great power comes great responsibility. Are you sure you want to delete #{item.title}?"} %>
+    </div>
+    <% end %>
+ </section>

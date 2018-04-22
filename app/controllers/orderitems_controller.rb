@@ -31,6 +31,11 @@ class OrderitemsController < ApplicationController
     redirect_to "order/show"
   end
 
+  def viewcart
+    @current_order = OrderItem.where(order_id: @order)
+  end
+
+
   private
 
   def order_item_params
