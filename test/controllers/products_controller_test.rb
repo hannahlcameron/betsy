@@ -52,12 +52,14 @@ describe ProductsController do
         }
       }
 
-      it "creates a work with valid data for a real category for an authenticated user" do
+      it 'must have a authenticated user'
+
+      it "creates a work with valid data" do
         old_product_count = Product.count
 
         post merchant_products_path(Merchant.first.id), params: { product: product_data }
 
-        must_redirect_to merchant_products_path(Merchant.first.id)
+        must_redirect_to merchant_products_path(Product.last.merchant_id)
         Product.count.must_equal old_product_count + 1
       end
 
@@ -108,8 +110,22 @@ describe ProductsController do
 
         product.stock.must_equal (old_product_stock - 1)
       end
+
+      it 'returns bad_request for bad data'
     end
 
+    describe 'destroy' do
+      let (:merchant) { Merchant.first }
+      let (:product) { merchant.products.first }
+
+      it 'retires an existing product' do
+        delete merchant_product_path(merchant.id, product.id)
+
+        product.reload
+        product.retired.must_equal true
+        must_redirect_to merchant_products_path
+      end
+    end
 
   end
 end

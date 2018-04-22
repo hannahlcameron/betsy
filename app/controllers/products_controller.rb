@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
 
-  before_action :find_product, only: [:show, :edit, :update]
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.where(retired: false)
   end
 
   def new
@@ -38,7 +38,16 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy # this will likely be replaced or used 'non-restfully' - can retire an item but not destroy it
+  def destroy
+    @product.retired = true
+
+    if @product.save
+      flash[:success] = 'Product has been retired'
+    else
+      flash[:failure] = 'Could not retire product'
+    end
+
+    redirect_to merchant_products_path
   end
 
   private
