@@ -6,7 +6,25 @@
     <p>Quantity Available: <%= @product.stock %></p>
     <ul>
       <li><%= link_to "Add to cart", new_orderitem_path %></li>
-      <li><%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %><li>
+      <li><%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %></li>
     </ul>
   </div>
+
+  <div>
+    <h4>Product Reviews</h4>
+    <% product_reviews = Review.where(product_id: @product) %>
+
+      <ul>
+        <% product_reviews.each do |review| %>
+          <li>
+            <ul>
+              <li><%= review.rating %></li>
+              <li><%= review.created_at %></li>
+              <li><%= review.description %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+  </div>
+
 </section>
