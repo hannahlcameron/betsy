@@ -43,13 +43,13 @@ describe Product do
     end
 
     it 'connects products and orders' do
-      order = orders(:one)
+      product1 = Product.create!(name: 'Green Hair Dye', stock: 24, price: 8.99, merchant_id: merchant.id)
 
-      product = Product.create!(name: 'Green Hair Dye', stock: 24, price: 8.99, merchant_id: merchant.id)
+      order = Order.create!
+      OrderItem.create!(product_id: product1.id, order_id: order.id, quantity: 2)
 
-      product.orders << order
-      product.valid?.must_equal true
-      product.order_ids.must_include order.id
+      product1.valid?.must_equal true
+      product1.order_ids.must_include order.id
     end
   end
 
@@ -142,6 +142,22 @@ describe Product do
       product = Product.create(product_data)
       product.valid?.must_equal true
       Product.count.must_equal old_product_count + 1
+    end
+  end
+
+  describe 'scopes' do
+    describe 'by_category' do
+      it 'returns only the products of a specific category' do
+        category = Category.first
+
+        products = Product.by_category(category.name)
+
+        products.each do |product|
+          product.categories.must_include category
+        end
+      end
+
+
     end
   end
 end
