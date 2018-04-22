@@ -17,6 +17,10 @@ describe ProductsController do
         get products_path
         must_respond_with :success
       end
+
+      it 'succeeds for a specific category'
+
+      it 'succeeds with no categories'
     end
 
     describe 'show' do

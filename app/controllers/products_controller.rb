@@ -3,11 +3,17 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.where(retired: false)
+    category = Category.find_by(name: params[:category])
+    if category
+      @products = Product.by_category(category.name)
+    else
+      @products = Product.where(retired: false)
+    end
   end
 
   def new
     @product = Product.new
+    @category = Category.new
   end
 
   def create

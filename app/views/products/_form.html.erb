@@ -10,6 +10,9 @@
   <%= f.number_field :stock %>
   <%= f.label :categories %>
   <%= collection_check_boxes :product, :category_ids, Category.all, :id, :name %>
+  <%= form_for @category do |c| %>
+    <%= c.button 'Add new categories', method: :post, url: '/categories/new' %>
+  <% end %>
   <%= f.label :description %>
   <%= f.text_area :description %>
   <%= f.submit action_name %>
