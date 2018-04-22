@@ -38,4 +38,10 @@ class SessionsController < ApplicationController
 
   end
 
+  def destroy
+    session.delete(:merchant_id)
+    flash[:success] = "Logged out successfully."
+    redirect_to root_path
+  end
+
 end

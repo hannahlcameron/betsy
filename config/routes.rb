@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :products
 
   get "/auth/:provider/callback", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy", as: "logout"
 
 end
