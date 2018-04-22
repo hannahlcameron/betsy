@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :orderitems
   resources :products
   resources :merchants do
-    resources :products, only [:index, :new]
+    resources :products, only: [:index, :new]
+  end
   resources :order
   get '/viewcart', to: 'order#viewcart', as: 'viewcart'
 
