@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :orderitems
+  root 'orders#index'
+
+  resources :orders
   resources :products
+  resources :orderitems
   resources :merchants do
     resources :products, only: [:index, :new]
   end
