@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :update, :viewcart]
+  before_action :order_params, only: [:show, :update]
 
   def index
     @orders = Order.all
@@ -49,7 +49,9 @@ class OrdersController < ApplicationController
 
   end
 
-  def viewcart; end
+  def viewcart
+    @order = Order.find_by(id: params[:id])     
+  end
   #
   # def destroy
   # end

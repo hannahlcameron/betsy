@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :products, except: [:show]
   end
 
-  get '/viewcart', to: 'orders#viewcart', as: 'viewcart'
+  get '/:id/viewcart', to: 'orders#viewcart', as: 'viewcart'
   post '/products/categories/new', to: 'products#new_category', as: 'new_category'
   get '/:category', to: 'products#index', as: 'category'
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback_path'
