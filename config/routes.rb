@@ -8,15 +8,17 @@ Rails.application.routes.draw do
   resources :orderitems do
   end
 
+  resources :category, only: [:create]
+
+  resources :merchants, except: [:new, :create] do
+    resources :products, except: [:show]
+  end
+  
   resources :products, only: [:index, :show] do
   end
-  post '/products/categories/new', to: 'products#new_category', as: 'new_category'
   get '/:category', to: 'products#index', as: 'category'
 
 
-  resources :merchants do
-    resources :products, except: [:show]
-  end
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback_path'
   delete "/logout", to: "sessions#destroy", as: "logout"

@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  def logged_in_merchant
+    @merchant = Merchant.find_by(id: session[:merchant_id])
+  end
 
   private
 
@@ -12,4 +15,5 @@ class ApplicationController < ActionController::Base
     @merchant = Merchant.find_by(id: session[:user_id])
     head :unauthorized unless @merchant
   end
+
 end

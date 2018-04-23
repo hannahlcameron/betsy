@@ -1,0 +1,10 @@
+<%# should this be an edited products#index? %>
+
+<h2><%= @merchant.username %></h2>
+
+<% @merchant.products.each do |product| %>
+  <div class="product_card">
+    <%= product.name %>
+    <%= product.price %>
+  </div>
+<% end %>

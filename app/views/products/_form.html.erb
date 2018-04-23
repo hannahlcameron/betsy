@@ -13,7 +13,7 @@
   <%# end %>
 <% end %>
 
-<%= form_tag new_category_path do %>
+<%= form_tag category_index_path do %>
   <%= label_tag :name, 'New Category' %>
   <%= text_field_tag :name, params[:name], required: true %>
   <%= button_tag 'Add', class: 'button small' %>
