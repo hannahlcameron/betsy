@@ -62,8 +62,8 @@ describe OrdersController do
         customer_name: "Barry Allen",
         customer_email: "run@nike.com",
         credit_card: "1123581321345589",
-        CVV: "890",
-        CC_expiration: "09/20",
+        cvv: "890",
+        cc_expiration: "09/20",
         shipping_address: "200 Washington St., Central City, NJ, 23456",
         billing_address: "23456"
       }
@@ -80,8 +80,8 @@ describe OrdersController do
         customer_name: "Barry Allen",
         customer_email: "run@nike.com",
         credit_card: "1123581321345589",
-        CVV: "890",
-        CC_expiration: "09/20",
+        cvv: "890",
+        cc_expiration: "09/20",
         shipping_address: "200 Washington St., Central City, NJ, 23456",
         billing_address: "23456"
       }
@@ -100,8 +100,8 @@ describe OrdersController do
         customer_name: "",
         customer_email: "",
         credit_card: "",
-        CVV: "",
-        CC_expiration: "",
+        cvv: "",
+        cc_expiration: "",
         shipping_address: "",
         billing_address: ""
       }
