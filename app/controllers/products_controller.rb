@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
-  before_action :require_login, except: [:index]
+  # before_action :require_login, except: [:index]
 
   def index
     category = Category.find_by(name: params[:category])

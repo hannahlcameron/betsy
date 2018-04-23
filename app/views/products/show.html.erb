@@ -6,7 +6,7 @@
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
     <ul>
-      <li><%= link_to "Add to cart", new_orderitem_path %></li>
+      <li><%= link_to "Add to cart", orderitems_path %></li>
       <li><%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %></li>
     </ul>
   </div>
