@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_params
-    return params.permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
+    return params.permit(:customer_name, :customer_email, :credit_card, :cvv, :cc_expiration, :shipping_address, :billing_address)
   end
 
 end
