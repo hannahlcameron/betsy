@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :update]
+  before_action :order_params, only: [:show, :update, :viewcart]
 
   def index
-    @order = Order.all
+    @orders = Order.all
   end
 
   def show; end
@@ -65,4 +65,3 @@ class OrdersController < ApplicationController
   end
 
 end
->>>>>>> master

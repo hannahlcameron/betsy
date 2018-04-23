@@ -21,8 +21,4 @@ class Order < ApplicationRecord
     return true
   end
 
-  def current_order
-    @current_order =  OrderItem.where(order_id: @order)
-  en
-
 end
