@@ -13,7 +13,10 @@ class ApplicationController < ActionController::Base
 
   def require_login
     @merchant = Merchant.find_by(id: session[:user_id])
-    head :unauthorized unless @merchant
+    unless @merchant
+      flash[:error] = 'You must be logged in to do that'
+      redirect_back(fallback_location: root_path)
+    end
   end
 
 end

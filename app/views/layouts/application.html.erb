@@ -23,11 +23,19 @@
           Logged in as: <%= (Merchant.find_by(id: session[:merchant_id])).username %>
           <%= link_to "Log Out", logout_path, method: :delete %>
           <% else %>
-          <%= link_to "Log in with Google", auth_callback_path(:google_oauth2) %>
+          <%= link_to "Log in with Google", 'auth/google_oauth2' %>
           <% end %>
         </div>
       </nav>
+
+      <section class='flash'>
+        <%= flash[:error] if flash.any? %>
+        <%= flash[:success] if flash.any? %>
+        <%= flash[:failure] if flash.any? %>
+
+      </section>
     </header>
+
 
     <aside class="left-nav">
       <h3>Categories</h3>

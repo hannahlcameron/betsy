@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
-  # before_action :require_login, except: [:index, :show]
+  before_action :require_login, except: [:index, :show]
 
   def index
     if session[:merchant_id]
