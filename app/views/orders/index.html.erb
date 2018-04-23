@@ -47,16 +47,16 @@
               <%= order_item.quantity %>
             </td>
             <td>
-              "placeholder subtotal"
+              <%= order_item.subtotal %>
             </td>
             <td>
-              "placeholder date"
+              <%= readable_date(order_item.order.updated_at) %>
             </td>
             <td>
               "ship"
             </td>
             <td>
-              <%= Order.find_by(id: order).status %>
+              <%= order_item.order.status %>
             </td>
           </tr>
         <% end %>
