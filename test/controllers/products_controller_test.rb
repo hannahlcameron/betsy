@@ -67,6 +67,15 @@ describe ProductsController do
       login(merchant)
     end
 
+    describe 'new' do
+
+      it 'succeeds for an authenticated user' do
+        get new_merchant_product_path(merchant.id)
+
+        must_respond_with :success
+      end
+    end
+
     describe 'create' do
 
       it 'only works for an authenticated user'
@@ -76,7 +85,7 @@ describe ProductsController do
 
         post merchant_products_path(merchant.id), params: { product: product_data }
 
-        must_redirect_to merchant_products_path(Product.last.merchant_id)
+        must_redirect_to merchant_products_path(merchant.id)
         Product.count.must_equal old_product_count + 1
       end
 
@@ -89,15 +98,6 @@ describe ProductsController do
 
         must_respond_with :bad_request
         Product.count.must_equal old_product_count
-      end
-    end
-
-    describe 'new' do
-
-      it 'succeeds for an authenticated user' do
-        get new_merchant_product_path(merchant.id)
-
-        must_respond_with :success
       end
     end
 
