@@ -1,10 +1,12 @@
 <% if @merchant %>
   <h3>Your Products</h3>
+
+  <%= link_to 'Add a new product', new_merchant_product_path(@merchant) %>
 <% end %>
 
 <section class='all-products'>
   <% @products.each do |product| %>
-  <div class='card'>
+  <div class="card" style="width: 300px;">
     <div class="card-image">
       <%= image_tag 'http://s.newsweek.com/sites/www.newsweek.com/files/styles/lg/public/2017/02/20/kamalakhan220.jpg', alt: 'Ms Marvel, Kamala Khan', width: 350, height: 350 %>
     </div>
