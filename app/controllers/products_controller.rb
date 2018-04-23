@@ -2,14 +2,18 @@ class ProductsController < ApplicationController
 
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
-  before_action :require_login, except: [:index, :show]
+  # before_action :require_login, except: [:index, :show]
 
   def index
-    category = Category.find_by(name: params[:category])
-    if category
-      @products = Product.by_category(category.name)
+    if session[:merchant_id]
+      @products = Product.where(merchant_id: session[:merchant_id])
     else
-      @products = Product.where(retired: false)
+      category = Category.find_by(name: params[:category])
+      if category
+        @products = Product.by_category(category.name)
+      else
+        @products = Product.where(retired: false)
+      end
     end
   end
 

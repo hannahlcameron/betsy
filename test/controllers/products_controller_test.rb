@@ -67,8 +67,27 @@ describe ProductsController do
       login(merchant)
     end
 
-    describe 'new' do
+    describe 'index' do
+      it 'works with no products' do
+        Product.where(merchant_id: merchant.id).destroy_all
 
+        get merchant_products_path(merchant.id)
+
+        must_respond_with :success
+      end
+
+      it 'works with many products' do
+        products = Product.where(merchant_id: merchant.id)
+
+        products.count.must_be :>, 0
+
+        get merchant_products_path(merchant.id)
+
+        must_respond_with :success
+      end
+    end
+
+    describe 'new' do
       it 'succeeds for an authenticated user' do
         get new_merchant_product_path(merchant.id)
 
@@ -77,8 +96,6 @@ describe ProductsController do
     end
 
     describe 'create' do
-
-      it 'only works for an authenticated user'
 
       it "creates a work with valid data" do
         old_product_count = Product.count
@@ -102,14 +119,19 @@ describe ProductsController do
     end
 
     describe 'edit' do
-      it 'succeeds for an authenticated user'
+      it 'succeeds for an authenticated user' do
+        product = merchant.products.first
+        get edit_merchant_product_path(merchant.id, product.id)
+
+        must_respond_with :success
+      end
     end
 
     describe 'update' do
-      let (:product) { Product.first }
       let (:old_product_count) { Product.count }
 
       it 'succeeds with good data' do
+        product = merchant.products.first
         old_product_stock = product.stock
 
         product_data = {
@@ -119,7 +141,7 @@ describe ProductsController do
           merchant_id: product.merchant_id
         }
 
-        patch merchant_product_path(product.merchant.id, product.id), params: { product: product_data }
+        patch merchant_product_path(merchant.id, product.id), params: { product: product_data }
         product.reload
 
         must_redirect_to merchant_products_path
@@ -128,7 +150,25 @@ describe ProductsController do
         product.stock.must_equal (old_product_stock - 1)
       end
 
-      it 'returns bad_request for bad data'
+      it 'returns bad_request for bad data' do
+        product = merchant.products.first
+        old_product_stock = product.stock
+
+        product_data = {
+          name: product.name,
+          stock: nil,
+          price: product.price,
+          merchant_id: product.merchant_id
+        }
+
+        patch merchant_product_path(merchant.id, product.id), params: { product: product_data }
+        product.reload
+
+        must_respond_with :bad_request
+        Product.count.must_equal old_product_count
+
+        product.stock.must_equal old_product_stock
+      end
     end
 
     describe 'destroy' do

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   root 'products#index'
 
   resources :orders
-  resources :products
   resources :orderitems do
   end
 
@@ -13,9 +12,8 @@ Rails.application.routes.draw do
   resources :merchants, except: [:new, :create] do
     resources :products, except: [:show]
   end
-  
-  resources :products, only: [:index, :show] do
-  end
+
+  resources :products, only: [:index, :show]
   get '/:category', to: 'products#index', as: 'category'
 
 
