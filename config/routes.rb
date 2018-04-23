@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: [:create]
-  
+
   resources :merchants, except: [:new, :create] do
     resources :products, except: [:show]
   end
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
 
 
-  get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback_path'
+  get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
   delete "/logout", to: "sessions#destroy", as: "logout"
 
 end
