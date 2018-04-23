@@ -1,0 +1,35 @@
+<%= page_title %>
+
+<% if @product || @cagetory %>
+  <% if @product.errors.any? %>
+    <% @product.errors.messages.each do |column, message| %>
+      <%= column %>: <%= message %>
+    <% end %>
+  <% end %>
+  <%# if @category.errors.any? %>
+    <%# @category.errors.messages.each do |column, message| %>
+      <%# column %>: <%# message %>
+    <%# end %>
+  <%# end %>
+<% end %>
+
+<%= form_tag new_category_path do %>
+  <%= label_tag :name, 'New Category' %>
+  <%= text_field_tag :name, params[:name], required: true %>
+  <%= button_tag 'Add', class: 'button small' %>
+<% end %>
+
+<%= form_for @product, url: merchant_products_path do |f| %>
+  <%= f.hidden_field :merchant_id %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
+  <%= f.label :stock %>
+  <%= f.number_field :stock %>
+  <%= f.label :categories %>
+  <%= collection_check_boxes :product, :category_ids, Category.all, :id, :name %>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <%= f.submit action_name, class: 'button' %>
+<% end %>

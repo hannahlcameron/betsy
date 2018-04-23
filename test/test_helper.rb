@@ -60,5 +60,4 @@ class ActiveSupport::TestCase
     # assert
     must_redirect_to root_path
   end
-
 end
