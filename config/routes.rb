@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   resources :orderitems do
   end
 
-  resources :category, only: [:create]
-
+  resources :categories, only: [:create]
+  
   resources :merchants, except: [:new, :create] do
     resources :products, except: [:show]
   end
