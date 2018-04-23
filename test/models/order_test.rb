@@ -2,32 +2,28 @@ require "test_helper"
 
 describe Order do
   describe 'validations' do
-    it 'is valid with one order item' do
-      order_item = OrderItem.first
-      order = Order.new
-      order.valid?.must_equal false
-      order.order_items.push(order_item)
 
-      order.valid?.must_equal true
+    describe 'validations before changing status from pending to paid' do
+      it 'is valid with one order item' do
+        order = Order.first
+        order.order_items.count.must_equal 1
+        order.valid?.must_equal true
+      end
 
-    end
+      it 'is valid with multiple order items' do
+        order = Order.first
+        new_order_item = OrderItem.create(quantity: 1, product: Product.last, order: order)
+        order.order_items.count.must_be :>, 1
+        order.valid?.must_equal true
+      end
 
-    it 'is valid with multiple order items' do
-      order_item_1 = OrderItem.first
-      order_item_2 = OrderItem.last
-      order = Order.new
-      order.valid?.must_equal false
-      order.order_items.push(order_item_1, order_item_2)
+      it 'is valid with 0 order items' do
+        order = Order.new
+        order.order_items.count.must_equal 0
+        order.valid?.must_equal true
+      end
 
-      order.valid?.must_equal true
-    end
+    end # validations before changing status
 
-    it 'is not valid with 0 order items' do
-      order = Order.new
-      order.valid?.must_equal false
-
-      order.errors.messages.must_include :order_items
-    end
-
-  end
-end
+  end # validations
+end # Order
