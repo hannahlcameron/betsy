@@ -1,4 +1,6 @@
 <% if @merchant %>
+
+  <%= link_to 'Products', merchant_products_path(@merchant) %>
   <p>
     <%= @merchant.username %>'s orders
   </p>

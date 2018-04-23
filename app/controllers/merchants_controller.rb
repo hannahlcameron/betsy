@@ -1,6 +1,5 @@
 class MerchantsController < ApplicationController
   before_action :require_login, except: [:index, :show]
-  before_action :logged_in_merchant, except: [:index, :show]
 
   # for any user
   def index
