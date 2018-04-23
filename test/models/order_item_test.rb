@@ -88,6 +88,26 @@ describe OrderItem do
 
   end # validations
 
+  describe "relations" do
+    before do
+      @order_item = OrderItem.new
+    end
+
+
+    it "connects product and product id" do
+      product = Product.first
+      @order_item.product = product
+      @order_item.product_id.must_equal product.id
+    end
+
+    it "connects order and order id" do
+      order = Order.first
+      @order_item.order = order
+      @order_item.order_id.must_equal order.id
+    end
+
+  end # relations
+
   describe "business logic" do
 
     describe "subtotal" do
