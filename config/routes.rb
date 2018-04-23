@@ -5,5 +5,10 @@ Rails.application.routes.draw do
 
   resources :orders
   resources :products
+  resources :orderitems do
+  end
+
+  resources :products do
+  end
 
 end
