@@ -20,4 +20,17 @@ class Order < ApplicationRecord
     end
     return true
   end
+
+  def purchased_items
+    @purchased_items = @order.order_items
+  end
+
+  def order_total
+    total = 0
+    purchased_items.each do |item|
+      total += item.subtotal
+    end
+    return total
+  end
+
 end

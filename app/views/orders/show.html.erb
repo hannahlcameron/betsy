@@ -1,0 +1,20 @@
+<section>
+  <h3>Order Confirmation</h3>
+  <div>
+    <h4>Customer Information</h4>
+    <ul>
+      <li>Customer Name: <%= @order.customer_name %></li>
+      <li>Customer Email: <%= @order.customer_email %></li>
+      <li>Credit Card: ****** HALP</li>
+      <li>Shipping Address: <%= @order.shipping_address %></li>
+      <li>Order Status: <%= @order.status %></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Purchased Items</h4>
+    <%= @purchased_items.each do |item| %>
+      <article>
+        <p><%= link_to item.product_id.name, product_path(item.product_id) %></p>
+      </article>
+  </div>
+</section>
