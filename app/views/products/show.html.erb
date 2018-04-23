@@ -5,10 +5,19 @@
     <p><%= @product.price %><p>
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
-    <ul>
-      <li><%= link_to "Add to cart", orderitems_path, method: :post, order_item: @product %></li>
-      <li><%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %></li>
-    </ul>
+    <%= form_for item, url: orderitem_path, method: :patch do |f| %>
+      <%= f.label :quantity %>
+      <% if item == @product %>
+        <%= f.select :quantity, (1..item.stock).to_a, :selected => 1 %>
+      <% else %>
+          <%= f.select :quantity, (1..item.product.stock).to_a, :selected => item.quantity %>
+      <% end %>
+      <%= f.submit %>
+    <% end %>
+    
+    <!-- <%# link_to "Add to cart", orderitems_path, method: :post, order_item: @product %> -->
+
+    <%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %>
   </div>
 
   <div>
