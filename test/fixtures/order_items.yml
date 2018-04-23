@@ -9,3 +9,8 @@ two:
   quantity: 2
   product: lasso
   order: two
+
+three:
+  quantity: 1
+  product: utility_belt
+  order: one

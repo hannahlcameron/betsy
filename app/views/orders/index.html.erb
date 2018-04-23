@@ -7,7 +7,7 @@
       <%= @merchant.username %> has no orders yet.
     </p>
   <% else %>
-    <% raise %>
+    
     <% @orders.each do |order| %>
       <%= order.id %>
       <%= order.customer_name %>

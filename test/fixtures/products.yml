@@ -24,3 +24,10 @@ lasso:
   categories:
       - memorabilia
       - awesome
+
+utility_belt:
+  name: Utility Belt
+  stock: 20
+  price: 59.99
+  description: A fanny pack, but better
+  merchant: batambaman
