@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   root 'products#index'
 
   resources :orders
-  resources :products
+  resources :merchants do
+    resources :orders, only: [:index]
+    resources :products, except: [:show]
+  end
+
+  get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
+  delete "/logout", to: "sessions#destroy", as: "logout"
   resources :orderitems do
   end
 
@@ -13,7 +19,7 @@ Rails.application.routes.draw do
   resources :merchants, except: [:new, :create] do
     resources :products, except: [:show]
   end
-  
+
   resources :products, only: [:index, :show] do
   end
   get '/:category', to: 'products#index', as: 'category'
