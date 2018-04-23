@@ -37,11 +37,11 @@
       <% @orders_and_items.each do |order, order_items| %>
         <tr>
           <td rowspan="<%= order_items.length %>" >
-            <%= order %>
+            <%= link_to order, order_path(order) %>
           </td>
         <% order_items.each do |order_item| %>
             <td>
-              <%= order_item.product.name %>
+              <%= link_to order_item.product.name, product_path(order_item.product) %>
             </td>
             <td>
               <%= order_item.quantity %>
