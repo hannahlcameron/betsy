@@ -25,9 +25,10 @@ class OrdersController < ApplicationController
   #
   # non-restful view action for editing order_item quantities
   # put customer info form here and edit quantities
-  # def edit
-  # end
-  #
+  def edit
+    @order = Order.find_by(id: params[:id])
+  end
+
   def update
     @order.assign_attributes(customer_params)
 
