@@ -4,12 +4,16 @@ Rails.application.routes.draw do
   root 'orders#index'
 
   resources :orders
-  resources :products
   resources :merchants do
     resources :orders, only: [:index]
   end
 
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
   delete "/logout", to: "sessions#destroy", as: "logout"
+  resources :orderitems do
+  end
+
+  resources :products do
+  end
 
 end
