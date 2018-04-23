@@ -1,7 +1,7 @@
-<% if @merchant %>
+<% if @logged_merchant %>
   <h3>Your Products</h3>
 
-  <%= link_to 'Add a new product', new_merchant_product_path(@merchant) %>
+  <%= link_to 'Add a new product', new_merchant_product_path(@logged_merchant) %>
 <% end %>
 
 <section class='all-products'>

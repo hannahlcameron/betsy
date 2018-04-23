@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   def logged_in_merchant
     if session[:merchant_id]
-      @merchant = Merchant.find_by(id: session[:merchant_id])
+      @logged_merchant = Merchant.find_by(id: session[:merchant_id])
     end
   end
 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    unless @merchant
+    unless @logged_merchant
       flash[:error] = 'You must be logged in to do that'
       redirect_back(fallback_location: root_path)
     end

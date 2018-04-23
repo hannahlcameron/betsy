@@ -10,6 +10,6 @@ class CategoriesController < ApplicationController
       flash[:failure] = 'Unable to add category'
     end
 
-    redirect_back(fallback_location: merchant_products_path(@merchant.id))
+    redirect_back(fallback_location: merchant_products_path(@logged_merchant.id))
   end
 end
