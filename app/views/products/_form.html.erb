@@ -1,11 +1,16 @@
 <%= page_title %>
 
-<% @product.errors.messages.each do |column, message| %>
-  <%= column %>: <%= message %>
-<% end %>
-
-<% @category.errors.messages.each do |column, message| %>
-  <%= column %>: <%= message %>
+<% if @product || @cagetory %>
+  <% if @product.errors.any? %>
+    <% @product.errors.messages.each do |column, message| %>
+      <%= column %>: <%= message %>
+    <% end %>
+  <% end %>
+  <%# if @category.errors.any? %>
+    <%# @category.errors.messages.each do |column, message| %>
+      <%# column %>: <%# message %>
+    <%# end %>
+  <%# end %>
 <% end %>
 
 <%= form_tag new_category_path do %>

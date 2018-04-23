@@ -18,9 +18,19 @@ describe ProductsController do
         must_respond_with :success
       end
 
-      it 'succeeds for a specific category'
+      it 'succeeds for a specific category' do
+        category = Category.first
 
-      it 'succeeds with no categories'
+        get category_path(category.name)
+        must_respond_with :success
+      end
+
+      it 'succeeds with no categories' do
+        Category.destroy_all
+
+        get products_path
+        must_respond_with :success
+      end
     end
 
     describe 'show' do
@@ -42,26 +52,29 @@ describe ProductsController do
     end
   end
 
-
-
-# TODO update all to have signed in user
   describe 'authenticated user' do
-    describe 'create' do
-      let (:product_data) {
-        {
-          name: 'Product',
-          stock: 3,
-          price: 3.00,
-          merchant_id: Merchant.first.id
-        }
+    let (:product_data) {
+      {
+        name: 'Product',
+        stock: 3,
+        price: 3.00,
+        merchant_id: Merchant.first.id
       }
+    }
+    let(:merchant) { Merchant.first }
 
-      it 'must have a authenticated user'
+    before do
+      login(merchant)
+    end
+
+    describe 'create' do
+
+      it 'only works for an authenticated user'
 
       it "creates a work with valid data" do
         old_product_count = Product.count
 
-        post merchant_products_path(Merchant.first.id), params: { product: product_data }
+        post merchant_products_path(merchant.id), params: { product: product_data }
 
         must_redirect_to merchant_products_path(Product.last.merchant_id)
         Product.count.must_equal old_product_count + 1
@@ -72,7 +85,7 @@ describe ProductsController do
 
         old_product_count = Product.count
 
-        post merchant_products_path(Merchant.first.id), params: { product: product_data }
+        post merchant_products_path(merchant.id), params: { product: product_data }
 
         must_respond_with :bad_request
         Product.count.must_equal old_product_count
@@ -80,8 +93,9 @@ describe ProductsController do
     end
 
     describe 'new' do
+
       it 'succeeds for an authenticated user' do
-        get new_merchant_product_path(Merchant.first.id)
+        get new_merchant_product_path(merchant.id)
 
         must_respond_with :success
       end
@@ -92,7 +106,6 @@ describe ProductsController do
     end
 
     describe 'update' do
-      let (:merchant) { Merchant.first }
       let (:product) { Product.first }
       let (:old_product_count) { Product.count }
 
@@ -119,7 +132,6 @@ describe ProductsController do
     end
 
     describe 'destroy' do
-      let (:merchant) { Merchant.first }
       let (:product) { merchant.products.first }
 
       it 'retires an existing product' do
