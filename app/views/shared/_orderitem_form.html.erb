@@ -1,0 +1,5 @@
+<%= form_for item, url: orderitem_path, method: :patch do |f| %>
+  <%= f.label :quantity %>
+  <%= f.select :quantity, (1..item.product.stock).to_a, :selected => item.quantity %>
+  <%= f.submit %>
+<% end %>
