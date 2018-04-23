@@ -1,0 +1,12 @@
+<% if @merchant %>
+  <p>
+    <%= @merchant.username %>'s orders
+  </p>
+  <% if @orders.empty? %>
+    <p>
+      <%= @merchant.username %> has no orders yet.
+    </p>
+  <% else %>
+    # put table here
+  <% end %>
+<% end %>

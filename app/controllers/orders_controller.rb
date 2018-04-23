@@ -3,7 +3,13 @@ class OrdersController < ApplicationController
   before_action :order_params, only: [:show, :update]
 
   def index
-    @order = Order.all
+    if session[:merchant_id]
+      @merchant = Merchant.find(session[:merchant_id])
+      @orders = @merchant.orders
+    else
+      flash[:failure] = "You must log in as a merchant to see your orders."
+      redirect_to root_path
+    end
   end
 
   def show; end
