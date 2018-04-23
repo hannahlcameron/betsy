@@ -1,15 +1,10 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-<<<<<<< HEAD
   root 'products#index'
-
-=======
-  root 'orders#index'
 
   resources :orders
   resources :products
->>>>>>> master
   resources :orderitems do
   end
 
