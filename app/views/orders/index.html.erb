@@ -2,21 +2,78 @@
   <p>
     <%= @merchant.username %>'s orders
   </p>
-  <% if @orders.empty? %>
+  <% if @orders_and_items.empty? %>
     <p>
       <%= @merchant.username %> has no orders yet.
     </p>
   <% else %>
-    
-    <% @orders.each do |order| %>
-      <%= order.id %>
-      <%= order.customer_name %>
-      <% order.order_items.each do |order_item| %>
-        <%= order_item.id %>
-        <%= order_item.product.name %>
-        <%= order_item.quantity %>
-        <%= order_item.created_at %>
+
+    <table>
+      <tr>
+        <th>
+          Order
+        </th>
+        <th>
+          Product
+        </th>
+        <th>
+          Quantity
+        </th>
+        <th>
+          Subtotal
+        </th>
+        <th>
+          Placed On
+        </th>
+        <th>
+          Mark as Shipped
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+
+
+      <% @orders_and_items.each do |order, order_items| %>
+        <tr>
+          <td rowspan="<%= order_items.length %>" >
+            <%= order %>
+          </td>
+        <% order_items.each do |order_item| %>
+            <td>
+              <%= order_item.product.name %>
+            </td>
+            <td>
+              <%= order_item.quantity %>
+            </td>
+            <td>
+              "placeholder subtotal"
+            </td>
+            <td>
+              "placeholder date"
+            </td>
+            <td>
+              "ship"
+            </td>
+            <td>
+              <%= Order.find_by(id: order).status %>
+            </td>
+          </tr>
+        <% end %>
+
       <% end %>
+
+    </table>
+
+    <% @orders_and_items.each do |order, order_items| %>
+
+      <table>
+        <tr>
+
+        </tr>
+      </table>
+
     <% end %>
+
   <% end %>
 <% end %>

@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   def index
     if session[:merchant_id]
       @merchant = Merchant.find(session[:merchant_id])
-      @orders = @merchant.orders.distinct
+      @orders_and_items = @merchant.merchant_order_items
     else
       flash[:failure] = "You must log in as a merchant to see your orders."
       # this IS the root path rn so I get a too many redirects error
