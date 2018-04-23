@@ -18,10 +18,10 @@ class OrderitemsController < ApplicationController
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to products_path
+      redirect_to viewcart_path
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
-      render "products/show", status: :bad_request
+      render ":id/viewcart", status: :bad_request
     end
   end
 
@@ -34,7 +34,7 @@ class OrderitemsController < ApplicationController
   private
 
   def order_item_params
-    params.require(:orderitem).permit(:order_id, :product_id, :quantity)
+    params.require(:order_item).permit(:order_id, :product_id, :quantity)
   end
 
   def find_order_item
