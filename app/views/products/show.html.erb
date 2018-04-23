@@ -1,16 +1,16 @@
 <section>
-  <%= image_tag(some_path) do %>
+  <p>img goes here</p>
   <div>
     <h4><%= @product.name %></h4>
     <p><%= @product.price %><p>
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
 
-    <%# form_for order_item, url: orderitem_path, method: :post,  do |f| %>
-      <%# f.label :quantity %>
-      <%# f.select :quantity, (1..product.stock).to_a, :selected => 1 %>
-      <%# f.submit %>
-    <%# end %>
+    <%= form_for order_item, url: orderitem_path, method: :post,  do |f| %>
+      <%= f.label :quantity %>
+      <%= f.select :quantity, (1..product.stock).to_a, :selected => 1 %>
+      <%= f.submit %>
+    <%= end %>
 
     <% link_to "Add to cart", orderitems_path, method: :post, order_item: @product %>
 
