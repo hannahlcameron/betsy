@@ -7,6 +7,16 @@
       <%= @merchant.username %> has no orders yet.
     </p>
   <% else %>
-    # put table here
+    <% raise %>
+    <% @orders.each do |order| %>
+      <%= order.id %>
+      <%= order.customer_name %>
+      <% order.order_items.each do |order_item| %>
+        <%= order_item.id %>
+        <%= order_item.product.name %>
+        <%= order_item.quantity %>
+        <%= order_item.created_at %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

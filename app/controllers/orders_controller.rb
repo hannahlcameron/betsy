@@ -8,7 +8,8 @@ class OrdersController < ApplicationController
       @orders = @merchant.orders
     else
       flash[:failure] = "You must log in as a merchant to see your orders."
-      redirect_to root_path
+      # this IS the root path rn so I get a too many redirects error
+      # redirect_to root_path
     end
   end
 
