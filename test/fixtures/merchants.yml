@@ -3,3 +3,5 @@
 merchant_one:
   username: merchant_one
   email: merchant_one@example.com
+  uid: 12345
+  provider: google_oauth2
