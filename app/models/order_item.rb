@@ -10,6 +10,9 @@ class OrderItem < ApplicationRecord
     end
   end
 
+  def subtotal
+    return self.quantity * self.product.price
+  end
 
 
 end
