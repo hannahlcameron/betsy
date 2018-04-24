@@ -23,7 +23,6 @@ describe OrderitemsController do
       post orderitems_path, params: {order_item: oi_data}
 
       must_respond_with :redirect
-      must_redirect_to products_path
 
       OrderItem.count.must_equal old_oi_count + 1
 

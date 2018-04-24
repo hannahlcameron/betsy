@@ -1,3 +1,5 @@
+require 'pry'
+
 class OrderitemsController < ApplicationController
   before_action :find_order_item, only: [:update, :destroy]
   before_action :order_exists?, only: [:create]
@@ -5,9 +7,9 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
-    @orderitem.order_id = @order.id
     @orderitem.assign_attributes(status: "pending")
 
+    # binding.pry
     if @orderitem.save
       flash[:success] = "Item added successfully!"
       redirect_to product_path(@orderitem.product_id)
