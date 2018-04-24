@@ -4,13 +4,17 @@ one:
   quantity: 1
   product: batarang
   order: one
+  status: pending
 
 two:
   quantity: 2
   product: lasso
   order: two
+  status: pending
+
 
 three:
   quantity: 1
   product: utility_belt
   order: one
+  status: pending
