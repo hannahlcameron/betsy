@@ -117,13 +117,13 @@ describe OrdersController do
 
     it "sends success if the order exists" do
       order = Order.first
-      get order_path(order)
+      get viewcart_path(order)
       must_respond_with :success
     end
 
     it "sends not_found if the order does not exist" do
       order_id = Order.last.id + 1
-      get order_path(order_id)
+      get viewcart_path(order_id)
       must_respond_with :not_found
     end
 
