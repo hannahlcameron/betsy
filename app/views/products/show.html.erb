@@ -1,14 +1,16 @@
 <section>
-  <p>img goes here</p>
+  <%= image_tag(@product.photo_url, alt: @product.name) %>
   <div>
     <h4><%= @product.name %></h4>
     <p><%= @product.price %><p>
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
 
-    <% form_for @product.order_item, url: orderitems_path, method: :post do |f| %>
+    <%= form_for :order_item, url: orderitems_path, method: :post do |f| %>
       <%= f.label :quantity %>
-      <%= f.select :quantity, (1..product.stock).to_a, :selected => 1 %>
+      <%= f.select :quantity, (1..@product.stock).to_a, :selected => 1 %>
+      <%= f.label :product_id %>
+      <%= f.hidden_field :product_id, :value => @product.id%>
       <%= f.submit %>
     <% end %>
 

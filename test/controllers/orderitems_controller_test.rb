@@ -47,19 +47,6 @@ describe OrderitemsController do
     end
   end
 
-  # describe 'edit' do
-  #   it 'responds with success' do
-  #     get edit_orderitem_path(OrderItem.last)
-  #     must_respond_with :success
-  #   end
-  #
-  #   it 'sends not_found if order_item does not exist' do
-  #     orderitem_id = OrderItem.last.id + 1
-  #     get orderitem_path(orderitem_id)
-  #     must_respond_with :not_found
-  #   end
-  # end
-
   describe 'update' do
     it 'updates an existing orderitem with valid data' do
       test_io = OrderItem.first

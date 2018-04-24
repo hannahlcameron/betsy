@@ -5,10 +5,11 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
+    @orderitem.order_id = @order.id
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to viewcart_path
+      redirect_to product_path(@orderitem.product_id)
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
       render "products/show", status: :bad_request
@@ -46,7 +47,7 @@ class OrderitemsController < ApplicationController
 
   def order_exists?
     unless @order
-      @order = Order.new
+      @order = Order.create
     end
 
   end
