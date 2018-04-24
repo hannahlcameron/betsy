@@ -18,9 +18,9 @@ describe OrderitemsController do
 
       old_oi_count = OrderItem.count
 
-      OrderItem.new(oi_data).must_be :valid?
+      OrderItem.new(oi_data).wont_be :valid?
 
-      post orderitems_path, params: {orderitem: oi_data}
+      post orderitems_path, params: {order_item: oi_data}
 
       must_respond_with :redirect
       must_redirect_to products_path
@@ -39,7 +39,7 @@ describe OrderitemsController do
 
       OrderItem.new(oi_data).wont_be :valid?
 
-      post orderitems_path, params: {orderitem: oi_data}
+      post orderitems_path, params: {order_item: oi_data}
 
       must_respond_with :bad_request
 
@@ -69,9 +69,9 @@ describe OrderitemsController do
       test_io.assign_attributes(oi_data)
       test_io.must_be :valid?
 
-      patch orderitem_path(test_io), params: { orderitem: oi_data }
+      patch orderitem_path(test_io), params: { order_item: oi_data }
 
-      must_redirect_to products_path
+      must_redirect_to viewcart_path
 
       test_io.reload
       test_io.quantity.must_equal oi_data[:quantity]
@@ -86,7 +86,7 @@ describe OrderitemsController do
       test_io.assign_attributes(oi_data)
       test_io.wont_be :valid?
 
-      patch orderitem_path(test_io), params: { orderitem: oi_data }
+      patch orderitem_path(test_io), params: { order_item: oi_data }
 
       must_respond_with :bad_request
     end
@@ -122,6 +122,10 @@ describe OrderitemsController do
       must_respond_with :not_found
       OrderItem.count.must_equal old_oi_count
     end
+  end
+
+  describe 'ship' do
+
   end
 
 end

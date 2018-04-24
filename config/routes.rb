@@ -29,4 +29,6 @@ Rails.application.routes.draw do
 
   delete "/logout", to: "sessions#destroy", as: "logout"
 
+  patch '/order_items/:id', to: 'orderitems#ship', as: 'ship'
+
 end
