@@ -27,6 +27,7 @@ class Order < ApplicationRecord
 
   def order_total
     total = 0
+    purchased_items = self.order_items.where(order_id: self)
     purchased_items.each do |item|
       total += item.subtotal
     end

@@ -25,5 +25,21 @@ describe Order do
 
     end # validations before changing status
 
+    describe 'order_total' do
+      before do
+        @order = Order.new
+        @order.order_items << OrderItem.first
+        @order.valid?.must_equal true
+        @order.save
+      end
+      it 'returns the correct total when there is one orderitem' do
+        @order.order_total.must_equal (@order.order_items.quantity * @order.product.price)
+
+      end
+      it 'returns the correct total when there are multiple orderitems' do
+
+      end
+    end
+
   end # validations
 end # Order
