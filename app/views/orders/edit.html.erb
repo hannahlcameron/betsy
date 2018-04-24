@@ -1,5 +1,5 @@
 <section>
-  <%= form_for @order do |f| %>
+  <%= form_for @order, url: order_path, method: :patch do |f| %>
     <%= f.label :customer_name %>
     <%= f.text_field :customer_name %>
     <%= f.label :customer_email %>
