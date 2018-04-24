@@ -12,11 +12,11 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+.env
 
 /node_modules
 /yarn-error.log
 
 .byebug_history
-.env
 
 /coverage/
