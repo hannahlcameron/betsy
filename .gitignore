@@ -18,6 +18,5 @@
 /yarn-error.log
 
 .byebug_history
-.env
 
 /coverage/
