@@ -18,14 +18,14 @@
       <th>Price</th>
       <th>Subtotal</th>
       <tr>
-        <%= @order.order_items.each do |item| %>
+        <% @order.order_items.each do |item| %>
         <tr>
           <td><%= link_to item.product.name, product_path(item.product_id) %></td>
           <td><%= item.quantity %></td>
           <td><%= item.product.price %></td>
-          <td><%= item. %></td>  
-      </tr>
-      <% end %>
+          <td><%= item.subtotal %></td>
+        </tr>
+        <% end %>
     </tr>
   </div>
 </section>
