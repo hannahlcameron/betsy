@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :update]
+  before_action :order_params, only: [:show, :update, :viewcart]
 
   def index
     if session[:merchant_id]
@@ -55,6 +55,8 @@ class OrdersController < ApplicationController
     end
 
   end
+
+  def viewcart; end
   #
   # def destroy
   # end
