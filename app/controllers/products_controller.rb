@@ -20,6 +20,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    if @product.photo_url.nil?
+      @product.photo_url = "http://www.equistaff.com/Images/noimageavailable.gif"
+    end
 
     if @product.save
       flash[:success] = 'Successfully added product'
@@ -36,6 +39,9 @@ class ProductsController < ApplicationController
 
   def update
     @product.assign_attributes(product_params)
+    if @product.photo_url.nil?
+      @product.photo_url = "http://www.equistaff.com/Images/noimageavailable.gif"
+    end
 
     if @product.save
       flash[:succes] = "Successfully updated product #{@product.id}"
