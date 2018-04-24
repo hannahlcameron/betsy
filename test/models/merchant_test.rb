@@ -79,17 +79,14 @@ describe Merchant do
 
       it "must have values of type order_item only for products that belong to the merchant" do
         merchant = merchants(:merchant_one)
-        orders_and_items = {}
-        orders = merchant.orders
-        keys = orders.map { |order| order.id }
-        products = merchant.products
-        order_items = []
-        merchant.products.each { |product|
-          order_items << product.order_items
-        }
 
         result = merchant.merchant_order_items.values
-        result.must_equal order_items
+        result.each do |order_items|
+          order_items.each do |order_item|
+            order_item.product.merchant_id.must_equal merchant.id
+          end
+        end
+
       end
 
       it "must return an empty hash for a merchant with no orders" do
