@@ -20,4 +20,5 @@ class Order < ApplicationRecord
     end
     return true
   end
+
 end

@@ -1,0 +1,16 @@
+ <section>
+   <% @order.order_items.each do |item| %>
+    <div>
+      <p><%= item.product.name %></p>
+      <p><%= item.product.price %><p>
+      <%= form_for item, url: orderitem_path, method: :patch do |f| %>
+        <%= f.label :quantity %>
+        <%= f.select :quantity, (1..item.product.stock).to_a, :selected => item.quantity %>
+        <%= f.submit %>
+      <% end %> 
+      <%= link_to "Remove Item", orderitem_path(item), method: :delete, data: { confirm: "With great power comes great responsibility. Are you sure you want to delete #{item.product.name}?"} %>
+    </div>
+  <% end %>
+  <%= link_to "Checkout", edit_order_path, method: :patch %>
+
+ </section>
