@@ -3,6 +3,9 @@
 
   <%= link_to 'Add a new product', new_merchant_product_path(@logged_merchant) %>
 <% end %>
+<% if @category %>
+  <h3><%= @category.name.capitalize %></h3>
+<% end %>
 
 <section class='all-products'>
   <% @products.each do |product| %>

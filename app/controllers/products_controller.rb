@@ -8,9 +8,9 @@ class ProductsController < ApplicationController
     if session[:merchant_id]
       @products = Product.where(merchant_id: session[:merchant_id])
     else
-      category = Category.find_by(name: params[:category])
-      if category
-        @products = Product.by_category(category.name).where(retired: false)
+      @category = Category.find_by(name: params[:category])
+      if @category
+        @products = Product.by_category(@category.name).where(retired: false)
       else
         @products = Product.where(retired: false)
       end
