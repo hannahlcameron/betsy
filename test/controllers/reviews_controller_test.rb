@@ -14,7 +14,7 @@ describe ReviewsController do
 
       post reviews_path, params: {review: review_data}
 
-      must_redirect_to product_path(Review.last.product.id)
+      must_respond_with :redirect
       Review.count.must_equal @old_review_count + 1
     end
 
