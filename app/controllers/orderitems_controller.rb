@@ -1,5 +1,3 @@
-require 'pry'
-
 class OrderitemsController < ApplicationController
   before_action :find_order_item, only: [:update, :destroy, :ship]
   before_action :order_exists?, only: [:create]
