@@ -51,13 +51,8 @@ class ActiveSupport::TestCase
   end
 
   def login(user)
-    # arrange
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new(mock_auth_hash(user))
-
-    # act
     get auth_callback_path(:google_oauth2)
 
-    # assert
-    must_redirect_to root_path
   end
 end
