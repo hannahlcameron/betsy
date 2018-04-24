@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     else
       category = Category.find_by(name: params[:category])
       if category
-        @products = Product.by_category(category.name)
+        @products = Product.by_category(category.name).where(retired: false)
       else
         @products = Product.where(retired: false)
       end
