@@ -33,11 +33,20 @@ describe Order do
         @order.save
       end
       it 'returns the correct total when there is one orderitem' do
-        @order.order_total.must_equal (@order.order_items.quantity * @order.product.price)
+        @order.order_items.length.must_equal 1
+        total = @order.order_total
+
+        total.must_equal OrderItem.first.product.price
 
       end
       it 'returns the correct total when there are multiple orderitems' do
+        @order.order_items << OrderItem.last
 
+        @order.order_items.length.must_equal 2
+
+        total = @order.order_total
+
+        total.must_equal OrderItem.first.product.price + OrderItem.last.product.price
       end
     end
 
