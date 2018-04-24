@@ -124,9 +124,9 @@ describe OrdersController do
         billing_address: ""
       }
 
-      must_redirect_to order_path(order)
+      must_respond_with :bad_request
 
-      Order.last.status.must_equal "paid"
+      Order.last.status.must_equal "pending"
     end
 
   end # update

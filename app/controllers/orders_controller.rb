@@ -43,14 +43,14 @@ class OrdersController < ApplicationController
     @order.assign_attributes(customer_params)
 
     if @order.order_items.count > 0
+      @order.assign_attributes(status: "paid")
 
       if @order.save
-        @order.assign_attributes(status: "paid")
         flash[:success] = "Thank you! Your order has been placed."
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
-        render :edit
+        render :edit, status: :bad_request
       end
 
     else
@@ -61,9 +61,6 @@ class OrdersController < ApplicationController
   end
 
   def viewcart; end
-  #
-  # def destroy
-  # end
 
   private
   def order_params
