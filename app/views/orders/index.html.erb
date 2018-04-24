@@ -129,13 +129,15 @@
         <td>
           <% if order_item.status == "pending" %>
             <%= link_to "Ship", ship_path(order_item), method: :patch %>
-          <% else %>
-            <%= order_item.status.capitalize %>
+          <% elsif order_item.status == "shipped" %>
+            Shipped
           <% end %>
         </td>
         <td>
           <% if order_item.status == "pending" %>
-            <%= link_to "Cancel" %>
+            <%= link_to "Cancel", cancel_path(order_item), method: :patch %>
+          <% elsif order_item.status == "cancelled" %>
+            Cancelled
           <% end %>
         </td>
       </tr>
