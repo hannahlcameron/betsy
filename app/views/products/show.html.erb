@@ -6,11 +6,11 @@
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
 
-    <%= form_for order_item, url: orderitem_path, method: :post,  do |f| %>
+    <% form_for @product.order_item, url: orderitems_path, method: :post do |f| %>
       <%= f.label :quantity %>
       <%= f.select :quantity, (1..product.stock).to_a, :selected => 1 %>
       <%= f.submit %>
-    <%= end %>
+    <% end %>
 
     <% link_to "Add to cart", orderitems_path, method: :post, order_item: @product %>
 
