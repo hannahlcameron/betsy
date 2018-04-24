@@ -6,4 +6,8 @@ class Category < ApplicationRecord
   def self.categories_with_works
     return Category.find_by_sql('SELECT DISTINCT categories.name FROM categories INNER JOIN products_categories ON categories.id = products_categories.category_id INNER JOIN products ON products_categories.category_id = products.id')
   end
+
+  def self.fix_category(params)
+    return params.downcase.pluralize
+  end
 end

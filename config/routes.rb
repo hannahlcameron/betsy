@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :merchants, except: [:new, :create] do
     resources :orders, only: [:index]
     resources :products, except: [:show]
+    get '/manage_products', to: 'merchants#manage_products', as: 'manage_products'
   end
 
   resources :orderitems, only: [:create, :update, :destroy]

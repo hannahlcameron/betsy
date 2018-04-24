@@ -1,16 +1,18 @@
 <%= page_title %>
 
-<% if @product || @cagetory %>
+<% if @product %>
   <% if @product.errors.any? %>
     <% @product.errors.messages.each do |column, message| %>
       <%= column %>: <%= message %>
     <% end %>
   <% end %>
-  <%# if @category.errors.any? %>
-    <%# @category.errors.messages.each do |column, message| %>
-      <%# column %>: <%# message %>
-    <%# end %>
-  <%# end %>
+<% end %>
+<% if @category %>  
+  <% if @category.errors.any? %>
+    <%= @category.errors.messages.each do |column, message| %>
+      <%= column %>: <%= message %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= form_tag categories_path do %>
@@ -20,18 +22,18 @@
 <% end %>
 
 <%= form_for @product, url: merchant_products_path do |f| %>
-  <%= f.hidden_field :merchant_id %>
-  <%= f.label :name %>
+  <%= f.hidden_field :merchant_id, value: @logged_merchant.id %>
+  <%= f.label :name, 'Product Name' %>
   <%= f.text_field :name %>
   <%= f.label :price %>
   <%= f.text_field :price %>
   <%= f.label :stock %>
   <%= f.number_field :stock %>
-  <%= f.label :categories %>
+  <%= f.label :categories, 'Categories for this Product' %>
   <%= collection_check_boxes :product, :category_ids, Category.all, :id, :name %>
-  <%= f.label :description %>
+  <%= f.label :description, 'Product Description' %>
   <%= f.text_area :description %>
   <%= f.label :photo_url %>
-  <%= f.text_area :photo_url %>
+  <%= f.text_field :photo_url %>
   <%= f.submit action_name, class: 'button' %>
 <% end %>

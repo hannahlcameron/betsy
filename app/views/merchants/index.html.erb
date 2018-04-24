@@ -1,3 +1,7 @@
 <% @merchants.each do |merchant| %>
-  <%= link_to merchant.username, merchant_path(merchant) %>
+  <div class="card" style="width: 300px;">
+    <div class="card-content">
+      <%= link_to merchant.username, merchant_path(merchant) %>
+    </div>
+  </div>
 <% end %>

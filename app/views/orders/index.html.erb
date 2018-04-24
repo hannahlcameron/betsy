@@ -1,6 +1,6 @@
 <% if @merchant %>
 
-  <%= link_to 'Products', merchant_products_path(@merchant) %>
+  <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
   <p>
     <%= @merchant.username %>'s orders
   </p>
