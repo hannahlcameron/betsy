@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   resources :reviews, only: [:create]
 
   resources :categories, only: [:create]
-  resources :products, only: [:index, :show] do
-  end
+  resources :products, only: [:index, :show]
+  
   get '/:category', to: 'products#index', as: 'category'
 
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
