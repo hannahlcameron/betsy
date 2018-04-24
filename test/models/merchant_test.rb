@@ -1,5 +1,4 @@
 require "test_helper"
-require 'pry'
 
 describe Merchant do
   describe "validations" do

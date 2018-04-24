@@ -7,7 +7,7 @@ class OrderitemsController < ApplicationController
     @orderitem = OrderItem.new(order_item_params)
     @orderitem.assign_attributes(status: "pending")
 
-    # binding.pry
+
     if @orderitem.save
       flash[:success] = "Item added successfully!"
       redirect_to product_path(@orderitem.product_id)

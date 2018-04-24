@@ -1,5 +1,3 @@
-require 'pry'
-
 class Merchant < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :orders, through: :products
