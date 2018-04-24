@@ -14,20 +14,33 @@
 
   <body>
     <header>
-      <nav class='navbar'>
-        <%= link_to 'Home', root_path, class: 'navbar-item' %>
-        <%= link_to 'All Products', products_path, class: 'navbar-item' %>
-        <%= link_to 'All Merchants', merchants_path, class: 'navbar-item' %>
-        <div class="login">
+      <nav class="top-bar" data-topbar role="navigation">
+        <div class="left">
+          <%= link_to 'Home', root_path, class: 'navbar-item' %>
+          <%= link_to 'All Products', products_path, class: 'navbar-item' %>
+          <%= link_to 'All Merchants', merchants_path, class: 'navbar-item' %>
           <% if session[:merchant_id] %>
-          Logged in as: <%= (Merchant.find_by(id: session[:merchant_id])).username %>
-          <%= link_to "Log Out", logout_path, method: :delete %>
+          <%= link_to 'Dashboard', orders_path, class: 'navbar-item' %>
+          <% end %>
+        </div>
+        <div class="right">
+          <% if @logged_merchant %>
+            Logged in as: <%= @logged_merchant.username %>
+            <%= link_to "Log Out", logout_path, method: :delete %>
           <% else %>
-          <%= link_to "Log in with Google", "auth/google_oauth2" %>
+            <%= link_to "Log in with Google", 'auth/google_oauth2' %>
           <% end %>
         </div>
       </nav>
+
+      <section class='flash'>
+        <%= flash[:error] if flash.any? %>
+        <%= flash[:success] if flash.any? %>
+        <%= flash[:failure] if flash.any? %>
+
+      </section>
     </header>
+
 
     <aside class="left-nav">
       <h3>Categories</h3>

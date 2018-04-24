@@ -1,27 +1,25 @@
 require "test_helper"
+require 'pry'
 
 describe OrderItem do
 
-  describe 'subtotal' do
-    before do
-      @orderitem = OrderItem.first
-    end
-    it 'returns the subtotal when quantity is 1' do
-      @orderitem.quantity = 1
+  describe "business logic" do
 
-      subtotal = @orderitem.subtotal
+    describe "subtotal" do
 
-      subtotal.must_equal @orderitem.product.price
+      it "returns the price of the product times the quantity of the order item" do
+        product = Product.first
+        quantity = 2
+        order = Order.create
+        order_item = OrderItem.new(quantity: quantity, product_id: product.id, order_id: order.id)
+        order_item.must_be :valid?
+        subtotal = product.price * quantity
+        result = order_item.subtotal
+        result.must_equal subtotal
+      end
 
-    end
+    end # subtotal
 
-    it 'returns the subtotal when quantity is > 1' do
-      @orderitem.quantity = 3
-
-      subtotal = @orderitem.subtotal
-
-      subtotal.must_equal (@orderitem.product.price * @orderitem.quantity)
-    end
-  end
+  end # business logic
 
 end

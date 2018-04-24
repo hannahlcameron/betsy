@@ -20,11 +20,6 @@ class Order < ApplicationRecord
     end
     return true
   end
-
-  # def purchased_items
-  #   @purchased_items = @order.order_items
-  # end
-
   def order_total
     total = 0
     purchased_items = self.order_items.where(order_id: self)
@@ -33,5 +28,4 @@ class Order < ApplicationRecord
     end
     return total
   end
-
 end

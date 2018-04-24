@@ -1,4 +1,5 @@
 require "test_helper"
+require 'pry'
 
 describe Merchant do
   describe "validations" do
@@ -56,4 +57,49 @@ describe Merchant do
     end
 
   end # relations
+
+  describe "business logic" do
+
+    describe "#merchant_order_items" do
+
+      before do
+        @merchant = Merchant.first
+        @result = @merchant.merchant_order_items
+      end
+
+      it "must return a hash" do
+        @result.must_be_kind_of Hash
+      end
+
+      it "must have keys corresponding to order id" do
+        orders = @merchant.orders
+        orders_ids = orders.map { |order| order.id }
+        @result.keys.must_equal orders_ids
+      end
+
+      it "must have values of type order_item only for products that belong to the merchant" do
+        merchant = merchants(:merchant_one)
+        orders_and_items = {}
+        orders = merchant.orders
+        keys = orders.map { |order| order.id }
+        products = merchant.products
+        order_items = []
+        merchant.products.each { |product|
+          order_items << product.order_items
+        }
+
+        result = merchant.merchant_order_items.values
+        result.must_equal order_items
+      end
+
+      it "must return an empty hash for a merchant with no orders" do
+        @merchant = Merchant.create(username: "Barry Allen", email: "b@rryfast.com")
+        @result = @merchant.merchant_order_items
+        @result.must_be :empty?
+      end
+
+    end # merchant_order_items
+
+  end # business logic
+
 end

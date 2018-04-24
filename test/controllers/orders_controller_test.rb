@@ -1,23 +1,30 @@
 require "test_helper"
 
 describe OrdersController do
+  describe "logged in merchant" do
 
-  describe "index" do
-
-    it "sends a success response when there are many orders" do
-      Order.count.must_be :>, 0
-      get orders_path
-      must_respond_with :success
+    before do
+      login(Merchant.first)
+      @orders = Merchant.first.orders
     end
 
-    it "sends a success response when there are no orders" do
-      Order.destroy_all
-      Order.count.must_equal 0
-      get orders_path
-      must_respond_with :success
-    end
+    describe "index" do
 
-  end
+      it "sends a success response when there are many orders" do
+        @orders.count.must_be :>, 0
+        get orders_path
+        must_respond_with :success
+      end
+
+      it "sends a success response when there are no orders" do
+        Order.destroy_all
+        @orders.count.must_equal 0
+        get orders_path
+        must_respond_with :success
+      end
+
+    end # index
+  end # logged in merchant
 
   describe "show" do
 
@@ -112,4 +119,20 @@ describe OrdersController do
     end
 
   end # update
+
+  describe 'viewcart' do
+
+    it "sends success if the order exists" do
+      order = Order.first
+      get viewcart_path(order)
+      must_respond_with :success
+    end
+
+    it "sends not_found if the order does not exist" do
+      order_id = Order.last.id + 1
+      get viewcart_path(order_id)
+      must_respond_with :not_found
+    end
+
+  end # viewcart
 end
