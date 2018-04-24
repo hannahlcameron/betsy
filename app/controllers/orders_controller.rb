@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
-        redirect_to order_path(@order)
+        render :edit
       end
 
     else
