@@ -100,6 +100,105 @@ describe Merchant do
 
     end # merchant_order_items
 
+    describe "#total_revenue_by" do
+
+      it "returns the total revenue for all of a merchant's orders" do
+        merchant = Merchant.first
+        merchant_orders = merchant.orders
+        all_orders_total = 0.00
+        merchant_orders.each do |order|
+          order.order_items.each do |order_item|
+            # binding.pry
+            if order_item.product.merchant_id == merchant.id
+              all_orders_total += order_item.subtotal
+            end
+          end
+        end
+
+        result = merchant.total_revenue_by("all")
+        result.must_equal all_orders_total
+      end
+
+      it "returns the total revenue for all of a merchant's orders with status pending" do
+        merchant = Merchant.first
+        merchant_orders = merchant.orders
+        pending_orders_total = 0.00
+        merchant_orders.each do |order|
+          order.order_items.each do |order_item|
+            # binding.pry
+            if order_item.product.merchant_id == merchant.id && Order.find(order.id).status == "pending"
+              pending_orders_total += order_item.subtotal
+            end
+          end
+        end
+
+        result = merchant.total_revenue_by("pending")
+        result.must_equal pending_orders_total
+
+      end
+
+      it "returns the total revenue for all of a merchant's orders with status paid" do
+        merchant = Merchant.first
+        merchant_orders = merchant.orders
+        paid_orders_total = 0.00
+        merchant_orders.each do |order|
+          order.order_items.each do |order_item|
+            # binding.pry
+            if order_item.product.merchant_id == merchant.id && Order.find(order.id).status == "paid"
+              paid_orders_total += order_item.subtotal
+            end
+          end
+        end
+
+        result = merchant.total_revenue_by("paid")
+        result.must_equal paid_orders_total
+
+      end
+
+      it "returns the total revenue for all of a merchant's orders with status completed" do
+        merchant = Merchant.first
+        merchant_orders = merchant.orders
+        completed_orders_total = 0.00
+        merchant_orders.each do |order|
+          order.order_items.each do |order_item|
+            # binding.pry
+            if order_item.product.merchant_id == merchant.id && Order.find(order.id).status == "completed"
+              completed_orders_total += order_item.subtotal
+            end
+          end
+        end
+
+        result = merchant.total_revenue_by("completed")
+        result.must_equal completed_orders_total
+
+      end
+
+      it "returns the total revenue for all of a merchant's orders with status cancelled" do
+        merchant = Merchant.first
+        merchant_orders = merchant.orders
+        cancelled_orders_total = 0.00
+        merchant_orders.each do |order|
+          order.order_items.each do |order_item|
+            # binding.pry
+            if order_item.product.merchant_id == merchant.id && Order.find(order.id).status == "cancelled"
+              cancelled_orders_total += order_item.subtotal
+            end
+          end
+        end
+
+        result = merchant.total_revenue_by("cancelled")
+        result.must_equal cancelled_orders_total
+
+      end
+
+      it "returns 0 for a the total revenue of a merchant with zero orders" do
+        merchant = Merchant.new
+        result = merchant.total_revenue_by("all")
+        result.must_equal 0
+      end
+
+    end # merchant total_revenue_by
+
   end # business logic
 
 end

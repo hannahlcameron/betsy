@@ -1,3 +1,5 @@
+require 'pry'
+
 class Merchant < ApplicationRecord
   has_many :products, dependent: :destroy
   has_many :orders, through: :products
@@ -27,5 +29,18 @@ class Merchant < ApplicationRecord
     return orders_and_items
 
   end # merchant_order_items
+
+  def total_revenue_by(status)
+    orders_and_items = self.merchant_order_items
+    total_revenue = 0.00
+    orders_and_items.each do |order, order_items|
+      order_items.each do |order_item|
+        if Order.find(order).status == status || status == "all"
+          total_revenue += order_item.subtotal
+        end
+      end
+    end
+    return total_revenue
+  end # total_revenue_by
 
 end
