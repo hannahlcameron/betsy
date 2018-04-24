@@ -9,8 +9,7 @@ Rails.application.routes.draw do
     resources :products, except: [:show]
   end
 
-  resources :orderitems do
-  end
+  resources :orderitems
   resources :reviews, only: [:create]
 
   resources :categories, only: [:create]
