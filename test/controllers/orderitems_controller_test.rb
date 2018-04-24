@@ -18,12 +18,11 @@ describe OrderitemsController do
 
       old_oi_count = OrderItem.count
 
-      OrderItem.new(oi_data).must_be :valid?
+      OrderItem.new(oi_data).wont_be :valid?
 
-      post orderitems_path, params: {orderitem: oi_data}
+      post orderitems_path, params: {order_item: oi_data}
 
       must_respond_with :redirect
-      must_redirect_to products_path
 
       OrderItem.count.must_equal old_oi_count + 1
 
@@ -39,7 +38,7 @@ describe OrderitemsController do
 
       OrderItem.new(oi_data).wont_be :valid?
 
-      post orderitems_path, params: {orderitem: oi_data}
+      post orderitems_path, params: {order_item: oi_data}
 
       must_respond_with :bad_request
 
@@ -56,9 +55,9 @@ describe OrderitemsController do
       test_io.assign_attributes(oi_data)
       test_io.must_be :valid?
 
-      patch orderitem_path(test_io), params: { orderitem: oi_data }
+      patch orderitem_path(test_io), params: { order_item: oi_data }
 
-      must_redirect_to products_path
+      must_redirect_to viewcart_path
 
       test_io.reload
       test_io.quantity.must_equal oi_data[:quantity]
@@ -73,7 +72,7 @@ describe OrderitemsController do
       test_io.assign_attributes(oi_data)
       test_io.wont_be :valid?
 
-      patch orderitem_path(test_io), params: { orderitem: oi_data }
+      patch orderitem_path(test_io), params: { order_item: oi_data }
 
       must_respond_with :bad_request
     end
@@ -108,6 +107,25 @@ describe OrderitemsController do
 
       must_respond_with :not_found
       OrderItem.count.must_equal old_oi_count
+    end
+  end
+
+  describe 'ship' do
+    it "allows you to ship an item that exists" do
+      order_item = OrderItem.create(order_id: Order.first.id, product_id: Product.first.id, quantity: 1, status: "pending")
+      order_item.status.must_equal "pending"
+
+      patch ship_path(order_item)
+
+      OrderItem.last.status.must_equal "shipped"
+    end
+
+    it "responds with not found for an item that doesn't exist" do
+      order_item_id = OrderItem.last.id + 1
+      order_item = OrderItem.find_by(id: order_item_id)
+      order_item.must_be :nil?
+      patch ship_path(order_item_id)
+      must_respond_with :not_found
     end
   end
 
