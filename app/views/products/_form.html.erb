@@ -31,5 +31,7 @@
   <%= collection_check_boxes :product, :category_ids, Category.all, :id, :name %>
   <%= f.label :description %>
   <%= f.text_area :description %>
+  <%= f.label :photo_url %>
+  <%= f.text_area :photo_url %>
   <%= f.submit action_name, class: 'button' %>
 <% end %>

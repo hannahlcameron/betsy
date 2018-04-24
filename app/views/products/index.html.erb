@@ -8,7 +8,7 @@
   <% @products.each do |product| %>
   <div class="card" style="width: 300px;">
     <div class="card-image">
-      <%= image_tag 'http://s.newsweek.com/sites/www.newsweek.com/files/styles/lg/public/2017/02/20/kamalakhan220.jpg', alt: 'Ms Marvel, Kamala Khan', width: 350, height: 350 %>
+      <%= image_tag product.photo_url, alt: product.name, width: 350, height: 350 %>
     </div>
     <div class="card-content">
       <div class="content">
