@@ -45,7 +45,7 @@ class Merchant < ApplicationRecord
 
   def count_orders_by(status)
     count = 0
-    orders = self.orders
+    orders = self.orders.distinct
     orders.each do |order|
       if order.status == status || status == "all"
         count += 1
