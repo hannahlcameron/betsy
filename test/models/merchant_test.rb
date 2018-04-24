@@ -191,13 +191,66 @@ describe Merchant do
 
       end
 
-      it "returns 0 for a the total revenue of a merchant with zero orders" do
+      it "returns 0.0 for the total revenue of a merchant with zero orders" do
         merchant = Merchant.new
         result = merchant.total_revenue_by("all")
         result.must_equal 0
       end
 
     end # merchant total_revenue_by
+
+    describe "#count_orders_by" do
+      before do
+        @merchant = Merchant.first
+      end
+
+      it "returns the total number of orders for a merchant" do
+        num_orders = @merchant.orders.count
+        result = @merchant.count_orders_by("all")
+        result.must_equal num_orders
+      end
+
+      it "returns the total number of pending orders for a merchant" do
+        pending_orders = @merchant.orders.select do |order|
+          order.status == "pending"
+        end
+        result = @merchant.count_orders_by("pending")
+        result.must_equal pending_orders.count
+      end
+
+      it "returns the total number of paid orders for a merchant" do
+        paid_orders = @merchant.orders.select do |order|
+          order.status == "paid"
+        end
+        result = @merchant.count_orders_by("paid")
+        result.must_equal paid_orders.count
+      end
+
+      it "returns the total number of completed orders for a merchant" do
+        completed_orders = @merchant.orders.select do |order|
+          order.status == "completed"
+        end
+        result = @merchant.count_orders_by("completed")
+        result.must_equal completed_orders.count
+      end
+
+      it "returns the total number of cancelled orders for a merchant" do
+        cancelled_orders = @merchant.orders.select do |order|
+          order.status == "cancelled"
+        end
+        result = @merchant.count_orders_by("cancelled")
+        result.must_equal cancelled_orders.count
+      end
+
+      it "returns 0 for a merchant with zero orders" do
+        merchant = Merchant.new
+        num_orders = merchant.orders.count
+        num_orders.must_equal 0
+        result = merchant.count_orders_by("all")
+        result.must_equal num_orders
+      end
+
+    end # num_orders_by
 
   end # business logic
 

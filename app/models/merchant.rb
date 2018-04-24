@@ -43,4 +43,15 @@ class Merchant < ApplicationRecord
     return total_revenue
   end # total_revenue_by
 
+  def count_orders_by(status)
+    count = 0
+    orders = self.orders
+    orders.each do |order|
+      if order.status == status || status == "all"
+        count += 1
+      end
+    end
+    return count
+  end # count_orders_by
+
 end
