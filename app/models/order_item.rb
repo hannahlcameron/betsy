@@ -5,6 +5,7 @@ class OrderItem < ApplicationRecord
   validates :order_id, presence: true
   validates :product_id, presence: true
   validates :quantity, presence: true, :numericality => { :greater_than_or_equal_to => 1, only_integer: true }
+  validates :status, presence: true
   validate :available_quantity
 
   def available_quantity
