@@ -4,6 +4,69 @@
   <p>
     <%= @merchant.username %>'s orders
   </p>
+
+  <table>
+    <tr>
+      <th>
+      </th>
+      <th>
+        Pending Orders
+      </th>
+      <th>
+        Paid Orders
+      </th>
+      <th>
+        Completed Orders
+      </th>
+      <th>
+        Cancelled Orders
+      </th>
+      <th>
+        All Orders
+      </th>
+    </tr>
+    <tr>
+      <th>
+        Revenue
+      </th>
+      <td>
+        <%= @merchant.total_revenue_by("pending") %>
+      </td>
+      <td>
+        <%= @merchant.total_revenue_by("paid") %>
+      </td>
+      <td>
+        <%= @merchant.total_revenue_by("completed") %>
+      </td>
+      <td>
+        <%= @merchant.total_revenue_by("cancelled") %>
+      </td>
+      <td>
+        <%= @merchant.total_revenue_by("all") %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        No. Orders
+      </th>
+      <td>
+        <%=  %>
+      </td>
+      <td>
+        <%=  %>
+      </td>
+      <td>
+        <%=  %>
+      </td>
+      <td>
+        <%=  %>
+      </td>
+      <td>
+        <%=  %>
+      </td>
+    </tr>
+  </table>
+
   <% if @orders_and_items.empty? %>
     <p>
       <%= @merchant.username %> has no orders yet.
