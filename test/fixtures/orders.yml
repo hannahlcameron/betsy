@@ -6,7 +6,7 @@ one:
   credit_card: 1234567891011121
   cvv: 987
   cc_expiration: 09/35
-  status: pending
+  status: paid
   shipping_address: 1234 Lovelace Ave Seattle WA 98103
   billing_address: 98103
 
@@ -16,6 +16,6 @@ two:
   credit_card: 9876543210111213
   cvv: 786
   cc_expiration: 03/23
-  status: pending
+  status: paid
   shipping_address: 109 Desert Road Nowhere AZ 29843
   billing_address: 29843
