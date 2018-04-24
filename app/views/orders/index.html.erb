@@ -50,19 +50,19 @@
         No. Orders
       </th>
       <td>
-        <%=  %>
+        <%= @merchant.count_orders_by("pending")  %>
       </td>
       <td>
-        <%=  %>
+        <%= @merchant.count_orders_by("paid") %>
       </td>
       <td>
-        <%=  %>
+        <%= @merchant.count_orders_by("completed") %>
       </td>
       <td>
-        <%=  %>
+        <%= @merchant.count_orders_by("cancelled") %>
       </td>
       <td>
-        <%=  %>
+        <%= @merchant.count_orders_by("all") %>
       </td>
     </tr>
   </table>
