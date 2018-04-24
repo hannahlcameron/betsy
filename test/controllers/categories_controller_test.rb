@@ -18,11 +18,10 @@ describe CategoriesController do
 
     it 'returns bad_request for bad data' do
       old_category_count = Category.count
-      category_name = Category.first.name
 
-      post categories_path, params: {name: category_name}
+      post categories_path, params: {name: nil}
 
-      must_respond_with :bad_request
+      must_respond_with :redirect
       Category.count.must_equal old_category_count
     end
 
