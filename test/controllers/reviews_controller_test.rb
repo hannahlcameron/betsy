@@ -9,7 +9,7 @@ describe ReviewsController do
         rating: 5,
         product_id: Product.first.id
       }
-      post '/reviews', params: {review: review_data}
+      post reviews_path, params: {review: review_data}
 
       must_redirect_to product_path(Review.last.id)
       Review.count.must_equal old_review_count + 1
