@@ -28,8 +28,10 @@ describe OrdersController do
 
   describe "show" do
 
-    it "sends success if the order exists" do
+    it "sends success if the order exists and status is paid" do
       order = Order.first
+      order.status = "paid"
+      order.save
       get order_path(order)
       must_respond_with :success
     end
@@ -38,6 +40,15 @@ describe OrdersController do
       order_id = Order.last.id + 1
       get order_path(order_id)
       must_respond_with :not_found
+    end
+
+    it "redirects to edit_path if order status != paid" do
+      order = Order.last
+      order.status = "pending"
+
+      get order_path(order)
+      must_redirect_to edit_order_path
+
     end
 
   end # show

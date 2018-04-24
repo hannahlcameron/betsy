@@ -13,11 +13,14 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show; end
-  #
-  # def new
-  # end
-  #
+  def show
+    if @order.status != "paid"
+      flash[:failure] = "Oops! You need to checkout first!"
+      redirect_to edit_order_path(@order)
+    end
+  end
+  
+
   def create
     order = Order.new(status: "pending")
 
