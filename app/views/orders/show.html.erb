@@ -5,16 +5,27 @@
     <ul>
       <li>Customer Name: <%= @order.customer_name %></li>
       <li>Customer Email: <%= @order.customer_email %></li>
-      <li>Credit Card: ****** HALP</li>
+      <li>Credit Card: *<%= @order.credit_card[-4..-1] %></li>
       <li>Shipping Address: <%= @order.shipping_address %></li>
       <li>Order Status: <%= @order.status %></li>
     </ul>
   </div>
   <div>
     <h4>Purchased Items</h4>
-    <%= @purchased_items.each do |item| %>
-      <article>
-        <p><%= link_to item.product_id.name, product_path(item.product_id) %></p>
-      </article>
+    <table>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Subtotal</th>
+      <tr>
+        <%= @order.order_items.each do |item| %>
+        <tr>
+          <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.product.price %></td>
+          <td><%= item. %></td>  
+      </tr>
+      <% end %>
+    </tr>
   </div>
 </section>

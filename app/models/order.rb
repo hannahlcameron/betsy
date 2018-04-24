@@ -21,9 +21,9 @@ class Order < ApplicationRecord
     return true
   end
 
-  def purchased_items
-    @purchased_items = @order.order_items
-  end
+  # def purchased_items
+  #   @purchased_items = @order.order_items
+  # end
 
   def order_total
     total = 0

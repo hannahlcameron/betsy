@@ -10,4 +10,6 @@ class OrderItem < ApplicationRecord
     end
   end
 
+
+
 end
