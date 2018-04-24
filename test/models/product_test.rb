@@ -116,6 +116,21 @@ describe Product do
       product.errors.messages.must_include :price
     end
 
+    it 'cannot be created without a stock' do
+      product_data = {
+        name: 'product',
+        price: 2.99,
+        stock: nil,
+        merchant_id: merchant.id,
+        categories: categories
+      }
+
+      product = Product.new(product_data)
+
+      product.valid?.must_equal false
+      product.errors.messages.must_include :stock
+    end
+
     it 'cannot be created without a merchant ID' do
       product_data = {
         name: 'product',

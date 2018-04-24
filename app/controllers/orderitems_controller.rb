@@ -1,12 +1,15 @@
 class OrderitemsController < ApplicationController
   before_action :find_order_item, only: [:update, :destroy]
+  before_action :order_exists?, only: [:create]
+
 
   def create
     @orderitem = OrderItem.new(order_item_params)
+    @orderitem.order_id = @order.id
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to products_path
+      redirect_to product_path(@orderitem.product_id)
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
       render "products/show", status: :bad_request
@@ -18,10 +21,10 @@ class OrderitemsController < ApplicationController
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to products_path
+      redirect_to viewcart_path
     else
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
-      render "products/show", status: :bad_request
+      render ":id/viewcart", status: :bad_request
     end
   end
 
@@ -34,12 +37,19 @@ class OrderitemsController < ApplicationController
   private
 
   def order_item_params
-    params.require(:orderitem).permit(:order_id, :product_id, :quantity)
+    params.require(:order_item).permit(:order_id, :product_id, :quantity)
   end
 
   def find_order_item
     @orderitem = OrderItem.find_by(id: params[:id])
     head :not_found unless @orderitem
+  end
+
+  def order_exists?
+    unless @order
+      @order = Order.create
+    end
+
   end
 
 end

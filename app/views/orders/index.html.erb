@@ -1,0 +1,81 @@
+<% if @merchant %>
+
+  <%= link_to 'Products', merchant_products_path(@merchant) %>
+  <p>
+    <%= @merchant.username %>'s orders
+  </p>
+  <% if @orders_and_items.empty? %>
+    <p>
+      <%= @merchant.username %> has no orders yet.
+    </p>
+  <% else %>
+
+    <table>
+      <tr>
+        <th>
+          Order
+        </th>
+        <th>
+          Product
+        </th>
+        <th>
+          Quantity
+        </th>
+        <th>
+          Subtotal
+        </th>
+        <th>
+          Placed On
+        </th>
+        <th>
+          Mark as Shipped
+        </th>
+        <th>
+          Status
+        </th>
+      </tr>
+
+
+      <% @orders_and_items.each do |order, order_items| %>
+        <tr>
+          <td rowspan="<%= order_items.length %>" >
+            <%= link_to order, order_path(order) %>
+          </td>
+        <% order_items.each do |order_item| %>
+            <td>
+              <%= link_to order_item.product.name, product_path(order_item.product) %>
+            </td>
+            <td>
+              <%= order_item.quantity %>
+            </td>
+            <td>
+              "placeholder subtotal"
+            </td>
+            <td>
+              "placeholder date"
+            </td>
+            <td>
+              "ship"
+            </td>
+            <td>
+              <%= Order.find_by(id: order).status %>
+            </td>
+          </tr>
+        <% end %>
+
+      <% end %>
+
+    </table>
+
+    <% @orders_and_items.each do |order, order_items| %>
+
+      <table>
+        <tr>
+
+        </tr>
+      </table>
+
+    <% end %>
+
+  <% end %>
+<% end %>

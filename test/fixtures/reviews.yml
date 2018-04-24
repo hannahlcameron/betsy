@@ -2,6 +2,8 @@
 
 one:
   rating: 1
+  product: batarang
 
 two:
   rating: 1
+  product: lasso

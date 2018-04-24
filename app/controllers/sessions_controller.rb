@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       if @merchant.nil?
 
         @merchant = Merchant.new(
-          username: (auth_hash['info']['email']).split('@').first,
+          username: auth_hash['info']['name'],
           email: auth_hash['info']['email'],
           uid: auth_hash['uid'],
           provider: auth_hash['provider']
@@ -19,7 +19,6 @@ class SessionsController < ApplicationController
         if @merchant.save
           session[:merchant_id] = @merchant.id
           flash[:success] = "Created new merchant and logged in successfully"
-          redirect_to root_path
         else
           flash[:error] = "Could not log in because merchant failed validations"
           redirect_to root_path
@@ -28,14 +27,13 @@ class SessionsController < ApplicationController
       else
         session[:merchant_id] = @merchant.id
         flash[:success] = "Logged in as existing merchant #{@merchant.username} successfully"
-        redirect_to root_path
       end
 
+      redirect_to orders_path
     else
       flash[:error] = "Authentication failed. Could not log in."
       redirect_to root_path
     end
-
   end
 
   def destroy
