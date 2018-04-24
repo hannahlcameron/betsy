@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       redirect_to edit_order_path(@order)
     end
   end
-  
+
 
   def create
     order = Order.new(status: "pending")
@@ -43,9 +43,9 @@ class OrdersController < ApplicationController
     @order.assign_attributes(customer_params)
 
     if @order.order_items.count > 0
-      @order.assign_attributes(status: "paid")
 
       if @order.save
+        @order.assign_attributes(status: "paid")
         flash[:success] = "Thank you! Your order has been placed."
         redirect_to order_path(@order)
       else
