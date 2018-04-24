@@ -8,6 +8,7 @@ class CategoriesController < ApplicationController
       flash[:success] = 'Added Category'
     else
       flash[:failure] = 'Unable to add category'
+      flash[:errors] = category.errors.messages
     end
 
     redirect_back(fallback_location: merchant_products_path(@logged_merchant.id))

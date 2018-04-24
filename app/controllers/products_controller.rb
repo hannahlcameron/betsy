@@ -51,14 +51,17 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.retired = true
+    if @product.merchant_id == @logged_merchant.id
 
-    if @product.save
-      flash[:success] = 'Product has been retired'
+      @product.retired = true
+      if @product.save
+        flash[:success] = 'Product has been retired'
+      else
+        flash[:failure] = 'Could not retire product'
+      end
     else
-      flash[:failure] = 'Could not retire product'
+      flash[:failure] = 'You are not authorized to retire this product'
     end
-
     redirect_to merchant_products_path
   end
 

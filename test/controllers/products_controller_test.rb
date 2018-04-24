@@ -181,6 +181,23 @@ describe ProductsController do
         product.retired.must_equal true
         must_redirect_to merchant_products_path
       end
+
+      it 'must return not_found for a non-existing product' do
+        non_existing_id = Product.last.id + 1
+        delete merchant_product_path(merchant.id, non_existing_id)
+
+        must_respond_with :not_found
+      end
+
+      it 'will not retire a product that is not associated with the merchant' do
+        product = Merchant.where.not(id: merchant.id).first.products.first
+
+        delete merchant_product_path(merchant.id, product.id)
+
+        product.reload
+        product.retired.must_equal false
+        must_redirect_to merchant_products_path
+      end
     end
 
   end
