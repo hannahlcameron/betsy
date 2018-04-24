@@ -19,10 +19,8 @@ class OrdersController < ApplicationController
       redirect_to edit_order_path(@order)
     end
   end
-  #
-  # def new
-  # end
-  #
+  
+
   def create
     order = Order.new(status: "pending")
 
