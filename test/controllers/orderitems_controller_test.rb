@@ -18,7 +18,7 @@ describe OrderitemsController do
 
       old_oi_count = OrderItem.count
 
-      OrderItem.new(oi_data).wont_be :valid?
+      OrderItem.new(oi_data).must_be :valid?
 
       post orderitems_path, params: {order_item: oi_data}
 
@@ -127,6 +127,25 @@ describe OrderitemsController do
       patch ship_path(order_item_id)
       must_respond_with :not_found
     end
-  end
+  end # ship
+
+  describe 'cancel' do
+    it "allows you to cancel an item that exists" do
+      order_item = OrderItem.create(order_id: Order.first.id, product_id: Product.first.id, quantity: 1, status: "pending")
+      order_item.status.must_equal "pending"
+
+      patch cancel_path(order_item.id)
+
+      OrderItem.last.status.must_equal "cancelled"
+    end
+
+    it "responds with not found for an item that doesn't exist" do
+      order_item_id = OrderItem.last.id + 1
+      order_item = OrderItem.find_by(id: order_item_id)
+      order_item.must_be :nil?
+      patch cancel_path(order_item_id)
+      must_respond_with :not_found
+    end
+  end # cancel
 
 end
