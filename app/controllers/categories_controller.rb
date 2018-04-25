@@ -6,20 +6,17 @@ class CategoriesController < ApplicationController
 
     if category.save
       flash[:success] = 'Added Category'
-      redirect_back(fallback_location: merchant_products_path(@logged_merchant.id))
     else
       flash[:failure] = 'Unable to add category'
       flash[:errors] = category.errors.messages
       # make this render new?
-      redirect_back(fallback_location: merchant_products_path(@logged_merchant.id))
     end
-
-
+    redirect_back(fallback_location: merchant_products_path(@logged_merchant.id))
   end
 
   private
 
   def fix_category
-      @category_name = params[:name].nil? ?  Category.fix_category(params[:name]) : nil
+      @category_name = params[:name].nil? ?  nil : Category.fix_category(params[:name])
   end
 end

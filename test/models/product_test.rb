@@ -46,7 +46,7 @@ describe Product do
       product1 = Product.create!(name: 'Green Hair Dye', stock: 24, price: 8.99, merchant_id: merchant.id)
 
       order = Order.create!
-      OrderItem.create!(product_id: product1.id, order_id: order.id, quantity: 2)
+      OrderItem.create!(product_id: product1.id, order_id: order.id, quantity: 2, status: 'pending')
 
       product1.valid?.must_equal true
       product1.order_ids.must_include order.id
