@@ -5,7 +5,7 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
-    @orderitem.order = @cart
+    @orderitem.order = @order
     @orderitem.assign_attributes(status: "pending")
 
 
@@ -60,8 +60,9 @@ class OrderitemsController < ApplicationController
   end
 
   def order_exists?
-    unless @cart
+    unless session[:cart_id]
       @order = Order.create
+      session[:cart_id] = @order.id
     end
   end
 

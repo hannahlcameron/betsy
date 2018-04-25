@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :edit, :update, :viewcart]
+  before_action :order_params, only: [:show, :edit, :update]
 
   def index
     if session[:merchant_id]
@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
       flash[:failure] = "Oops! You need to checkout first!"
       redirect_to edit_order_path(@order)
     end
+    session[:cart_id] = nil
   end
 
 
@@ -58,14 +59,22 @@ class OrdersController < ApplicationController
 
   end
 
-  def viewcart; end
+  def viewcart
+    @order = Order.find_by(id: session[:cart_id])
+    unless @order
+      flash[:error] = 'You do not have any items in your cart'
+      redirect_back(fallback_location: root_path)
+    end
+
+
+  end
   #
   # def destroy
   # end
 
   private
   def order_params
-    @order = Order.find_by(id: params[:id])
+    @order = Order.find_by(id: session[:cart_id])
     head :not_found unless @order
   end
 

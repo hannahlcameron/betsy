@@ -32,7 +32,9 @@
               <%= link_to "Log in with Google", '/auth/google_oauth2' %>
             <% end %>
           </div>
-          <%= link_to 'Cart', viewcart_path(@cart) %>
+          <% if session[:cart_id] %>
+            <%= link_to 'Cart', viewcart_path(session[:cart_id]) %>
+          <% end %>
         </div>
       </nav>
     </header>

@@ -2,14 +2,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :logged_in_merchant
-  before_action :set_cart
+  # before_action :set_cart
 
 
   private
-  def set_cart
-    # will need to clear this somehow
-    @cart = Order.where(status: 'pending').last
-  end
+  # def set_cart
+  #   # will need to clear this somehow
+  #   @cart = Order.where(status: 'pending').last
+  # end
 
   def logged_in_merchant
     if session[:merchant_id]
