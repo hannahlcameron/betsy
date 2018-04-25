@@ -35,22 +35,46 @@ describe Category do
     end
   end
 
-  describe 'categories_with_works' do
-    it 'only returns categories that have products associated with it' do
-      categories_with_works = Category.categories_with_works
+  describe 'logic' do
 
-      categories_with_works.each do |category|
-        category.products.must_be :>, 0
+    describe 'categories_with_works' do
+      it 'only returns categories that have products associated with it' do
+        categories_with_works = Category.categories_with_works
+
+        categories_with_works.each do |category|
+          category.products.must_be :>, 0
+        end
+      end
+
+      it 'returns an empty array if there are no categories with products' do
+        Category.destroy_all
+
+        categories_with_works = Category.categories_with_works
+
+        categories_with_works.must_be_empty
+
       end
     end
 
-    it 'returns an empty array if there are no categories with products' do
-      Category.destroy_all
+    describe 'fix_category' do
+      it 'downcases and pluralizes the category' do
+        category1 = 'weapon'
+        category2 = 'mouse'
 
-      categories_with_works = Category.categories_with_works
+        result1 = Category.fix_category(category1)
+        result2 = Category.fix_category(category2)
 
-      categories_with_works.must_be_empty
+        result1.must_equal 'weapons'
+        result2.must_equal 'mice'
+      end
 
+      it 'works for an already plural category' do
+        category1 = 'Toys'
+
+        result1 = Category.fix_category(category1)
+
+        result1.must_equal 'toys'
+      end
     end
   end
 end

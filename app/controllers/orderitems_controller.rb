@@ -1,11 +1,12 @@
 class OrderitemsController < ApplicationController
-  before_action :find_order_item, only: [:update, :destroy]
+  before_action :find_order_item, only: [:update, :destroy, :ship]
   before_action :order_exists?, only: [:create]
 
 
   def create
     @orderitem = OrderItem.new(order_item_params)
-    @orderitem.order_id = @order.id
+    @orderitem.assign_attributes(status: "pending")
+
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
@@ -32,6 +33,16 @@ class OrderitemsController < ApplicationController
     @orderitem.destroy
 
     redirect_to "order/show"
+  end
+
+  def ship
+    @orderitem.assign_attributes(status: "shipped")
+    if @orderitem.save
+      flash[:success] = "You have shipped #{@orderitem.product.name} for order #{@orderitem.order.id}."
+    else
+      flash[:failure] = "Could not ship item."
+    end
+    redirect_to orders_path
   end
 
   private

@@ -9,6 +9,7 @@ class MerchantsController < ApplicationController
   def show
     merchant_id = params[:id]
     @merchant = Merchant.find_by(id: merchant_id)
+    @products = Product.where(retired: false, merchant_id: @merchant.id)
   end
 
   # for the merchant
@@ -16,6 +17,10 @@ class MerchantsController < ApplicationController
   end
 
   def update
+  end
+
+  def manage_products
+    @products = @logged_merchant.products
   end
 
   def destroy; end # is this necessary?

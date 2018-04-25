@@ -14,6 +14,7 @@ batarang:
   categories:
     - memorabilia
     - awesome
+  photo_url: http://www.equistaff.com/Images/noimageavailable.gif
 
 lasso:
   name: Lasso of Truth
@@ -24,6 +25,8 @@ lasso:
   categories:
       - memorabilia
       - awesome
+  photo_url: http://www.equistaff.com/Images/noimageavailable.gif
+
 
 utility_belt:
   name: Utility Belt
@@ -31,3 +34,4 @@ utility_belt:
   price: 59.99
   description: A fanny pack, but better
   merchant: batambaman
+  photo_url: http://www.equistaff.com/Images/noimageavailable.gif

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :merchants, except: [:new, :create] do
     resources :orders, only: [:index]
     resources :products, except: [:show]
+    get '/manage_products', to: 'merchants#manage_products', as: 'manage_products'
   end
 
   resources :orderitems, only: [:create, :update, :destroy]
@@ -28,5 +29,7 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create", as: 'auth_callback'
 
   delete "/logout", to: "sessions#destroy", as: "logout"
+
+  patch '/order_items/:id', to: 'orderitems#ship', as: 'ship'
 
 end

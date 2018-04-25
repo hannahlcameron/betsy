@@ -1,19 +1,90 @@
 <% if @merchant %>
 
-  <%= link_to 'Products', merchant_products_path(@merchant) %>
+  <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
   <p>
+  <%= link_to 'Products', merchant_products_path(@merchant) %>
+  <h3>Orders Overview</h3>
+  <section>
+    <table>
+      <tr>
+        <th>
+        </th>
+        <th>
+          Pending Orders
+        </th>
+        <th>
+          Paid Orders
+        </th>
+        <th>
+          Completed Orders
+        </th>
+        <th>
+          Cancelled Orders
+        </th>
+        <th>
+          All Orders
+        </th>
+      </tr>
+      <tr>
+        <th>
+          Revenue
+        </th>
+        <td>
+          --
+        </td>
+        <td>
+          <%= @merchant.total_revenue_by("paid") %>
+        </td>
+        <td>
+          <%= @merchant.total_revenue_by("completed") %>
+        </td>
+        <td>
+          --
+        </td>
+        <td>
+          <%= @merchant.total_revenue_by("all") %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          No. Orders
+        </th>
+        <td>
+          <%= @merchant.count_orders_by("pending")  %>
+        </td>
+        <td>
+          <%= @merchant.count_orders_by("paid") %>
+        </td>
+        <td>
+          <%= @merchant.count_orders_by("completed") %>
+        </td>
+        <td>
+          <%= @merchant.count_orders_by("cancelled") %>
+        </td>
+        <td>
+          <%= @merchant.count_orders_by("all") %>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+  <h3>
     <%= @merchant.username %>'s orders
-  </p>
-  <% if @orders_and_items.empty? %>
+  </h3>
+  <section>
+    <% if @orders_and_items.empty? %>
     <p>
       <%= @merchant.username %> has no orders yet.
     </p>
-  <% else %>
+    <% else %>
 
     <table>
       <tr>
         <th>
           Order
+        </th>
+        <th>
+          Order Status
         </th>
         <th>
           Product
@@ -31,37 +102,46 @@
           Mark as Shipped
         </th>
         <th>
-          Status
+          Cancel
         </th>
       </tr>
 
-
       <% @orders_and_items.each do |order, order_items| %>
-        <tr>
-          <td rowspan="<%= order_items.length %>" >
-            <%= link_to order, order_path(order) %>
-          </td>
+      <tr>
+        <td rowspan="<%= order_items.length %>" >
+          <%= link_to order, order_path(order) %>
+        </td>
+        <td rowspan="<%= order_items.length %>" >
+          <%= Order.find(order).status %>
+        </td>
+
         <% order_items.each do |order_item| %>
-            <td>
-              <%= link_to order_item.product.name, product_path(order_item.product) %>
-            </td>
-            <td>
-              <%= order_item.quantity %>
-            </td>
-            <td>
-              "placeholder subtotal"
-            </td>
-            <td>
-              "placeholder date"
-            </td>
-            <td>
-              "ship"
-            </td>
-            <td>
-              <%= Order.find_by(id: order).status %>
-            </td>
-          </tr>
-        <% end %>
+        <td>
+          <%= link_to order_item.product.name, product_path(order_item.product) %>
+        </td>
+        <td>
+          <%= order_item.quantity %>
+        </td>
+        <td>
+          <%= order_item.subtotal %>
+        </td>
+        <td>
+          <%= readable_date(order_item.order.updated_at) %>
+        </td>
+        <td>
+          <% if order_item.status == "pending" %>
+            <%= link_to "Ship", ship_path(order_item), method: :patch %>
+          <% else %>
+            <%= order_item.status.capitalize %>
+          <% end %>
+        </td>
+        <td>
+          <% if order_item.status == "pending" %>
+            <%= link_to "Cancel" %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
 
       <% end %>
 
@@ -69,13 +149,15 @@
 
     <% @orders_and_items.each do |order, order_items| %>
 
-      <table>
-        <tr>
+    <table>
+      <tr>
 
-        </tr>
-      </table>
+      </tr>
+    </table>
 
     <% end %>
 
-  <% end %>
+    <% end %>
+
+  </section>
 <% end %>
