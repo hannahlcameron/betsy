@@ -28,10 +28,23 @@ describe OrdersController do
 
   describe "show" do
 
-    it "sends success if the order exists and status is paid" do
-      order = Order.first
+    it "sends success if there is an order and status is paid" do
+      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+
+      post orderitems_path, params: {order_item: orderitem}
+
+      order = Order.find(session[:cart_id])
+      order.update_attributes(
+        cc_expiration: '234',
+        cvv: '2',
+        customer_name: '23',
+        customer_email: 'sf',
+        credit_card: 'asdf',
+        shipping_address: 'asdf',
+        billing_address: '234'
+      )
       order.status = "paid"
-      order.save
+      order.save!
       get order_path(order)
       must_respond_with :success
     end
@@ -43,11 +56,25 @@ describe OrdersController do
     end
 
     it "redirects to edit_path if order status != paid" do
-      order = Order.last
+      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+
+      post orderitems_path, params: {order_item: orderitem}
+
+      order = Order.find(session[:cart_id])
+      order.update_attributes(
+        cc_expiration: '234',
+        cvv: '2',
+        customer_name: '23',
+        customer_email: 'sf',
+        credit_card: 'asdf',
+        shipping_address: 'asdf',
+        billing_address: '234'
+      )
       order.status = "pending"
+      order.save!
 
       get order_path(order)
-      must_redirect_to edit_order_path
+      must_redirect_to edit_order_path(order.id)
 
     end
 
@@ -135,8 +162,10 @@ describe OrdersController do
 
     it "sends success if the order exists" do
       order = Order.first
-      OrderItem.create!(product_id: Product.first.id, quantity: Product.first.stock, order: order)
-      
+      orderitem_data = { product_id: Product.first.id, quantity: Product.first.stock, order_id: order.id }
+
+      post orderitems_path, params: {order_item: orderitem_data}
+
       get viewcart_path(order)
       must_respond_with :success
     end
@@ -144,7 +173,8 @@ describe OrdersController do
     it "sends not_found if the order does not exist" do
       order_id = Order.last.id + 1
       get viewcart_path(order_id)
-      must_respond_with :not_found
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
 
   end # viewcart

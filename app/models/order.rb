@@ -41,6 +41,8 @@ class Order < ApplicationRecord
     elsif !statuses.include?("pending")
       self.status = "completed"
     end
+    self.save
+    return self.status
   end # order_status
 
 end

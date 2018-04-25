@@ -65,6 +65,7 @@ class OrdersController < ApplicationController
     unless @order
       flash[:error] = 'You do not have any items in your cart'
       redirect_back(fallback_location: root_path)
+      return
     end
 
 
@@ -80,7 +81,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_params
-    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
+    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :cvv, :cc_expiration, :shipping_address, :billing_address)
   end
 
 end
