@@ -65,3 +65,43 @@ footer {
   grid-row-start: 3;
   grid-column: 1 / span 2;
 }
+
+/* reviews */
+.reviews {
+  border-top: 1px solid rgb(134, 129, 129);
+}
+
+.reviews ul {
+  list-style-type: none;
+}
+
+.existing-reviews {
+  padding-top: 5vh;
+  width: 70vw;
+}
+
+.existing-reviews > ul > li {
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
+
+.existing-reviews > ul > li:first-of-type {
+  border-bottom: 1px solid rgb(203, 203, 203);
+  border-top: 1px solid rgb(203, 203, 203);
+}
+
+.review-form {
+  width: 45vw;
+}
+
+/* product cards*/
+
+.all-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.all-products > .card {
+  margin: 5px;
+}
