@@ -1,6 +1,6 @@
-<section>
+<article>
   <%= image_tag(@product.photo_url, alt: @product.name) %>
-  <div>
+  <section>
     <h4><%= @product.name %></h4>
     <p><%= @product.price %><p>
     <p><%= @product.description %></p>
@@ -16,23 +16,38 @@
     <%# link_to "Add to cart", orderitems_path, method: :post, order_item: @product %>
 
     <%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %>
-  </div>
+  </section>
 
-  <div>
+  <section class='reviews'>
     <h4>Product Reviews</h4>
-    <% product_reviews = Review.where(product_id: @product) %>
+
+    <div class="review-form">
+      <h6>Add a new review</h6>
+      <%= form_for :review, url: reviews_path do |f| %>
+      <%= f.hidden_field :product_id, value: @product.id %>
+      <%= f.label :rating %>
+      <%= f.select :rating, (1..5).to_a %>
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+      <%= f.submit 'Submit Review' %>
+      <% end %>
+    </div>
+
+    <div class="existing-reviews">
+      <% product_reviews = Review.where(product_id: @product) %>
 
       <ul>
         <% product_reviews.each do |review| %>
-          <li>
-            <ul>
-              <li><%= review.rating %></li>
-              <li><%= review.created_at %></li>
-              <li><%= review.description %></li>
-            </ul>
-          </li>
+        <li>
+          <ul>
+            <li><%= star_rating(review.rating) %></li>
+            <li><sub>Created at: <%= readable_date(review.created_at) %></sub></li>
+            <li><%= review.description %></li>
+          </ul>
+        </li>
         <% end %>
       </ul>
-  </div>
+    </div>
+  </section>
 
-</section>
+</article>
