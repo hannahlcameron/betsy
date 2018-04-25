@@ -45,6 +45,11 @@ class OrdersController < ApplicationController
       if @order.save
         flash[:success] = "Thank you! Your order has been placed."
         @order.update(status: "paid")
+
+        @order.order_items.each do |item|
+          item.product.stock_decrement(item.quantity)
+        end
+
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."

@@ -12,7 +12,7 @@ class Product < ApplicationRecord
 
   scope :by_category, -> (category_name) { where(retired: false).joins(:categories).merge(Category.where(name: category_name)) }
 
-  def stock_decriment(quantity)
+  def stock_decrement(quantity)
     stock = self.stock - quantity
     return stock
   end

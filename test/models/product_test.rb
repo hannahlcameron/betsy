@@ -171,8 +171,11 @@ describe Product do
           product.categories.must_include category
         end
       end
-
-
     end
   end
+
+  describe 'stock_decrement' do
+    it ''
+  end
+
 end
