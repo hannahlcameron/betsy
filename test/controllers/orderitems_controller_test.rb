@@ -18,7 +18,7 @@ describe OrderitemsController do
 
       old_oi_count = OrderItem.count
 
-      OrderItem.new(oi_data).wont_be :valid?
+      OrderItem.new(oi_data).must_be :valid?
 
       post orderitems_path, params: {order_item: oi_data}
 

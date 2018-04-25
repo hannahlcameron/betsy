@@ -5,7 +5,6 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
-    @orderitem.assign_attributes(status: "pending")
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
