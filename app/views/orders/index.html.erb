@@ -112,7 +112,7 @@
           <%= link_to order, order_path(order) %>
         </td>
         <td rowspan="<%= order_items.length %>" >
-          <%= Order.find(order).status %>
+          <%= Order.find(order).order_status.capitalize %>
         </td>
 
         <% order_items.each do |order_item| %>
