@@ -135,6 +135,8 @@ describe OrdersController do
 
     it "sends success if the order exists" do
       order = Order.first
+      OrderItem.create!(product_id: Product.first.id, quantity: Product.first.stock, order: order)
+      
       get viewcart_path(order)
       must_respond_with :success
     end
