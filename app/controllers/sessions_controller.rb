@@ -5,35 +5,22 @@ class SessionsController < ApplicationController
 
     if auth_hash['uid']
 
-      @merchant = Merchant.find_by(uid: auth_hash[:uid], provider: auth_hash[:provider])
+      merchant = Merchant.get_user(auth_hash)
 
-      if @merchant.nil?
-
-        @merchant = Merchant.new(
-          username: auth_hash['info']['name'],
-          email: auth_hash['info']['email'],
-          uid: auth_hash['uid'],
-          provider: auth_hash['provider']
-        )
-
-        if @merchant.save
-          session[:merchant_id] = @merchant.id
-          flash[:success] = "Created new merchant and logged in successfully"
-        else
-          flash[:error] = "Could not log in because merchant failed validations"
-          redirect_to root_path
-        end
-
-      else
-        session[:merchant_id] = @merchant.id
-        flash[:success] = "Logged in as existing merchant #{@merchant.username} successfully"
+      if merchant.nil?
+        flash[:error] = "Could not log in because merchant failed validations"
+        puts "I'm getting here"
+        redirect_to root_path
+        return
       end
-
+      session[:merchant_id] = merchant.id
+      flash[:success] = 'Successfully logged in'
       redirect_to orders_path
+      return
     else
-      flash[:error] = "Authentication failed. Could not log in."
-      redirect_to root_path
+      flash[:error] = 'Could not log in'
     end
+    redirect_to root_path
   end
 
   def destroy
