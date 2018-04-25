@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :edit, :update, :viewcart]
+  before_action :order_params, only: [:show, :edit, :update]
 
   def index
     if session[:merchant_id]
@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
       flash[:failure] = "Oops! You need to checkout first!"
       redirect_to edit_order_path(@order)
     end
+    session[:cart_id] = nil
   end
 
 
@@ -41,14 +42,15 @@ class OrdersController < ApplicationController
     @order.assign_attributes(customer_params)
 
     if @order.order_items.count > 0
-      @order.assign_attributes(status: "paid")
 
       if @order.save
         flash[:success] = "Thank you! Your order has been placed."
+        @order.update(status: "paid")
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
-        redirect_to order_path(@order)
+        raise
+        render :edit, status: :bad_request
       end
 
     else
@@ -58,19 +60,27 @@ class OrdersController < ApplicationController
 
   end
 
-  def viewcart; end
+  def viewcart
+    @order = Order.find_by(id: session[:cart_id])
+    unless @order
+      flash[:error] = 'You do not have any items in your cart'
+      redirect_back(fallback_location: root_path)
+    end
+
+
+  end
   #
   # def destroy
   # end
 
   private
   def order_params
-    @order = Order.find_by(id: params[:id])
+    @order = Order.find_by(id: session[:cart_id])
     head :not_found unless @order
   end
 
   def customer_params
-    return params.permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
+    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
   end
 
 end

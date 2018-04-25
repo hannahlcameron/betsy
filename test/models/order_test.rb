@@ -11,8 +11,9 @@ describe Order do
       end
 
       it 'is valid with multiple order items' do
-        order = Order.first
-        new_order_item = OrderItem.create(quantity: 1, product: Product.last, order: order)
+        order = Order.create!
+        OrderItem.create!(quantity: 1, product: Product.last, order: order, status: 'pending')
+        OrderItem.create!(quantity: 1, product: Product.first, order: order, status: 'pending')
         order.order_items.count.must_be :>, 1
         order.valid?.must_equal true
       end

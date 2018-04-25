@@ -50,10 +50,15 @@ header {
   box-shadow: 0 2px 2px 0;
 }
 
-.login {
-  float: right;
+.right {
+  display: flex;
 }
 
+.login {
+  padding-right: 2vw;
+  margin-right: 2vw;
+  border-right: 1px solid rgb(168, 168, 168);
+}
 main {
   grid-row: 2 / span 1;
   grid-column: 2 / span 1;
@@ -64,4 +69,44 @@ main {
 footer {
   grid-row-start: 3;
   grid-column: 1 / span 2;
+}
+
+/* reviews */
+.reviews {
+  border-top: 1px solid rgb(134, 129, 129);
+}
+
+.reviews ul {
+  list-style-type: none;
+}
+
+.existing-reviews {
+  padding-top: 5vh;
+  width: 70vw;
+}
+
+.existing-reviews > ul > li {
+  border-bottom: 1px solid rgb(203, 203, 203);
+}
+
+.existing-reviews > ul > li:first-of-type {
+  border-bottom: 1px solid rgb(203, 203, 203);
+  border-top: 1px solid rgb(203, 203, 203);
+}
+
+.review-form {
+  width: 45vw;
+}
+
+/* product cards*/
+
+.all-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.all-products > .card {
+  margin: 5px;
 }

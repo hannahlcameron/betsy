@@ -24,11 +24,16 @@
           <% end %>
         </div>
         <div class="right">
-          <% if @logged_merchant %>
+          <div class="login">
+            <% if @logged_merchant %>
             Logged in as: <%= @logged_merchant.username %>
-            <%= link_to "Log Out", logout_path, method: :delete %>
-          <% else %>
-            <%= link_to "Log in with Google", '/auth/google_oauth2' %>
+              <%= link_to "Log Out", logout_path, method: :delete %>
+            <% else %>
+              <%= link_to "Log in with Google", '/auth/google_oauth2' %>
+            <% end %>
+          </div>
+          <% if session[:cart_id] %>
+            <%= link_to 'Cart', viewcart_path(session[:cart_id]) %>
           <% end %>
         </div>
       </nav>
