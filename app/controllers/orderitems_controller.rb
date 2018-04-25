@@ -5,6 +5,7 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
+    @orderitem.order = @order
     @orderitem.assign_attributes(status: "pending")
 
 
