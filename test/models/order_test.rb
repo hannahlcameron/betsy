@@ -26,6 +26,9 @@ describe Order do
 
     end # validations before changing status
 
+  end # validations
+
+  describe 'business logic' do
     describe 'order_total' do
       before do
         @order = Order.new
@@ -49,7 +52,49 @@ describe Order do
 
         total.must_equal OrderItem.first.product.price + OrderItem.last.product.price
       end
-    end
+    end # order_total
 
-  end # validations
+    describe 'order_status' do
+
+      describe 'determines the status of an order based on the status of its order items' do
+        before do
+          @order = Order.create
+          @order_item_one = OrderItem.create(product_id: Product.first.id, order_id: @order.id, quantity: 1, status: "pending")
+          @order_item_two = OrderItem.create(product_id: Product.last.id, order_id: @order.id, quantity: 1, status: "pending")
+          @order.assign_attributes(customer_name: "Bob Belcher", customer_email: "burgers_rule@gmail.com", credit_card: "123456789abcdef0", cvv: "789", cc_expiration: "11/18", shipping_address: "345 Main St., Seattle, WA 54321", billing_address: "54321", status: "paid")
+          @order.save
+          @order.status.must_equal "paid"
+
+          @order_item_one.update(status: "shipped")
+          @order.status.must_equal "paid"
+          @order_item_two.update(status: "cancelled")
+
+        end
+
+        it "has a paid status until none of the order items have a pending status" do
+          @order.reload
+          @order.order_status
+          @order.status.must_equal "completed"
+        end
+
+        it "has a cancelled status only if all order_items are cancelled" do
+          @order.reload
+          @order.order_status
+          @order.status.must_equal "completed"
+
+          @order_item_one.update(status: "cancelled")
+
+          @order.reload
+
+          @order.order_status
+          @order.status.must_equal "cancelled"
+
+        end
+
+      end
+
+    end # order_status
+
+  end # business logic
+
 end # Order
