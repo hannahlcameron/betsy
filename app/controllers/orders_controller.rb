@@ -51,6 +51,7 @@ class OrdersController < ApplicationController
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
+        raise
         render :edit, status: :bad_request
       end
     else
@@ -74,7 +75,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_params
-    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
+    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :cvv, :cc_expiration, :shipping_address, :billing_address)
   end
 
 end
