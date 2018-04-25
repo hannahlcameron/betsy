@@ -1,5 +1,7 @@
 <% if @merchant %>
 
+  <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
+  <p>
   <%= link_to 'Products', merchant_products_path(@merchant) %>
   <h3>Orders Overview</h3>
   <section>

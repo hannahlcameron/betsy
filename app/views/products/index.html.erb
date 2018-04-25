@@ -1,20 +1,18 @@
-<% if @logged_merchant %>
-  <h3>Your Products</h3>
-
-  <%= link_to 'Add a new product', new_merchant_product_path(@logged_merchant) %>
+<% if @category %>
+  <h3><%= @category.name.capitalize %></h3>
 <% end %>
 
 <section class='all-products'>
   <% @products.each do |product| %>
   <div class="card" style="width: 300px;">
     <div class="card-image">
-      <%= image_tag 'http://s.newsweek.com/sites/www.newsweek.com/files/styles/lg/public/2017/02/20/kamalakhan220.jpg', alt: 'Ms Marvel, Kamala Khan', width: 350, height: 350 %>
+      <%= link_to image_tag(product.photo_url, alt: product.name, width: 350, height: 350), product_path(product.id) %>
     </div>
     <div class="card-content">
       <div class="content">
         <h5>
-          <%= product.name %>
-          <small> by <%= product.merchant.username %> </small>
+          <%= link_to product.name, product_path(product.id) %>
+          <small> by <%= link_to product.merchant.username, merchant_path(product.merchant_id)%> </small>
         </h5>
 
       </div>

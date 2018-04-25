@@ -5,15 +5,11 @@ class ProductsController < ApplicationController
   # before_action :require_login, except: [:index]
 
   def index
-    if session[:merchant_id]
-      @products = Product.where(merchant_id: session[:merchant_id])
+    @category = Category.find_by(name: params[:category])
+    if @category
+      @products = Product.by_category(@category.name).where(retired: false)
     else
-      category = Category.find_by(name: params[:category])
-      if category
-        @products = Product.by_category(category.name)
-      else
-        @products = Product.where(retired: false)
-      end
+      @products = Product.where(retired: false)
     end
   end
 
@@ -24,10 +20,13 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    if @product.photo_url.nil?
+      @product.photo_url = "http://www.equistaff.com/Images/noimageavailable.gif"
+    end
 
     if @product.save
       flash[:success] = 'Successfully added product'
-      redirect_to merchant_products_path
+      redirect_to merchant_products_path(@product.merchant_id, @product.id)
     else
       flash.now[:failure] = 'Product not created'
       render :new, status: :bad_request
@@ -40,10 +39,13 @@ class ProductsController < ApplicationController
 
   def update
     @product.assign_attributes(product_params)
+    if @product.photo_url.nil?
+      @product.photo_url = "http://www.equistaff.com/Images/noimageavailable.gif"
+    end
 
     if @product.save
       flash[:succes] = "Successfully updated product #{@product.id}"
-      redirect_to merchant_products_path
+      redirect_to merchant_products_path(@product.merchant_id, @product.id)
     else
       flash.now[:failure] = 'Product not updated'
       render :edit, status: :bad_request

@@ -102,7 +102,7 @@ describe ProductsController do
 
         post merchant_products_path(merchant.id), params: { product: product_data }
 
-        must_redirect_to merchant_products_path(merchant.id)
+        must_redirect_to merchant_products_path(merchant.id, Product.last.id)
         Product.count.must_equal old_product_count + 1
       end
 
@@ -115,6 +115,13 @@ describe ProductsController do
 
         must_respond_with :bad_request
         Product.count.must_equal old_product_count
+      end
+
+      it 'adds a default photo if none is given' do
+        post merchant_products_path(merchant.id), params: { product: product_data }
+
+        must_respond_with :redirect
+        Product.last.photo_url.must_equal "http://www.equistaff.com/Images/noimageavailable.gif"
       end
     end
 
@@ -144,7 +151,7 @@ describe ProductsController do
         patch merchant_product_path(merchant.id, product.id), params: { product: product_data }
         product.reload
 
-        must_redirect_to merchant_products_path
+        must_redirect_to merchant_products_path(merchant.id, product.id)
         Product.count.must_equal old_product_count
 
         product.stock.must_equal (old_product_stock - 1)
@@ -168,6 +175,23 @@ describe ProductsController do
         Product.count.must_equal old_product_count
 
         product.stock.must_equal old_product_stock
+      end
+
+      it 'adds a default photo if none is given' do
+        product = merchant.products.first
+        product_data = {
+          product_id: product.id,
+          photo_url: nil,
+          merchant_id: product.merchant_id,
+          stock: 2,
+          price: 2.99
+        }
+
+        patch merchant_product_path(merchant.id, product.id), params: { product: product_data }
+
+        must_respond_with :redirect
+        product.reload
+        product.photo_url.must_equal "http://www.equistaff.com/Images/noimageavailable.gif"
       end
     end
 

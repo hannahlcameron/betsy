@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :order_params, only: [:show, :update, :viewcart]
+  before_action :order_params, only: [:show, :edit, :update, :viewcart]
 
   def index
     if session[:merchant_id]
@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
       redirect_to edit_order_path(@order)
     end
   end
-  
+
 
   def create
     order = Order.new(status: "pending")
@@ -35,9 +35,8 @@ class OrdersController < ApplicationController
   #
   # non-restful view action for editing order_item quantities
   # put customer info form here and edit quantities
-  # def edit
-  # end
-  #
+  def edit; end
+
   def update
     @order.assign_attributes(customer_params)
 

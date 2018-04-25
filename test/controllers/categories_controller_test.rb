@@ -21,7 +21,7 @@ describe CategoriesController do
 
       post categories_path, params: {name: nil}
 
-      must_redirect_to merchant_products_path(merchant.id)
+      must_respond_with :redirect
       Category.count.must_equal old_category_count
     end
 
