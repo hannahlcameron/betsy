@@ -46,9 +46,7 @@ class OrdersController < ApplicationController
         flash[:success] = "Thank you! Your order has been placed."
         @order.update(status: "paid")
 
-        @order.order_items.each do |item|
-          item.product.stock_decrement(item.quantity)
-        end
+        @order.reduce_stock
 
         redirect_to order_path(@order)
       else

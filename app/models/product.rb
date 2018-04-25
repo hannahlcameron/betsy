@@ -14,7 +14,7 @@ class Product < ApplicationRecord
 
   def stock_decrement(quantity)
     stock = self.stock - quantity
-    return stock
+    self.update(stock: stock)
   end
 
 end

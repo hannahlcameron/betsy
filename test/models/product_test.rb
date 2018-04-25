@@ -175,7 +175,16 @@ describe Product do
   end
 
   describe 'stock_decrement' do
-    it ''
+    it 'decreases product stock by the amount ordered' do
+      product = Product.first
+      product.stock = 5
+      product.save
+
+      product.stock_decrement(3)
+      product.reload
+
+      product.stock.must_equal 2      
+    end
   end
 
 end
