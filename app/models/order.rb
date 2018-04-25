@@ -1,3 +1,5 @@
+require 'pry'
+
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
@@ -20,6 +22,7 @@ class Order < ApplicationRecord
     end
     return true
   end
+
   def order_total
     total = 0
     purchased_items = self.order_items.where(order_id: self)
@@ -28,4 +31,16 @@ class Order < ApplicationRecord
     end
     return total
   end
+
+  def order_status
+    statuses = self.order_items.map do |item|
+      item.status
+    end
+    if !statuses.include?("pending")
+      self.status = "completed"
+    elsif false
+
+    end
+  end # order_status
+
 end
