@@ -78,6 +78,7 @@ describe Order do
 
         it "has a cancelled status only if all order_items are cancelled" do
           @order.reload
+          @order.order_status
           @order.status.must_equal "completed"
 
           @order_item_one.update(status: "cancelled")
