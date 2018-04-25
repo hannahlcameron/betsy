@@ -5,7 +5,7 @@ class OrderitemsController < ApplicationController
 
   def create
     @orderitem = OrderItem.new(order_item_params)
-    @orderitem.order = @order
+    @orderitem.order_id = session[:cart_id]
     @orderitem.assign_attributes(status: "pending")
 
 
@@ -14,7 +14,6 @@ class OrderitemsController < ApplicationController
       redirect_to product_path(@orderitem.product_id)
       # redirect_back(fallback_location: root_path)
     else
-      raise
       flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
       render "products/show", status: :bad_request
     end
