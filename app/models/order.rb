@@ -20,6 +20,7 @@ class Order < ApplicationRecord
     end
     return true
   end
+
   def order_total
     total = 0
     purchased_items = self.order_items.where(order_id: self)
@@ -29,9 +30,21 @@ class Order < ApplicationRecord
     return total
   end
 
+  def order_status
+    statuses = self.order_items.map do |item|
+      item.status
+    end
+    if statuses.uniq.size <= 1 && statuses.uniq.first == "cancelled"
+      self.status = "cancelled"
+    elsif !statuses.include?("pending")
+      self.status = "completed"
+    end
+  end # order_status
+
   def reduce_stock
     self.order_items.each do |item|
       item.product.stock_decrement(item.quantity)
     end
   end
+
 end

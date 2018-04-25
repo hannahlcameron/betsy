@@ -1,13 +1,11 @@
 class OrderitemsController < ApplicationController
-  before_action :find_order_item, only: [:update, :destroy, :ship]
+  before_action :find_order_item, only: [:update, :destroy, :ship, :cancel]
   before_action :order_exists?, only: [:create]
 
 
   def create
     @orderitem = OrderItem.new(order_item_params)
     @orderitem.order_id = session[:cart_id]
-    @orderitem.assign_attributes(status: "pending")
-
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
@@ -43,6 +41,16 @@ class OrderitemsController < ApplicationController
       flash[:success] = "You have shipped #{@orderitem.product.name} for order #{@orderitem.order.id}."
     else
       flash[:failure] = "Could not ship item."
+    end
+    redirect_to orders_path
+  end
+
+  def cancel
+    @orderitem.assign_attributes(status: "cancelled")
+    if @orderitem.save
+      flash[:success] = "You have cancelled #{@orderitem.product.name} for order #{@orderitem.order.id}."
+    else
+      flash[:failure] = "Could not cancel item."
     end
     redirect_to orders_path
   end
