@@ -32,7 +32,7 @@ class OrderitemsController < ApplicationController
   def destroy
     @orderitem.destroy
 
-    redirect_to "order/show"
+    redirect_to "/order/show"
   end
 
   def ship
