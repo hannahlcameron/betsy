@@ -40,14 +40,13 @@ class Order < ApplicationRecord
       self.status = "pending"
     elsif statuses.uniq.size <= 1 && statuses.uniq.first == "cancelled"
       self.status = "cancelled"
-      # return "cancelled"
     elsif !statuses.include?("pending")
       self.status = "completed"
-      # return "completed"
     else
       self.status = "paid"
     end
     self.save
+    self.reload
     return self.status
   end # order_status
 
