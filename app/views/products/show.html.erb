@@ -31,21 +31,23 @@
       <% end %>
     </div>
 
-    <div class="existing-reviews">
-      <% product_reviews = Review.where(product_id: @product) %>
+    <% unless @logged_merchant.id == @product.merchant_id %>
+      <div class="existing-reviews">
+        <% product_reviews = Review.where(product_id: @product) %>
 
-      <ul>
-        <% product_reviews.each do |review| %>
-        <li>
-          <ul>
-            <li><%= star_rating(review.rating) %></li>
-            <li><sub>Created at: <%= readable_date(review.created_at) %></sub></li>
-            <li><%= review.description %></li>
-          </ul>
-        </li>
-        <% end %>
-      </ul>
-    </div>
+        <ul>
+          <% product_reviews.each do |review| %>
+          <li>
+            <ul>
+              <li><%= star_rating(review.rating) %></li>
+              <li><sub>Created at: <%= readable_date(review.created_at) %></sub></li>
+              <li><%= review.description %></li>
+            </ul>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   </section>
 
 </article>

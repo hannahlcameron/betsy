@@ -67,7 +67,7 @@ describe Category do
 
         falses = []
         categories.length.times do |i|
-          falses << false unless categories[i] < categories[i + 1]
+          falses << false unless categories[i].name < categories[i + 1].name
         end
         falses.empty?.must_equal true
 
