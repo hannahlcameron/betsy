@@ -33,16 +33,16 @@
           --
         </td>
         <td>
-          <%= @merchant.total_revenue_by("paid") %>
+          <%= number_to_currency(@merchant.total_revenue_by("paid")) %>
         </td>
         <td>
-          <%= @merchant.total_revenue_by("completed") %>
+          <%= number_to_currency(@merchant.total_revenue_by("completed")) %>
         </td>
         <td>
           --
         </td>
         <td>
-          <%= @merchant.total_revenue_by("all") %>
+          <%= number_to_currency(@merchant.total_revenue_by("all")) %>
         </td>
       </tr>
       <tr>
@@ -136,7 +136,7 @@
           <%= order_item.quantity %>
         </td>
         <td>
-          <%= order_item.subtotal %>
+          <%= number_to_currency(order_item.subtotal) %>
         </td>
         <td>
           <% date = order_item.order.placed_on %>
