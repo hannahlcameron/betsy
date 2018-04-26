@@ -5,8 +5,8 @@ class OrdersController < ApplicationController
   def index
     if session[:merchant_id]
       @merchant = Merchant.find(session[:merchant_id])
-      if params[:search]
-        @orders_and_items = @merchant.merchant_order_items(params[:search])
+      if params[:order_status_filter]
+        @orders_and_items = @merchant.merchant_order_items(params[:order_status_filter])
       else
         @orders_and_items = @merchant.merchant_order_items("all")
       end

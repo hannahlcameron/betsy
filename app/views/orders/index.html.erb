@@ -74,11 +74,11 @@
 
   <section>
     <%= form_tag orders_path, method: :get do %>
-      <%= select_tag :search, options_for_select(['all', 'paid', 'pending', 'completed', 'cancelled'], params[:search]) %>
+      <%= select_tag :order_status_filter, options_for_select(['all', 'paid', 'pending', 'completed', 'cancelled'], params[:order_status_filter]) %>
       <%= submit_tag "Search" %>
     <% end %>
-    <% if params[:search] %>
-      <h4><%= params[:search].capitalize %> orders:</h4>
+    <% if params[:order_status_filter] %>
+      <h4><%= params[:order_status_filter].capitalize %> orders:</h4>
     <% else %>
       <h4>All orders:</h4>
     <% end %>
@@ -87,7 +87,7 @@
   <section>
     <% if @orders_and_items.empty? %>
     <p>
-      <%= @merchant.username %> has no <%= params[:search] %> orders yet.
+      <%= @merchant.username %> has no <%= params[:order_status_filter] %> orders yet.
     </p>
     <% else %>
 
