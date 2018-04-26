@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
 
       if @order.save
         flash[:success] = "Thank you! Your order has been placed."
-        @order.update(status: "paid")
+        @order.update(status: "paid", placed_on: Date.today)
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."

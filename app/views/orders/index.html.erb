@@ -139,7 +139,8 @@
           <%= order_item.subtotal %>
         </td>
         <td>
-          <%= readable_date(order_item.order.updated_at) %>
+          <% date = order_item.order.placed_on %>
+          <%= readable_date(date) unless date.nil? %>
         </td>
         <td>
           <% if order_item.status == "pending" %>
