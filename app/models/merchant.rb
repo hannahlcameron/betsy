@@ -42,7 +42,12 @@ class Merchant < ApplicationRecord
     total_revenue = 0.00
     orders_and_items.each do |order, order_items|
       order_items.each do |order_item|
-        if Order.find(order).status == status || status == "all"
+        order_status = Order.find(order).status
+        if status == "all"
+          if order_status == "paid" || order_status == "completed"
+            total_revenue += order_item.subtotal
+          end
+        elsif order_status == status
           total_revenue += order_item.subtotal
         end
       end
