@@ -11,9 +11,9 @@ batarang:
   price: 40.00
   description: The only weapon you'll ever need.
   merchant: merchant_one
-  categories:
-    - memorabilia
-    - awesome
+  # categories:
+  #   - memorabilia
+  #   - awesome
   photo_url: http://www.equistaff.com/Images/noimageavailable.gif
 
 lasso:
@@ -22,9 +22,9 @@ lasso:
   price: 234.99
   description: Lasso
   merchant: merchant_one
-  categories:
-      - memorabilia
-      - awesome
+  # categories:
+  #     - memorabilia
+  #     - awesome
   photo_url: http://www.equistaff.com/Images/noimageavailable.gif
 
 

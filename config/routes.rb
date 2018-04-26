@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   patch '/order_items/:id/cancel', to: 'orderitems#cancel', as: 'cancel'
   patch '/order_items/:id/ship', to: 'orderitems#ship', as: 'ship'
 
+  get '/search', to: 'products#index', as: 'search'
 end

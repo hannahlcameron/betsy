@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "SuperMarket" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css"> -->
@@ -14,29 +14,35 @@
 
   <body>
     <header>
-      <nav class="top-bar" data-topbar role="navigation">
-        <div class="left">
-          <%= link_to 'Home', root_path, class: 'navbar-item' %>
-          <%= link_to 'All Products', products_path, class: 'navbar-item' %>
-          <%= link_to 'All Merchants', merchants_path, class: 'navbar-item' %>
-          <% if session[:merchant_id] %>
-          <%= link_to 'Dashboard', orders_path, class: 'navbar-item' %>
-          <% end %>
-        </div>
-        <div class="right">
-          <div class="login">
-            <% if @logged_merchant %>
-            Logged in as: <%= @logged_merchant.username %>
-              <%= link_to "Log Out", logout_path, method: :delete %>
-            <% else %>
-              <%= link_to "Log in with Google", '/auth/google_oauth2' %>
+      <div class="sticky">
+        <nav class="top-bar" data-topbar role="navigation">
+          <div class="left">
+            <%= link_to 'Home', root_path, class: 'navbar-item' %>
+            <%= link_to 'All Products', products_path, class: 'navbar-item' %>
+            <%= link_to 'All Merchants', merchants_path, class: 'navbar-item' %>
+            <% if session[:merchant_id] %>
+            <%= link_to 'Dashboard', orders_path, class: 'navbar-item' %>
             <% end %>
           </div>
-          <% if session[:cart_id] %>
+          <div class="right">
+            <%= form_tag search_path, class: 'form-inline', method: :get do %>
+            <%= text_field_tag :search, params[:search], class: 'search-bar', placeholder: 'Search...'%>
+            <%= submit_tag :search, class: 'search-bar-button'%>
+            <% end %>
+            <div class="login">
+              <% if @logged_merchant %>
+              Logged in as: <%= @logged_merchant.username %>
+              <%= link_to "Log Out", logout_path, method: :delete %>
+              <% else %>
+              <%= link_to "Log in with Google", '/auth/google_oauth2' %>
+              <% end %>
+            </div>
+            <% if session[:cart_id] %>
             <%= link_to 'Cart', viewcart_path(session[:cart_id]) %>
-          <% end %>
-        </div>
-      </nav>
+            <% end %>
+          </div>
+        </nav>
+      </div>
     </header>
 
 

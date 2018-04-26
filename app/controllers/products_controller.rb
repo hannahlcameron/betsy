@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
     @category = Category.find_by(name: params[:category])
     if @category
       @products = Product.by_category(@category.name).where(retired: false)
+    elsif params[:search]
+      @products = Product.find_search(params[:search])
     else
       @products = Product.where(retired: false)
     end
@@ -44,7 +46,7 @@ class ProductsController < ApplicationController
     end
 
     if @product.save
-      flash[:succes] = "Successfully updated product #{@product.id}"
+      flash[:success] = "Successfully updated product #{@product.id}"
       redirect_to merchant_products_path(@product.merchant_id, @product.id)
     else
       flash.now[:failure] = 'Product not updated'
@@ -70,7 +72,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    return params.require(:product).permit(:name, :merchant_id, :stock, :price, :description)
+    return params.require(:product).permit(:name, :merchant_id, :stock, :price, :description, :photo_url, :category_ids => [])
   end
 
   def find_product
