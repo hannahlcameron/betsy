@@ -17,4 +17,8 @@ class Product < ApplicationRecord
     self.update(stock: stock)
   end
 
+  def self.find_search(query)
+    return Product.where('name ILIKE ? OR description ILIKE ?', '%' + query + '%', '%' + query + '%')
+  end
+
 end

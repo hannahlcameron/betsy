@@ -7,7 +7,7 @@
     <% end %>
   <% end %>
 <% end %>
-<% if @category %>  
+<% if @category %>
   <% if @category.errors.any? %>
     <%= @category.errors.messages.each do |column, message| %>
       <%= column %>: <%= message %>
@@ -21,7 +21,7 @@
   <%= button_tag 'Add', class: 'button small' %>
 <% end %>
 
-<%= form_for @product, url: merchant_products_path do |f| %>
+<%= form_for @product, url: url do |f| %>
   <%= f.hidden_field :merchant_id, value: @logged_merchant.id %>
   <%= f.label :name, 'Product Name' %>
   <%= f.text_field :name %>

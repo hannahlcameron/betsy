@@ -44,7 +44,7 @@ class ProductsController < ApplicationController
     end
 
     if @product.save
-      flash[:succes] = "Successfully updated product #{@product.id}"
+      flash[:success] = "Successfully updated product #{@product.id}"
       redirect_to merchant_products_path(@product.merchant_id, @product.id)
     else
       flash.now[:failure] = 'Product not updated'
@@ -70,7 +70,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    return params.require(:product).permit(:name, :merchant_id, :stock, :price, :description)
+    return params.require(:product).permit(:name, :merchant_id, :stock, :price, :description, :photo_url, :category_ids => [])
   end
 
   def find_product
