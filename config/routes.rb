@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :merchants, except: [:new, :create] do
     resources :orders, only: [:index]
-    resources :products, except: [:show]
+    resources :products, except: [:show, :index]
     get '/manage_products', to: 'merchants#manage_products', as: 'manage_products'
   end
 
