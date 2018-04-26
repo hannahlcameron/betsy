@@ -47,6 +47,7 @@ class Order < ApplicationRecord
     else
       self.status = "paid"
     end
+    self.save
     return self.status
   end # order_status
 
