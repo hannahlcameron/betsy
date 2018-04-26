@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "SuperMarket" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css"> -->
@@ -26,7 +26,7 @@
         <div class="right">
           <%= form_tag search_path, class: 'form-inline', method: :get do %>
             <%= text_field_tag :search, params[:search], class: 'search-bar', placeholder: 'Search...'%>
-            <%= submit_tag :search, class: 'search-bar'%>
+            <%= submit_tag :search, class: 'search-bar-button'%>
           <% end %>
           <div class="login">
             <% if @logged_merchant %>
