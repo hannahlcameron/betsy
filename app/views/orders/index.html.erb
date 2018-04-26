@@ -122,7 +122,7 @@
           <%= order_item.quantity %>
         </td>
         <td>
-          <%= order_item.subtotal %>
+          <%= number_to_currency(order_item.subtotal) %>
         </td>
         <td>
           <%= readable_date(order_item.order.updated_at) %>

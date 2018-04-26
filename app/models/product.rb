@@ -16,5 +16,4 @@ class Product < ApplicationRecord
     stock = self.stock - quantity
     self.update(stock: stock)
   end
-
 end
