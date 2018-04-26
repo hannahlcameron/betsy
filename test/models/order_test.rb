@@ -100,8 +100,6 @@ describe Order do
 
   end # business logic
 
-  end # validations
-
   describe 'reduce_stock' do
     it 'reduces the stock for all items by expected amount' do
       order = Order.new
