@@ -43,4 +43,10 @@ class Order < ApplicationRecord
     return self.status
   end # order_status
 
+  def reduce_stock
+    self.order_items.each do |item|
+      item.product.stock_decrement(item.quantity)
+    end
+  end
+
 end

@@ -42,21 +42,21 @@ class OrdersController < ApplicationController
     @order.assign_attributes(customer_params)
 
     if @order.order_items.count > 0
-
       if @order.save
         flash[:success] = "Thank you! Your order has been placed."
         @order.update(status: "paid")
+
+        @order.reduce_stock
+
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
         render :edit, status: :bad_request
       end
-
     else
       flash[:failure] = "There are no items to check out"
       redirect_back(fallback_location: root_path)
     end
-
   end
 
   def viewcart
@@ -66,12 +66,7 @@ class OrdersController < ApplicationController
       redirect_back(fallback_location: root_path)
       return
     end
-
-
   end
-  #
-  # def destroy
-  # end
 
   private
   def order_params
