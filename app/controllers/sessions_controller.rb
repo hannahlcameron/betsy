@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
 
       if merchant.nil?
         flash[:error] = "Could not log in because merchant failed validations"
-        puts "I'm getting here"
         redirect_to root_path
         return
       end
