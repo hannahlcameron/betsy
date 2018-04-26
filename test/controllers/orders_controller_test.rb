@@ -99,7 +99,8 @@ describe OrdersController do
   describe "update" do
 
     it "incorporates complete customer information and changes status to paid" do
-      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+      product = Product.first
+      orderitem = {product_id: product.id, quantity: product.stock}
       post orderitems_path, params: {order_item: orderitem}
 
       order_id = OrderItem.last.id
