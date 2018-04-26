@@ -24,6 +24,8 @@ class ProductsController < ApplicationController
       @product.photo_url = "http://www.equistaff.com/Images/noimageavailable.gif"
     end
 
+    @product.price = @product.price.two_digits(@product.price)
+
     if @product.save
       flash[:success] = 'Successfully added product'
       redirect_to merchant_products_path(@product.merchant_id, @product.id)

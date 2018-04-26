@@ -17,4 +17,8 @@ class Product < ApplicationRecord
     self.update(stock: stock)
   end
 
+  def two_digits(num)
+    return num.round(2)
+  end
+
 end
