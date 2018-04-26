@@ -99,11 +99,12 @@ describe OrdersController do
   describe "update" do
 
     it "incorporates complete customer information and changes status to paid" do
-      order = Order.create(status: "pending")
+      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+      post orderitems_path, params: {order_item: orderitem}
 
-      order_item = OrderItem.create(quantity: 1, product: Product.first, order: order)
+      order_id = OrderItem.last.id
 
-      patch order_path(order), params: {
+      order_data = {
         customer_name: "Barry Allen",
         customer_email: "run@nike.com",
         credit_card: "1123581321345589",
@@ -112,16 +113,24 @@ describe OrdersController do
         shipping_address: "200 Washington St., Central City, NJ, 23456",
         billing_address: "23456"
       }
+      patch order_path(order_id), params: {order: order_data}
 
-      must_redirect_to order_path(order)
+      must_redirect_to order_path(order_id)
 
       Order.last.status.must_equal "paid"
     end
 
     it "does not allow the transaction to go through if there are no items in the cart" do
-      order = Order.create(status: "pending")
+      # create an order item
+      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+      post orderitems_path, params: {order_item: orderitem}
 
-      patch order_path(order), params: {
+      # delete the order item
+      order_id = OrderItem.last.order.id
+      delete orderitem_path(OrderItem.last.id)
+
+      # send to update the order w customer info
+      order_data = {
         customer_name: "Barry Allen",
         customer_email: "run@nike.com",
         credit_card: "1123581321345589",
@@ -130,30 +139,31 @@ describe OrdersController do
         shipping_address: "200 Washington St., Central City, NJ, 23456",
         billing_address: "23456"
       }
+      patch order_path(order_id), params: {order: order_data}
 
       must_respond_with :redirect
-
       Order.last.status.must_equal "pending"
     end
 
     it "does not allow the transaction to go through if the customer data is incomplete" do
-      order = Order.create(status: "pending")
+      # create a new order item
+      orderitem = {product_id: Product.first.id, quantity: Product.first.stock}
+      post orderitems_path, params: {order_item: orderitem}
 
-      order_item = OrderItem.create(quantity: 1, product: Product.first, order: order)
-
-      patch order_path(order), params: {
-        customer_name: "",
-        customer_email: "",
-        credit_card: "",
-        cvv: "",
-        cc_expiration: "",
-        shipping_address: "",
-        billing_address: ""
+      # update the order with missing fields
+      order_data = {
+        customer_name: "Barry Allen",
+        credit_card: "1123581321345589",
+        cvv: "890",
+        shipping_address: "200 Washington St., Central City, NJ, 23456",
+        billing_address: "23456"
       }
+      patch order_path(session[:cart_id]), params: {order: order_data}
 
       must_respond_with :bad_request
-
       Order.last.status.must_equal "pending"
+      # relating the cart/order to the order item
+      session[:cart_id].must_equal OrderItem.last.order_id
     end
 
   end # update

@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
     session[:cart_id] = nil
   end
 
-
+  # I don't think we really get here anymore
   def create
     order = Order.new(status: "pending")
 
@@ -49,7 +49,6 @@ class OrdersController < ApplicationController
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
-        raise
         render :edit, status: :bad_request
       end
 

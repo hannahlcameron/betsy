@@ -9,12 +9,12 @@ class OrderitemsController < ApplicationController
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to product_path(@orderitem.product_id)
       # redirect_back(fallback_location: root_path)
     else
-      flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
-      render "products/show", status: :bad_request
+      flash[:failure] = "Oops! Something went wrong and we couldn't add this item."
+      # render 'products/show', status: :bad_request
     end
+    redirect_to product_path(@orderitem.product_id)
   end
 
   def update
@@ -22,11 +22,11 @@ class OrderitemsController < ApplicationController
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
-      redirect_to viewcart_path
     else
-      flash.now[:failure] = "Oops! Something went wrong and we couldn't add this item."
-      render ":id/viewcart", status: :bad_request
+      flash[:failure] = "Oops! Something went wrong and we couldn't add this item."
     end
+    redirect_to viewcart_path(session[:cart_id])
+
   end
 
   def destroy
@@ -68,7 +68,7 @@ class OrderitemsController < ApplicationController
 
   def order_exists?
     unless session[:cart_id]
-      @order = Order.create
+      @order = Order.create!(status: 'pending')
       session[:cart_id] = @order.id
     end
   end

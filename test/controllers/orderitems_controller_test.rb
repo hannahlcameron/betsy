@@ -28,10 +28,10 @@ describe OrderitemsController do
 
     end
 
-    it "won't add an invalid orderitem" do
+    it "won't create an invalid orderitem" do
       oi_data = {
-        product_id: Product.first.id,
-        quantity: 1
+        product_id: Product.last.id,
+        quantity: Product.last.stock + 1
       }
 
       old_oi_count = OrderItem.count
@@ -40,41 +40,51 @@ describe OrderitemsController do
 
       post orderitems_path, params: {order_item: oi_data}
 
-      must_respond_with :bad_request
-
+      must_respond_with :redirect
       OrderItem.count.must_equal old_oi_count
     end
   end
 
   describe 'update' do
     it 'updates an existing orderitem with valid data' do
-      test_io = OrderItem.first
-      oi_data = test_io.attributes
-      oi_data[:quantity] = 2
+      orderitem = {
+        product_id: Product.first.id,
+        order_id: Order.first.id,
+        quantity: 1
+      }
+      post orderitems_path, params: {order_item: orderitem}
 
-      test_io.assign_attributes(oi_data)
+      test_io = OrderItem.last
+
+      test_io.assign_attributes(quantity: 2)
       test_io.must_be :valid?
 
-      patch orderitem_path(test_io), params: { order_item: oi_data }
+      patch orderitem_path(test_io.id), params: { order_item: {quantity: 2} }
 
-      must_redirect_to viewcart_path
-
+      must_redirect_to viewcart_path(session[:cart_id])
       test_io.reload
-      test_io.quantity.must_equal oi_data[:quantity]
+      test_io.quantity.must_equal 2
 
     end
 
-    it 'sends bad_request for invalid data' do
-      test_io = OrderItem.first
-      oi_data = test_io.attributes
-      oi_data[:quantity] = 20000
+    it 'sends does not update a product for invalid data' do
+      orderitem = {
+        product_id: Product.first.id,
+        order_id: Order.first.id,
+        quantity: 1
+      }
+      post orderitems_path, params: {order_item: orderitem}
 
-      test_io.assign_attributes(oi_data)
+      test_io = OrderItem.last
+
+      test_io.assign_attributes(quantity: 0)
       test_io.wont_be :valid?
 
-      patch orderitem_path(test_io), params: { order_item: oi_data }
+      patch orderitem_path(test_io.id), params: { order_item: {quantity: 0} }
 
-      must_respond_with :bad_request
+      must_redirect_to viewcart_path(session[:cart_id])
+      test_io.reload
+      test_io.quantity.must_equal 1
     end
 
     it 'sends not_found for orderitem that dne' do

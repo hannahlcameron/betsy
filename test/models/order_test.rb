@@ -10,12 +10,15 @@ describe Order do
         order.valid?.must_equal true
       end
 
-      it 'is valid with multiple order items' do
+      it 'is can be associated with multiple order items' do
         order = Order.create!
         OrderItem.create!(quantity: 1, product: Product.last, order: order, status: 'pending')
         OrderItem.create!(quantity: 1, product: Product.first, order: order, status: 'pending')
+
         order.order_items.count.must_be :>, 1
-        order.valid?.must_equal true
+        OrderItem.last.order_id.must_equal order.id
+        item1 = OrderItem.find(OrderItem.last.id - 1)
+        item1.order_id.must_equal order.id
       end
 
       it 'is valid with 0 order items' do
