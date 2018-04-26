@@ -5,13 +5,11 @@ class ReviewsController < ApplicationController
 
     if @review.product.merchant_id == session[:merchant_id]
       flash[:failure] = 'You cannot review your own products!'
-      puts "I"
     else
       if @review.save
         flash[:success] = 'Review submitted'
       else
         flash[:failure] = 'Review could not be saved'
-        puts 'in else'
       end
     end
 
