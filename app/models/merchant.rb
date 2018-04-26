@@ -26,15 +26,6 @@ class Merchant < ApplicationRecord
         orders_and_items[order_item.order_id] << order_item
       end
     }
-    # raise
-
-    # merchant_order_items = orders_and_items.values
-    # if merchant_order_items.uniq.first.empty?
-    #   return {}
-    # else
-    #   raise
-    #   return orders_and_items
-    # end
 
     orders_and_items.each do |order, order_items|
       if order_items.empty?

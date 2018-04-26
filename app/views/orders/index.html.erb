@@ -71,10 +71,23 @@
   <h3>
     <%= @merchant.username %>'s orders
   </h3>
+
+  <section>
+    <%= form_tag orders_path, method: :get do %>
+      <%= select_tag :search, options_for_select(['all', 'paid', 'pending', 'completed', 'cancelled'], params[:search]) %>
+      <%= submit_tag "Search" %>
+    <% end %>
+    <% if params[:search] %>
+      <h4><%= params[:search].capitalize %> orders:</h4>
+    <% else %>
+      <h4>All orders:</h4>
+    <% end %>
+  </section>
+
   <section>
     <% if @orders_and_items.empty? %>
     <p>
-      <%= @merchant.username %> has no orders yet.
+      <%= @merchant.username %> has no <%= params[:search] %> orders yet.
     </p>
     <% else %>
 
