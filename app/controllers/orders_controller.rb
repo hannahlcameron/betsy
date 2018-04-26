@@ -5,7 +5,11 @@ class OrdersController < ApplicationController
   def index
     if session[:merchant_id]
       @merchant = Merchant.find(session[:merchant_id])
-      @orders_and_items = @merchant.merchant_order_items
+      if params[:search]
+        @orders_and_items = @merchant.merchant_order_items(params[:search])
+      else
+        @orders_and_items = @merchant.merchant_order_items("all")
+      end
     else
       flash[:failure] = "You must log in as a merchant to see your orders."
       # this IS the root path rn so I get a too many redirects error

@@ -1,6 +1,7 @@
 <% if @merchant %>
 
   <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
+
   <p>
   <h3>Orders Overview</h3>
   <section>
@@ -70,10 +71,23 @@
   <h3>
     <%= @merchant.username %>'s orders
   </h3>
+
+  <section>
+    <%= form_tag orders_path, method: :get do %>
+      <%= select_tag :search, options_for_select(['all', 'paid', 'pending', 'completed', 'cancelled'], params[:search]) %>
+      <%= submit_tag "Search" %>
+    <% end %>
+    <% if params[:search] %>
+      <h4><%= params[:search].capitalize %> orders:</h4>
+    <% else %>
+      <h4>All orders:</h4>
+    <% end %>
+  </section>
+
   <section>
     <% if @orders_and_items.empty? %>
     <p>
-      <%= @merchant.username %> has no orders yet.
+      <%= @merchant.username %> has no <%= params[:search] %> orders yet.
     </p>
     <% else %>
 
@@ -129,14 +143,14 @@
         </td>
         <td>
           <% if order_item.status == "pending" %>
-            <%= link_to "Ship", ship_path(order_item), method: :patch %>
+            <%= link_to_if Order.find(order).status != "pending", "Ship", ship_path(order_item), method: :patch %>
           <% elsif order_item.status == "shipped" %>
             Shipped
           <% end %>
         </td>
         <td>
           <% if order_item.status == "pending" %>
-            <%= link_to "Cancel", cancel_path(order_item), method: :patch %>
+            <%= link_to_if Order.find(order).status != "pending", "Cancel", cancel_path(order_item), method: :patch %>
           <% elsif order_item.status == "cancelled" %>
             Cancelled
           <% end %>
@@ -147,16 +161,6 @@
       <% end %>
 
     </table>
-
-    <% @orders_and_items.each do |order, order_items| %>
-
-    <table>
-      <tr>
-
-      </tr>
-    </table>
-
-    <% end %>
 
     <% end %>
 

@@ -6,7 +6,7 @@ class Merchant < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
 
-  def merchant_order_items
+  def merchant_order_items(status)
 
     orders_and_items = {}
     orders = self.orders
@@ -21,15 +21,24 @@ class Merchant < ApplicationRecord
     }
 
     order_items.each { |order_item|
-      orders_and_items[order_item.order_id] << order_item
+      order_status = Order.find_by(id: order_item.order_id).status
+      if order_status == status || status == "all"
+        orders_and_items[order_item.order_id] << order_item
+      end
     }
+
+    orders_and_items.each do |order, order_items|
+      if order_items.empty?
+        orders_and_items.delete(order)
+      end
+    end
 
     return orders_and_items
 
   end # merchant_order_items
 
   def total_revenue_by(status)
-    orders_and_items = self.merchant_order_items
+    orders_and_items = self.merchant_order_items("all")
     total_revenue = 0.00
     orders_and_items.each do |order, order_items|
       order_items.each do |order_item|
