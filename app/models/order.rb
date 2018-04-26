@@ -36,11 +36,18 @@ class Order < ApplicationRecord
     statuses = self.order_items.map do |item|
       item.status
     end
-    if statuses.uniq.size <= 1 && statuses.uniq.first == "cancelled"
+    if self.status == "pending" || self.status.nil?
+      self.status = "pending"
+    elsif statuses.uniq.size <= 1 && statuses.uniq.first == "cancelled"
       self.status = "cancelled"
+      # return "cancelled"
     elsif !statuses.include?("pending")
       self.status = "completed"
+      # return "completed"
+    else
+      self.status = "paid"
     end
+    return self.status
   end # order_status
 
 end

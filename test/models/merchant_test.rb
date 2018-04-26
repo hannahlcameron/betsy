@@ -63,7 +63,7 @@ describe Merchant do
 
       before do
         @merchant = Merchant.first
-        @result = @merchant.merchant_order_items
+        @result = @merchant.merchant_order_items("all")
       end
 
       it "must return a hash" do
@@ -79,7 +79,7 @@ describe Merchant do
       it "must have values of type order_item only for products that belong to the merchant" do
         merchant = merchants(:merchant_one)
 
-        result = merchant.merchant_order_items.values
+        result = merchant.merchant_order_items("all").values
         result.each do |order_items|
           order_items.each do |order_item|
             order_item.product.merchant_id.must_equal merchant.id
@@ -90,7 +90,7 @@ describe Merchant do
 
       it "must return an empty hash for a merchant with no orders" do
         @merchant = Merchant.create(username: "Barry Allen", email: "b@rryfast.com")
-        @result = @merchant.merchant_order_items
+        @result = @merchant.merchant_order_items("all")
         @result.must_be :empty?
       end
 

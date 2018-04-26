@@ -1,6 +1,7 @@
 <% if @merchant %>
 
   <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
+
   <p>
   <h3>Orders Overview</h3>
   <section>
@@ -129,14 +130,14 @@
         </td>
         <td>
           <% if order_item.status == "pending" %>
-            <%= link_to "Ship", ship_path(order_item), method: :patch %>
+            <%= link_to_if Order.find(order).status != "pending", "Ship", ship_path(order_item), method: :patch %>
           <% elsif order_item.status == "shipped" %>
             Shipped
           <% end %>
         </td>
         <td>
           <% if order_item.status == "pending" %>
-            <%= link_to "Cancel", cancel_path(order_item), method: :patch %>
+            <%= link_to_if Order.find(order).status != "pending", "Cancel", cancel_path(order_item), method: :patch %>
           <% elsif order_item.status == "cancelled" %>
             Cancelled
           <% end %>
@@ -147,16 +148,6 @@
       <% end %>
 
     </table>
-
-    <% @orders_and_items.each do |order, order_items| %>
-
-    <table>
-      <tr>
-
-      </tr>
-    </table>
-
-    <% end %>
 
     <% end %>
 
