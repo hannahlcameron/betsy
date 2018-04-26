@@ -2,7 +2,6 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
-  # validates :order_items, :length => { :minimum => 1 }
   validates :customer_name, presence: true, on: :update
   validates :customer_email, presence: true, on: :update
   validates :credit_card, presence: true, on: :update

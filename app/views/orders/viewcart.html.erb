@@ -2,7 +2,7 @@
    <% @order.order_items.each do |item| %>
     <div>
       <p><%= item.product.name %></p>
-      <p><%= item.product.price %><p>
+      <p><%= number_to_currency(item.product.price) %><p>
       <%= form_for item, url: orderitem_path, method: :patch do |f| %>
         <%= f.label :quantity %>
         <%= f.select :quantity, (1..item.product.stock).to_a, :selected => item.quantity %>

@@ -1,7 +1,7 @@
 <section>
   <h3>Order Confirmation</h3>
   <p>Order Placed: <%= @order.updated_at %></p>
-  <p>Order Total: $<%= @order.order_total %></p>
+  <p>Order Total: <%= number_to_currency(@order.order_total) %></p>
   <p>Order Status: <%= @order.status %></p>
   <div>
     <h4>Customer Information</h4>
@@ -25,8 +25,8 @@
         <tr>
           <td><%= link_to item.product.name, product_path(item.product_id) %></td>
           <td><%= item.quantity %></td>
-          <td><%= item.product.price %></td>
-          <td><%= item.subtotal %></td>
+          <td><%= number_to_currency(item.product.price) %></td>
+          <td><%= number_to_currency(item.subtotal) %></td>
         </tr>
         <% end %>
       </tr>
