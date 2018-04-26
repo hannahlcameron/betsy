@@ -61,4 +61,21 @@ class Merchant < ApplicationRecord
     return count
   end # count_orders_by
 
+  def self.get_user(data_hash)
+    merchant = Merchant.find_by(uid: data_hash['uid'], provider: data_hash['provider'])
+
+    if merchant.nil?
+      merchant_data = {
+        uid: data_hash['uid'],
+        provider: data_hash['provider'],
+        username: data_hash['info']['name'],
+        email: data_hash['info']['email']
+      }
+
+      merchant = Merchant.new(merchant_data)
+      return merchant.save ? merchant : nil
+    end
+    return merchant
+  end
+
 end

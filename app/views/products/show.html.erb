@@ -2,7 +2,7 @@
   <%= image_tag(@product.photo_url, alt: @product.name) %>
   <section>
     <h4><%= @product.name %></h4>
-    <p><%= @product.price %><p>
+    <p><%= number_to_currency(@product.price) %><p>
     <p><%= @product.description %></p>
     <p>Quantity Available: <%= @product.stock %></p>
 
@@ -12,8 +12,6 @@
       <%= f.hidden_field :product_id, :value => @product.id%>
       <%= f.submit 'Add to Cart' %>
     <% end %>
-
-    <%# link_to "Add to cart", orderitems_path, method: :post, order_item: @product %>
 
     <%= link_to "See More from this merchant", merchant_products_path(@product.merchant_id) %>
   </section>

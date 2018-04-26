@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
     session[:cart_id] = nil
   end
 
-
+  # I don't think we really get here anymore
   def create
     order = Order.new(status: "pending")
 
@@ -46,22 +46,21 @@ class OrdersController < ApplicationController
     @order.assign_attributes(customer_params)
 
     if @order.order_items.count > 0
-
       if @order.save
         flash[:success] = "Thank you! Your order has been placed."
         @order.update(status: "paid")
+
+        @order.reduce_stock
+
         redirect_to order_path(@order)
       else
         flash[:failure] = "The customer information was incomplete."
-        raise
         render :edit, status: :bad_request
       end
-
     else
       flash[:failure] = "There are no items to check out"
       redirect_back(fallback_location: root_path)
     end
-
   end
 
   def viewcart
@@ -69,13 +68,9 @@ class OrdersController < ApplicationController
     unless @order
       flash[:error] = 'You do not have any items in your cart'
       redirect_back(fallback_location: root_path)
+      return
     end
-
-
   end
-  #
-  # def destroy
-  # end
 
   private
   def order_params
@@ -84,7 +79,7 @@ class OrdersController < ApplicationController
   end
 
   def customer_params
-    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :CVV, :CC_expiration, :shipping_address, :billing_address)
+    return params.require(:order).permit(:customer_name, :customer_email, :credit_card, :cvv, :cc_expiration, :shipping_address, :billing_address)
   end
 
 end
