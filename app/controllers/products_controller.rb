@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
     @category = Category.find_by(name: params[:category])
     if @category
       @products = Product.by_category(@category.name).where(retired: false)
+    elsif params[:search]
+      @products = Product.find_search(params[:search])
     else
       @products = Product.where(retired: false)
     end

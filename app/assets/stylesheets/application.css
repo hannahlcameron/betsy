@@ -98,7 +98,7 @@ footer {
   width: 45vw;
 }
 
-/* product cards*/
+/* product cards */
 
 .all-products {
   display: flex;
@@ -109,4 +109,18 @@ footer {
 
 .all-products > .card {
   margin: 5px;
+}
+
+/* search bar */
+.button {
+  border-radius: 50px;
+}
+.form-inline {
+  display: flex;
+  width: 30vw;
+  justify-content: center;
+}
+.search-bar-button {
+  /*display: inline;*/
+  width: 10vw;
 }

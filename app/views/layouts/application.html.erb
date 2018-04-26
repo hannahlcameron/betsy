@@ -24,6 +24,10 @@
           <% end %>
         </div>
         <div class="right">
+          <%= form_tag search_path, class: 'form-inline', method: :get do %>
+            <%= text_field_tag :search, params[:search], class: 'search-bar', placeholder: 'Search...'%>
+            <%= submit_tag :search, class: 'search-bar'%>
+          <% end %>
           <div class="login">
             <% if @logged_merchant %>
             Logged in as: <%= @logged_merchant.username %>
