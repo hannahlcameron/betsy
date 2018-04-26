@@ -11,11 +11,13 @@
   </thead>
   <tbody>
     <% @products.each do |product| %>
-      <td><%= product.name %></td>
-      <td><%= product.stock %></td>
-      <td><%= product.retired == false ? 'Active' : 'Retired' %></td>
-      <td><%= link_to 'Edit', edit_merchant_product_path(product.merchant_id, product.id) %></td>
-      <td><%= link_to 'Retire', merchant_product_path(@logged_merchant.id, product.id), method: :delete %></td>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.stock %></td>
+        <td><%= product.retired == false ? 'Active' : 'Retired' %></td>
+        <td><%= link_to 'Edit', edit_merchant_product_path(product.merchant_id, product.id) %></td>
+        <td><%= link_to 'Retire', merchant_product_path(@logged_merchant.id, product.id), method: :delete %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
