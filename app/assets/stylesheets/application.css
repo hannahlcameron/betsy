@@ -136,3 +136,7 @@ footer {
   border-bottom-left-radius: 3px;
   margin-right: 0;
 }
+
+.button {
+  margin-bottom: 0;
+}
