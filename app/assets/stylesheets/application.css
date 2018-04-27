@@ -26,7 +26,11 @@ html {
   min-height: 100%;
 }
 
-body.body {
+main {
+  min-height: 80vh;
+}
+
+body > div {
   min-height: 100vh;
 }
 
@@ -283,4 +287,9 @@ h3 {
 .by-status {
   margin-top: 30px;
   width: 200px;
+}
+
+p.copyright {
+  margin-bottom: 0;
+  padding-bottom: 10px;
 }
