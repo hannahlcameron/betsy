@@ -10,4 +10,14 @@ section.banner {
   linear-gradient(45deg, #FFEE1D 25%, transparent 25%);
   background-size: 100px 100px;
   background-color: #00ACEE;
+  text-align: center;
+}
+
+section.banner h1 {
+  z-index: 2;
+  font-size: 10em;
+  padding-top: 200px;
+  font-family: 'Bangers', cursive;
+  color: #EC173A;
+  text-shadow: 2px 2px 4px #000000;
 }
