@@ -27,7 +27,7 @@ html {
 }
 
 body.body {
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -86,6 +86,12 @@ input[name="search"] {
 
 input[name="search"]::placeholder {
   color: #000;
+}
+
+/* main styles  */
+
+main {
+  padding: 20px;
 }
 
 
@@ -162,7 +168,8 @@ main {
 
 footer {
   background-color: rgb(255, 232, 10);
-  position: absolute;
+  position: relative;
+  bottom: 0;
   width: 100%;
   text-align: center;
   padding-top: 10px;
