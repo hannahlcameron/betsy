@@ -32,7 +32,7 @@ class OrderitemsController < ApplicationController
   def destroy
     @orderitem.destroy
 
-    redirect_to "/order/show"
+    redirect_back(fallback_location: root_path)
   end
 
   def ship
