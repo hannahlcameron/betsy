@@ -103,7 +103,7 @@ describe OrdersController do
       orderitem = {product_id: product.id, quantity: product.stock}
       post orderitems_path, params: {order_item: orderitem}
 
-      order_id = OrderItem.last.id
+      order_id = Order.last.id
 
       order_data = {
         customer_name: "Barry Allen",
