@@ -1,12 +1,6 @@
 require "test_helper"
 
 describe OrderitemsController do
-  # describe 'new' do
-  #   it 'responds with success' do
-  #     get new_orderitem_path
-  #     must_respond_with :success
-  #   end
-  # end
 
   describe 'create' do
     it 'can add a valid orderitem' do
