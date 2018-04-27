@@ -7,7 +7,7 @@
 
 batarang:
   name: Batarang
-  stock: 3
+  stock: 10
   price: 40.00
   description: The only weapon you'll ever need.
   merchant: merchant_one
