@@ -9,6 +9,7 @@
       <li>Customer Name: <%= @order.customer_name %></li>
       <li>Customer Email: <%= @order.customer_email %></li>
       <li>Credit Card: *<%= @order.credit_card[-4..-1] %></li>
+      <li>Exp Date: <%= @order.cc_expiration %></li>
       <li>Shipping Address: <%= @order.shipping_address %></li>
       <li>Order Status: <%= @order.status %></li>
     </ul>
@@ -33,7 +34,7 @@
         <% end %>
       </tr>
     </table>
-    <% elsif session[:cart_id] %>
+    <% else %>
       <h4>Purchased Items</h4>
       <table>
         <th>Product</th>
