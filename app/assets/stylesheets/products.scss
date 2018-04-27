@@ -3,8 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 section.banner {
   height: 100vh;
-  background: pink;
-  background-image: radial-gradient(dodgerblue 20%, transparent 0), radial-gradient(dodgerblue 20%, transparent 0);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
+  background:
+  linear-gradient(135deg, #FFEE1D 25%, transparent 25%) -50px 0,
+  linear-gradient(225deg, #FFEE1D 25%, transparent 25%) -50px 0,
+  linear-gradient(315deg, #FFEE1D 25%, transparent 25%),
+  linear-gradient(45deg, #FFEE1D 25%, transparent 25%);
+  background-size: 100px 100px;
+  background-color: #00ACEE;
 }
