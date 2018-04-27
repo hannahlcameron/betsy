@@ -1,6 +1,6 @@
-<article>
-  <%= image_tag(@product.photo_url, alt: @product.name) %>
-  <section>
+<article class= 'product-show'>
+  <%= image_tag(@product.photo_url, alt: @product.name, class: 'product-photo') %>
+  <section class='product-info'>
     <h4><%= @product.name %></h4>
     <p><%= number_to_currency(@product.price) %><p>
     <p><%= @product.description %></p>
@@ -19,20 +19,18 @@
   <section class='reviews'>
     <h4>Product Reviews</h4>
 
-    <% if @logged_merchant %>
-      <% unless @logged_merchant.id == @product.merchant_id %>
-        <div class="review-form">
-          <h6>Add a new review</h6>
-          <%= form_for :review, url: reviews_path do |f| %>
-          <%= f.hidden_field :product_id, value: @product.id %>
-          <%= f.label :rating %>
-          <%= f.select :rating, (1..5).to_a %>
-          <%= f.label :description %>
-          <%= f.text_area :description %>
-          <%= f.submit 'Submit Review' %>
-          <% end %>
-        </div>
-      <% end %>
+    <% if @logged_merchant.nil? || @logged_merchant.id != @product.merchant_id %>
+      <div class="review-form">
+        <h6>Add a new review</h6>
+        <%= form_for :review, url: reviews_path do |f| %>
+        <%= f.hidden_field :product_id, value: @product.id %>
+        <%= f.label :rating %>
+        <%= f.select :rating, (1..5).to_a %>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+        <%= f.submit 'Submit Review' %>
+        <% end %>
+      </div>
     <% end %>
 
 
