@@ -18,11 +18,21 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if @order.status != "paid"
+    if session[:merchant_id] && session[:cart_id].nil?
+      render :show
+    elsif @order.status != "paid"
       flash[:failure] = "Oops! You need to checkout first!"
       redirect_to edit_order_path(@order)
+    elsif session[:cart_id]
+      if session[:merchant_id]
+        flash[:failure] = 'Please checkout your cart first'
+        redirect_to viewcart_path(session[:cart_id])
+      end
+      session[:cart_id] = nil
+    else
+      flash[:failure] = "Order not found"
+      redirect_to root_path
     end
-    session[:cart_id] = nil
   end
 
   # I don't think we really get here anymore
@@ -74,7 +84,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    @order = Order.find_by(id: session[:cart_id])
+    @order = Order.find_by(id: params[:id])
     unless @order
       redirect_to root_path
       flash[:failure] = 'Order not found'

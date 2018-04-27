@@ -49,10 +49,10 @@ describe OrdersController do
       must_respond_with :success
     end
 
-    it "sends not_found if the order does not exist" do
+    it "redirects to root if the order does not exist" do
       order_id = Order.last.id + 1
       get order_path(order_id)
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
 
     it "redirects to edit_path if order status != paid" do
@@ -103,7 +103,7 @@ describe OrdersController do
       orderitem = {product_id: product.id, quantity: product.stock}
       post orderitems_path, params: {order_item: orderitem}
 
-      order_id = OrderItem.last.id
+      order_id = Order.last.id
 
       order_data = {
         customer_name: "Barry Allen",
@@ -192,5 +192,5 @@ describe OrdersController do
 
   end # viewcart
 
-  
+
 end

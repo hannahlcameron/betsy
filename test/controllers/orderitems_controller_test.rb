@@ -104,11 +104,12 @@ describe OrderitemsController do
       test_io.quantity.must_equal 1
     end
 
-    it 'sends not_found for orderitem that dne' do
+    it 'redirects to root for orderitem that dne' do
       io_id = OrderItem.last.id + 1
       patch orderitem_path(io_id)
 
-      must_respond_with :not_found
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
   end
 
@@ -125,13 +126,13 @@ describe OrderitemsController do
       OrderItem.find_by(id: io_id).must_be_nil
     end
 
-    it 'sends not_found if orderitem dne' do
+    it 'redirects to root if orderitem dne' do
       io_id = OrderItem.last.id + 1
       old_oi_count = OrderItem.count
 
       delete orderitem_path(io_id)
 
-      must_respond_with :not_found
+      must_redirect_to root_path
       OrderItem.count.must_equal old_oi_count
     end
   end
@@ -146,12 +147,12 @@ describe OrderitemsController do
       OrderItem.last.status.must_equal "shipped"
     end
 
-    it "responds with not found for an item that doesn't exist" do
+    it "redirects to root for an item that doesn't exist" do
       order_item_id = OrderItem.last.id + 1
       order_item = OrderItem.find_by(id: order_item_id)
       order_item.must_be :nil?
       patch ship_path(order_item_id)
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
   end # ship
 
@@ -170,7 +171,7 @@ describe OrderitemsController do
       order_item = OrderItem.find_by(id: order_item_id)
       order_item.must_be :nil?
       patch cancel_path(order_item_id)
-      must_respond_with :not_found
+      must_redirect_to root_path
     end
   end # cancel
 

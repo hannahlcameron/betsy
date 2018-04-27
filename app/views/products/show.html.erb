@@ -8,7 +8,7 @@
 
     <%= form_for :order_item, url: orderitems_path, method: :post do |f| %>
     <%= f.hidden_field :product_id, :value => @product.id%>
-      <% if @product.stock > 1 %>
+      <% if @product.stock >= 1 %>
         <%= f.label :quantity %>
         <%= f.select :quantity, (1..@product.stock).to_a, :selected => 1 %>
         <%= f.submit 'Add to Cart', class: 'button' %>

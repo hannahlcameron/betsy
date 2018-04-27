@@ -46,7 +46,7 @@ product_names = [
   ['Batarang', 'https://www.thinkgeek.com/images/products/zoom/httq_batman_batarang_letter_opener.jpg', [category_hash['utility'], category_hash['accessories']] ],
   ['Black Eye Mask', 'http://www.5050factoryoutlet.com/istarimages/mp/395936-10!02-30648_d.jpg', [category_hash['accessories']]],
   ['Yellow Cape', 'https://i.pinimg.com/736x/b1/c6/d1/b1c6d16f5d0cc1ea35ff4344f1aaa386--halloween-costumes-for-dogs-pet-costumes.jpg', [category_hash['accessories'], category_hash['capes']]],
-  ['Entire Capain Planet Series on VHS', 'https://img1.etsystatic.com/142/0/5844803/il_570xN.1130347923_5jxi.jpg', [category_hash['media']]],
+  ['Entire Captain Planet Series on VHS', 'https://img1.etsystatic.com/142/0/5844803/il_570xN.1130347923_5jxi.jpg', [category_hash['media']]],
   ['Storm Wig', 'https://ssli.ebayimg.com/images/g/Mv8AAOSwLN5WiOXY/s-l640.jpg', [category_hash['accessories']]],
   ['Black Widdow Utility Cuffs', 'https://img.etsystatic.com/il/42fa43/1103666807/il_340x270.1103666807_fn4o.jpg?version=0', [category_hash['accessories'], category_hash['utility']] ],
   ['Red Hair Dye', 'https://www.softsheen-carson.com/~/media/Images/SoftsheenUS/Dark%20and%20Lovely/ALL_GO%20INTENSE%20SPICY%20RED_1000x1000.jpg', [category_hash['accessories']]]

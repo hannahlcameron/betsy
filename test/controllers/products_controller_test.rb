@@ -42,12 +42,12 @@ describe ProductsController do
         must_respond_with :success
       end
 
-      it 'renders not_found for a non-existing id' do
+      it 'redirects to root path for a non-existing id' do
         product_id = Product.last.id + 1
 
         get product_path(product_id)
 
-        must_respond_with :not_found
+        must_redirect_to root_path
       end
     end
   end
@@ -102,7 +102,7 @@ describe ProductsController do
 
         post merchant_products_path(merchant.id), params: { product: product_data }
 
-        must_redirect_to merchant_products_path(merchant.id, Product.last.id)
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
         Product.count.must_equal old_product_count + 1
       end
 
@@ -151,7 +151,7 @@ describe ProductsController do
         patch merchant_product_path(merchant.id, product.id), params: { product: product_data }
         product.reload
 
-        must_redirect_to merchant_products_path(merchant.id, product.id)
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
         Product.count.must_equal old_product_count
 
         product.stock.must_equal (old_product_stock - 1)
@@ -203,14 +203,14 @@ describe ProductsController do
 
         product.reload
         product.retired.must_equal true
-        must_redirect_to merchant_products_path
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
       end
 
-      it 'must return not_found for a non-existing product' do
+      it 'must redirect to root for a non-existing product' do
         non_existing_id = Product.last.id + 1
         delete merchant_product_path(merchant.id, non_existing_id)
 
-        must_respond_with :not_found
+        must_redirect_to root_path
       end
 
       it 'will not retire a product that is not associated with the merchant' do
@@ -220,7 +220,7 @@ describe ProductsController do
 
         product.reload
         product.retired.must_equal false
-        must_redirect_to merchant_products_path
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
       end
     end
 

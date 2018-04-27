@@ -9,11 +9,13 @@
       <li>Customer Name: <%= @order.customer_name %></li>
       <li>Customer Email: <%= @order.customer_email %></li>
       <li>Credit Card: *<%= @order.credit_card[-4..-1] %></li>
+      <li>Exp Date: <%= @order.cc_expiration %></li>
       <li>Shipping Address: <%= @order.shipping_address %></li>
       <li>Order Status: <%= @order.status %></li>
     </ul>
   </div>
   <div>
+    <% if session[:merchant_id] %>
     <h4>Purchased Items</h4>
     <table>
       <th>Product</th>
@@ -21,7 +23,8 @@
       <th>Price</th>
       <th>Subtotal</th>
       <tr>
-        <% @order.order_items.each do |item| %>
+        <% merchants_items = @order.order_items.select {|orderitem| orderitem.product.merchant_id == session[:merchant_id]} %>
+        <% merchants_items.each do |item| %>
         <tr>
           <td><%= link_to item.product.name, product_path(item.product_id) %></td>
           <td><%= item.quantity %></td>
@@ -31,5 +34,24 @@
         <% end %>
       </tr>
     </table>
+    <% else %>
+      <h4>Purchased Items</h4>
+      <table>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <tr>
+          <% @order.order_items.each do |item| %>
+          <tr>
+            <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td><%= number_to_currency(item.subtotal) %></td>
+          </tr>
+          <% end %>
+        </tr>
+      </table>
+    <% end %>
   </div>
 </section>
