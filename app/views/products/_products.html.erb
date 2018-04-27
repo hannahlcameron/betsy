@@ -3,24 +3,27 @@
   <h2>Products</h2>
 
   <section class='all-products'>
+    <% if @products.empty? %>
+      <p>There are no products here at this time</p>
+    <% else %>
+      <% @products.each do |product| %>
+      <div class="card">
+        <div class="card-image">
+          <%= link_to image_tag(product.photo_url, alt: product.name), product_path(product.id) %>
+        </div>
+        <div class="card-content">
+          <div class="content">
+            <h5>
+              <%= link_to product.name, product_path(product.id) %>
+            </h5>
+            <h5>
+              <small> by <%= link_to product.merchant.username, merchant_path(product.merchant_id)%> </small>
+            </h5>
 
-    <% @products.each do |product| %>
-    <div class="card">
-      <div class="card-image">
-        <%= link_to image_tag(product.photo_url, alt: product.name), product_path(product.id) %>
-      </div>
-      <div class="card-content">
-        <div class="content">
-          <h5>
-            <%= link_to product.name, product_path(product.id) %>
-          </h5>
-          <h5>
-            <small> by <%= link_to product.merchant.username, merchant_path(product.merchant_id)%> </small>
-          </h5>
-
+          </div>
         </div>
       </div>
-    </div>
+      <% end %>
     <% end %>
 
   </section><!-- all-products -->
