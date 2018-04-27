@@ -28,7 +28,7 @@ section.banner h1 {
 .all-products {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   grid-row: 1 / span 1;
   grid-column: 2 / span 1;
@@ -36,7 +36,8 @@ section.banner h1 {
 
 .all-products > .card {
   margin: 5px;
-  width: 400px;
+  max-width: 400px;
+  min-width: 400px;
   // max-width: 400px;
   height: 400px;
   border: solid 3px black;
