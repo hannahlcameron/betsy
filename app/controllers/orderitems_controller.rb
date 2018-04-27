@@ -37,6 +37,7 @@ class OrderitemsController < ApplicationController
 
   def destroy
     @orderitem.destroy
+    flash[:success] = 'Item successfully removed'
 
     redirect_back(fallback_location: root_path)
   end
@@ -69,7 +70,10 @@ class OrderitemsController < ApplicationController
 
   def find_order_item
     @orderitem = OrderItem.find_by(id: params[:id])
-    head :not_found unless @orderitem
+    unless @orderitem
+      redirect_to root_path
+      flash[:failure] = 'Cart item not found'
+    end
   end
 
   def order_exists?

@@ -7,10 +7,12 @@
     <p>Quantity Available: <%= @product.stock %></p>
 
     <%= form_for :order_item, url: orderitems_path, method: :post do |f| %>
-      <%= f.label :quantity %>
-      <%= f.select :quantity, (1..@product.stock).to_a, :selected => 1 %>
-      <%= f.hidden_field :product_id, :value => @product.id%>
-      <%= f.submit 'Add to Cart', class: 'button' %>
+    <%= f.hidden_field :product_id, :value => @product.id%>
+      <% if @product.stock >= 1 %>
+        <%= f.label :quantity %>
+        <%= f.select :quantity, (1..@product.stock).to_a, :selected => 1 %>
+        <%= f.submit 'Add to Cart', class: 'button' %>
+      <% end %>
     <% end %>
 
     <%= link_to "See More from this merchant", merchant_path(@product.merchant_id) %>
