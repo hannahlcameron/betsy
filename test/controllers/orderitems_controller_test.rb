@@ -126,7 +126,6 @@ describe OrderitemsController do
       delete orderitem_path(io_id)
 
       must_respond_with :redirect
-      # must_redirect_to "/order/show"
 
       OrderItem.count.must_equal old_oi_count - 1
       OrderItem.find_by(id: io_id).must_be_nil

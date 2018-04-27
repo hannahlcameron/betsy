@@ -54,24 +54,6 @@ describe Category do
         categories_with_works.must_be_empty
 
       end
-
-      # it 'orders categories returned alphabetically' do
-      #   awesome = categories(:awesome)
-      #   awesome.products << Product.first
-      #
-      #   memorabilia = categories(:memorabilia)
-      #   memorabilia.products = [Product.first, Product.last]
-      #
-      #   categories = Category.categories_with_works
-      #   categories.length.must_be :>, 1
-      #
-      #   falses = []
-      #   categories.length.times do |i|
-      #     falses << false unless categories[i].name < categories[i + 1].name
-      #   end
-      #   falses.empty?.must_equal true
-      #
-      # end
     end
 
     describe 'fix_category' do

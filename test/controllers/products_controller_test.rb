@@ -71,7 +71,7 @@ describe ProductsController do
       it 'works with no products' do
         Product.where(merchant_id: merchant.id).destroy_all
 
-        get merchant_products_path(merchant.id)
+        get merchant_path(merchant.id)
 
         must_respond_with :success
       end
@@ -81,7 +81,7 @@ describe ProductsController do
 
         products.count.must_be :>, 0
 
-        get merchant_products_path(merchant.id)
+        get merchant_path(merchant.id)
 
         must_respond_with :success
       end
