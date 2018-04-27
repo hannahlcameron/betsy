@@ -64,7 +64,7 @@ nav.top-bar .button, .hollow {
 }
 
 .left-nav {
-  grid-row: 2 / span 1;
+  grid-row: 1 / span 1;
   grid-column: 1 / span 1;
   border-right: solid 1px rgba(18, 18, 18, 0.24);
   border-bottom: solid 2px rgba(18, 18, 18, 0.24);
@@ -90,11 +90,19 @@ main {
   grid-column: 1 / span 2;
   min-height: auto;
   position: absolute;
+  padding-top: 80px;
 }
 
 footer {
   grid-row-start: 3;
   grid-column: 1 / span 2;
+}
+
+section.products-content {
+  display: grid;
+  grid-template-rows: 7vh 3fr 2fr;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 20px;
 }
 
 /* reviews */
@@ -124,19 +132,6 @@ footer {
   width: 45vw;
 }
 
-/* product cards */
-
-.all-products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.all-products > .card {
-  margin: 5px;
-}
-
 /* search bar */
 .button {
   border-radius: 50px;
@@ -157,4 +152,8 @@ input[name="search"] {
 
 input[name="search"]::placeholder {
   color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bangers', 'Comic Sans MS', sans-serif;
 }
