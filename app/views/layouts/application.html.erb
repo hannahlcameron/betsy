@@ -18,21 +18,27 @@
       <div class="sticky">
         <nav class="top-bar" data-topbar role="navigation">
           <div class="left">
-            <%= link_to 'Home', root_path, class: 'navbar-item' %>
-            <%= link_to 'All Products', products_path, class: 'navbar-item' %>
-            <%= link_to 'All Merchants', merchants_path, class: 'navbar-item' %>
+            <%= link_to 'Home', root_path, class: 'navbar-item button hollow' %>
 
-
-            <!-- <div class="has-dropdown">
-              <%= link_to 'All Products', products_path, class: 'navbar-item' %>
-              <% Category.categories_with_works.each do |category| %>
+            <div class="has-dropdown">
+              <%= link_to 'All Products', products_path, class: 'dropbtn hollow' %>
                 <ul class="dropdown">
-                  <li><%= link_to category.name.capitalize, category_path(category.name) %></li>
+                  <% Category.categories_with_works.each do |category| %>
+                    <li><%= link_to category.name.capitalize, category_path(category.name) %></li>
+                  <% end %>
                 </ul>
-              <% end %>
-            </div> -->
+            </div>
+
+            <div class='has-dropdown'>
+              <%= link_to 'All Merchants', merchants_path, class: 'dropbtn hollow' %>
+              <ul class="dropdown">
+                <% Merchant.all.each do |merchant| %>
+                  <li><%= link_to merchant.username, merchant_path(merchant) %></li>
+                <% end %>
+              </ul>
+            </div>
             <% if session[:merchant_id] %>
-            <%= link_to 'Dashboard', orders_path, class: 'navbar-item button hollow' %>
+              <%= link_to 'Dashboard', orders_path, class: 'navbar-item button hollow' %>
             <% end %>
           </div>
           <div class="right">
