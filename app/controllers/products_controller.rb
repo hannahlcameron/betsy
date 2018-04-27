@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
     else
       flash[:failure] = 'You are not authorized to retire this product'
     end
-    redirect_to merchant_products_path
+    redirect_to merchant_manage_products_path(session[:merchant_id])
   end
 
   private

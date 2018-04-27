@@ -203,7 +203,7 @@ describe ProductsController do
 
         product.reload
         product.retired.must_equal true
-        must_redirect_to merchant_products_path
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
       end
 
       it 'must redirect to root for a non-existing product' do
@@ -220,7 +220,7 @@ describe ProductsController do
 
         product.reload
         product.retired.must_equal false
-        must_redirect_to merchant_products_path
+        must_redirect_to merchant_manage_products_path(session[:merchant_id])
       end
     end
 
