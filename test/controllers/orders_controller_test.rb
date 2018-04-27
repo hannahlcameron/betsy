@@ -188,5 +188,9 @@ describe OrdersController do
       must_redirect_to root_path
     end
 
+
+
   end # viewcart
+
+  
 end

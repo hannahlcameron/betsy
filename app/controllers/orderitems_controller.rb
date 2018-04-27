@@ -6,6 +6,14 @@ class OrderitemsController < ApplicationController
   def create
     @orderitem = OrderItem.new(order_item_params)
     @orderitem.order_id = session[:cart_id]
+    # order = Order.find(session[:cart_id])
+
+    existing_oi = OrderItem.existing_oi?(@orderitem)
+    # if order.product_ids.include?(@orderitem.product_id)
+    #   existing_oi = order.order_items.find{ |orderitem| orderitem.product_id == @orderitem.product_id }
+    unless existing_oi.nil?
+      @orderitem = OrderItem.aggregate_orderitem(@orderitem, existing_oi)
+    end
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
@@ -21,7 +29,7 @@ class OrderitemsController < ApplicationController
     @orderitem.assign_attributes(order_item_params)
 
     if @orderitem.save
-      flash[:success] = "Item added successfully!"
+      flash[:success] = "Item updated successfully!"
     else
       flash[:failure] = "Oops! Something went wrong and we couldn't add this item."
     end

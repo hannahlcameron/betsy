@@ -114,14 +114,14 @@ footer {
 }
 
 /* search bar */
-.button {
+/*.button {
   border-radius: 50px;
-}
+}*/
 .form-inline {
   display: flex;
   width: 30vw;
   justify-content: center;
 }
-.search-bar-button {
+.search-bar.button {
   width: 80px;
 }
