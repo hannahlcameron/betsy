@@ -71,6 +71,7 @@ main {
 footer {
   grid-row-start: 3;
   grid-column: 1 / span 2;
+  
 }
 
 /* reviews */
