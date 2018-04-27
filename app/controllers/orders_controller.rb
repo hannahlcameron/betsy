@@ -74,7 +74,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    @order = Order.find_by(id: session[:cart_id])
+    @order = Order.find_by(id: params[:id])
     unless @order
       redirect_to root_path
       flash[:failure] = 'Order not found'
