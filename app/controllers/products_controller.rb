@@ -77,7 +77,10 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    head :not_found unless @product
+    unless @product
+      redirect_to root_path
+      flash[:failure] = 'Product not found'
+    end
   end
 
 end
