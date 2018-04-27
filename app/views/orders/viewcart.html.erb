@@ -8,7 +8,7 @@
       <span><%= number_to_currency(item.product.price) %></span>
       <%= form_for item, url: orderitem_path(item), method: :patch do |f| %>
         <%= f.select :quantity, (1..item.product.stock).to_a, :selected => item.quantity, class: 'dropdown' %>
-        <%= f.submit "Update Quantity", class: 'viewcart-item button small' %>
+        <%= f.submit "Update Quantity", class: 'viewcart-item button small body-button' %>
       <% end %>
       <%= link_to "Remove Item", orderitem_path(item), method: :delete, class: 'viewcart-item', data: { confirm: "With great power comes great responsibility. Are you sure you want to delete #{item.product.name}?"} %>
     </div>
