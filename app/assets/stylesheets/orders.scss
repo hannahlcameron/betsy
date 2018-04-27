@@ -1,3 +1,50 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.edit_order_item {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.viewcart-item {
+  display: inline;
+}
+.viewcart-item.button {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 0;
+}
+
+a.viewcart-item {
+  padding: 0.85em;
+}
+
+#order_item_quantity {
+  width: 60px;
+  margin-bottom: 0;
+}
+
+.viewcart-photo {
+  width: 100px;
+  height: 100px;
+}
+
+.order-item {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 1fr 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgb(123, 197, 238);
+  padding: 5vh;
+}
+
+.checkout.button {
+  background-color: red;
+  margin-top: 5vh;
+}
+
+.subtotal {
+  // text-align: right;
+  margin-right: 10vw;
+  margin-top: 5vh;
+}
