@@ -178,3 +178,42 @@ footer h4 {
   color: #EC173A;
   text-shadow: 2px 2px 4px #000000;
 }
+
+.body-button {
+  background-color: #FFEE1D;
+  color: #00ACEE;
+  font-weight: bold;
+  box-shadow: -2px 2px 4px #000000;
+}
+
+.button:hover {
+  background-color: #00ACEE;
+  color: #FFEE1D;
+}
+
+#manage-products-button {
+  float: right;
+}
+
+.orders-title {
+  display: inline;
+  margin: 50px auto;
+}
+
+.table {
+  margin: 30px auto;
+}
+
+h3 {
+  margin: 30px auto;
+}
+
+.status-submit {
+  margin-left: 20px;
+  height: 40px;
+}
+
+.by-status {
+  margin-top: 30px; 
+  width: 200px;
+}

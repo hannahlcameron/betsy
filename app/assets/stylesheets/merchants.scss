@@ -1,3 +1,47 @@
 // Place all the styles related to the Merchants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+h3.merchant {
+  text-align: center;
+  font-size: 5em;
+}
+
+section.merchants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.merchant-content {
+  width: 200px;
+  height: 100px;
+  position: relative;
+  background: #00ACEE;
+  border-radius: .4em;
+  color: white;
+  min-height: 50px;
+  margin: 50px;
+  text-align: center;
+}
+
+.merchant-content a {
+  color: white;
+  font-size: 1.5em;
+}
+
+.merchant-content:after {
+
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 27px solid transparent;
+  border-top-color: #00aabb;
+  border-bottom: 0;
+  border-right: 0;
+  margin-left: -13.5px;
+  margin-bottom: -27px;
+}
