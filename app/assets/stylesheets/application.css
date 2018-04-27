@@ -18,9 +18,13 @@
 
  */
 
+html {
+  height: 100%;
+}
+
 
 body {
-  height: auto;
+  height: 100%;
   display: grid;
   grid-template-rows: 7vh 3fr 2fr;
   grid-template-columns: 1fr 3fr;
@@ -29,6 +33,7 @@ body {
 
 header {
   grid-column: 1 / span 2;
+  z-index: 1;
 }
 
 .navbar {
@@ -63,9 +68,9 @@ header {
 }
 main {
   grid-row: 2 / span 1;
-  grid-column: 2 / span 1;
+  grid-column: 1 / span 2;
   min-height: auto;
-
+  position: absolute;
 }
 
 footer {
