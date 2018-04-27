@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
 
     if @product.save
       flash[:success] = 'Successfully added product'
-      redirect_to merchant_products_path(@product.merchant_id, @product.id)
+      redirect_to merchant_manage_products_path(session[:merchant_id])
     else
       flash.now[:failure] = 'Product not created'
       render :new, status: :bad_request
@@ -47,7 +47,7 @@ class ProductsController < ApplicationController
 
     if @product.save
       flash[:success] = "Successfully updated product #{@product.id}"
-      redirect_to merchant_products_path(@product.merchant_id, @product.id)
+      redirect_to merchant_manage_products_path(session[:merchant_id])
     else
       flash.now[:failure] = 'Product not updated'
       render :edit, status: :bad_request
