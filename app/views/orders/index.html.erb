@@ -1,10 +1,10 @@
 <% if @merchant %>
 
-  <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button' %>
 
   <p>
-  <h3>Orders Overview</h3>
-  <section>
+  <h3 class="orders-title">Orders Overview</h3>
+  <%= link_to 'Manage My Products', merchant_manage_products_path(@merchant), class: 'button body-button manage-products-button' %>
+  <section class="table">
     <table>
       <tr>
         <th>
@@ -68,14 +68,14 @@
     </table>
   </section>
 
-  <h3>
+  <h3 class="orders-title">
     <%= @merchant.username %>'s orders
   </h3>
 
-  <section>
-    <%= form_tag orders_path, method: :get do %>
+  <section class="orders-by-status">
+    <%= form_tag orders_path, class: "form-inline by-status", method: :get do %>
       <%= select_tag :order_status_filter, options_for_select(['all', 'paid', 'pending', 'completed', 'cancelled'], params[:order_status_filter]) %>
-      <%= submit_tag "Search" %>
+      <%= submit_tag "Search", class: 'button body-button status-submit' %>
     <% end %>
     <% if params[:order_status_filter] %>
       <h4><%= params[:order_status_filter].capitalize %> orders:</h4>
@@ -87,7 +87,7 @@
   <section>
     <% if @orders_and_items.empty? %>
     <p>
-      <%= @merchant.username %> has no <%= params[:order_status_filter] %> orders yet.
+      <%= @merchant.username %> has no <%= params[:order_status_filter] unless params[:order_status_filter] == 'all' %> orders yet.
     </p>
     <% else %>
 

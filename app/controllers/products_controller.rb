@@ -15,6 +15,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def home
+    @products = index
+  end
+
   def new
     @product = Product.new
     @category = Category.new

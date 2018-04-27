@@ -2,22 +2,4 @@
   <h3><%= @category.name.capitalize %></h3>
 <% end %>
 
-<section class='all-products'>
-  <% @products.each do |product| %>
-  <div class="card" style="width: 300px;">
-    <div class="card-image">
-      <%= link_to image_tag(product.photo_url, alt: product.name, width: 350, height: 350), product_path(product.id) %>
-    </div>
-    <div class="card-content">
-      <div class="content">
-        <h5>
-          <%= link_to product.name, product_path(product.id) %>
-          <small> by <%= link_to product.merchant.username, merchant_path(product.merchant_id)%> </small>
-        </h5>
-
-      </div>
-    </div>
-  </div>
-  <% end %>
-
-</section>
+<%= render partial: 'products' %>

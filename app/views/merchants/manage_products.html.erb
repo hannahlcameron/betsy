@@ -1,8 +1,8 @@
-<h3><%= @logged_merchant.username %></h3>
+<h3 class='products-title'><%= @logged_merchant.username %></h3>
 
-<%= link_to 'Add a New Product or Category', new_merchant_product_path(@logged_merchant), class: 'button' %>
+<%= link_to 'Add a New Product or Category', new_merchant_product_path(@logged_merchant), class: 'button body-button manage-products-button' %>
 
-<table>
+<table class="table">
   <thead>
     <th>Product</th>
     <th>Stock</th>
