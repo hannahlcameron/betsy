@@ -112,6 +112,54 @@ describe OrderItem do
 
     end # subtotal
 
+    describe 'orderitem aggregation' do
+      it 'will update an order item quantity' do
+        product1 = Product.first
+        order = Order.create!
+
+        orderitem1 = OrderItem.create!(product_id: product1.id, quantity: 1, order_id: order.id)
+
+        orderitem2 = OrderItem.new(product_id: orderitem1.product_id, quantity: 1, order_id: order.id)
+
+        # return orderitem2
+        orderitem_test = OrderItem.aggregate_orderitem(orderitem2, orderitem1)
+
+        orderitem_test.save
+
+        orderitem1.quantity.must_equal 2
+        orderitem_test.id.must_equal orderitem1.id
+
+        product_ones = order.products.select { |product| product.id == product1.id }
+
+        product_ones.length.must_equal 1
+      end
+    end
+
+    describe 'existing_oi?' do
+      it "will return true if order item's product is already associated with the order" do
+        product1 = Product.first
+        order = Order.create!
+
+        orderitem1 = OrderItem.create!(product_id: product1.id, quantity: 1, order_id: order.id)
+
+        orderitem2 = OrderItem.new(product_id: product1.id, quantity: 1, order_id: order.id)
+        result = OrderItem.existing_oi?(orderitem2)
+
+        result.must_equal orderitem1
+      end
+
+      it 'will return nil if that product is not associated with the order' do
+        product1 = Product.first
+        order = Order.create!
+
+        OrderItem.create!(product_id: product1.id, quantity: 1, order_id: order.id)
+
+        orderitem2 = OrderItem.new(product_id: Product.last.id, quantity: 1, order_id: order.id)
+        
+        result = OrderItem.existing_oi?(orderitem2)
+        result.must_equal nil
+      end
+    end
   end # business logic
 
 end

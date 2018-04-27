@@ -1,12 +1,6 @@
 require "test_helper"
 
 describe OrderitemsController do
-  # describe 'new' do
-  #   it 'responds with success' do
-  #     get new_orderitem_path
-  #     must_respond_with :success
-  #   end
-  # end
 
   describe 'create' do
     it 'can add a valid orderitem' do
@@ -42,6 +36,29 @@ describe OrderitemsController do
 
       must_respond_with :redirect
       OrderItem.count.must_equal old_oi_count
+    end
+
+    it 'will update a current order item quantity if adding more items of the same product to the cart' do
+      product1 = Product.first
+      orderitem_data = {
+        product_id: product1.id,
+        quantity: 1
+      }
+      old_oi_count = OrderItem.count
+
+      post orderitems_path, params: { order_item: orderitem_data }
+      OrderItem.count.must_equal old_oi_count + 1
+
+      orderitem = OrderItem.last
+      post orderitems_path, params: { order_item: orderitem_data }
+
+      orderitem.reload
+      orderitem.quantity.must_equal 2
+
+      order = Order.find(orderitem.order_id)
+      product_ones = order.products.select { |product| product.id == product1.id }
+
+      product_ones.length.must_equal 1
     end
   end
 
@@ -103,7 +120,6 @@ describe OrderitemsController do
       delete orderitem_path(io_id)
 
       must_respond_with :redirect
-      must_redirect_to "/order/show"
 
       OrderItem.count.must_equal old_oi_count - 1
       OrderItem.find_by(id: io_id).must_be_nil

@@ -6,6 +6,12 @@ class OrderitemsController < ApplicationController
   def create
     @orderitem = OrderItem.new(order_item_params)
     @orderitem.order_id = session[:cart_id]
+    # order = Order.find(session[:cart_id])
+
+    existing_oi = OrderItem.existing_oi?(@orderitem)
+    unless existing_oi.nil?
+      @orderitem = OrderItem.aggregate_orderitem(@orderitem, existing_oi)
+    end
 
     if @orderitem.save
       flash[:success] = "Item added successfully!"
@@ -21,7 +27,7 @@ class OrderitemsController < ApplicationController
     @orderitem.assign_attributes(order_item_params)
 
     if @orderitem.save
-      flash[:success] = "Item added successfully!"
+      flash[:success] = "Item updated successfully!"
     else
       flash[:failure] = "Oops! Something went wrong and we couldn't add this item."
     end
@@ -32,7 +38,7 @@ class OrderitemsController < ApplicationController
   def destroy
     @orderitem.destroy
 
-    redirect_to "/order/show"
+    redirect_back(fallback_location: root_path)
   end
 
   def ship
