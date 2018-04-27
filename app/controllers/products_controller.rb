@@ -58,6 +58,7 @@ class ProductsController < ApplicationController
     if @product.merchant_id == @logged_merchant.id
 
       @product.retired = true
+      @product.stock_decrement(@product.stock)
       if @product.save
         flash[:success] = 'Product has been retired'
       else

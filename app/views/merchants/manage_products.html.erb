@@ -12,7 +12,7 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
+        <td><%= link_to product.name, product_path(product.id) %></td>
         <td><%= product.stock %></td>
         <td><%= product.retired == false ? 'Active' : 'Retired' %></td>
         <td><%= link_to 'Edit', edit_merchant_product_path(product.merchant_id, product.id) %></td>

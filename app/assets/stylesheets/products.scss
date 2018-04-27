@@ -1,3 +1,30 @@
 // Place all the styles related to the products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.product-show {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+}
+
+.reviews {
+  grid-row: 2 / span 1;
+  grid-column: 1 / span 2;
+  margin: 5vh;
+  margin-top: 0;
+}
+
+.reviews h4 {
+  margin-top: 3vh;
+}
+
+.product-photo {
+  height: 40vh;
+}
+
+.product-info {
+  margin-left: 3vw;
+  height: 50vh;
+}
