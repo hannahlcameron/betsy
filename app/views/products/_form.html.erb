@@ -1,4 +1,4 @@
-<%= page_title %>
+<h3><%= page_title %></h3>
 
 <% if @product %>
   <% if @product.errors.any? %>
@@ -18,7 +18,7 @@
 <%= form_tag categories_path do %>
   <%= label_tag :name, 'New Category' %>
   <%= text_field_tag :name, params[:name], required: true %>
-  <%= button_tag 'Add', class: 'button small' %>
+  <%= button_tag 'Add', class: 'button small body-button' %>
 <% end %>
 
 <%= form_for @product, url: url do |f| %>
@@ -35,5 +35,5 @@
   <%= f.text_area :description %>
   <%= f.label :photo_url %>
   <%= f.text_field :photo_url %>
-  <%= f.submit action_name, class: 'button' %>
+  <%= f.submit action_name, class: 'button body-button' %>
 <% end %>

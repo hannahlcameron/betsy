@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "SuperMarket" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "SuperMarket" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css"> -->
-    <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    "application" %>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
 
-  <body class="body">
+<body class="body">
+  <div>
+
     <header>
       <div class="sticky">
         <nav class="top-bar" data-topbar role="navigation">
@@ -22,23 +24,23 @@
 
             <div class="has-dropdown">
               <%= link_to 'All Products', products_path, class: 'dropbtn hollow' %>
-                <ul class="dropdown">
-                  <% Category.categories_with_works.each do |category| %>
-                    <li><%= link_to category.name.capitalize, category_path(category.name) %></li>
-                  <% end %>
-                </ul>
+              <ul class="dropdown">
+                <% Category.categories_with_works.each do |category| %>
+                <li><%= link_to category.name.capitalize, category_path(category.name) %></li>
+                <% end %>
+              </ul>
             </div>
 
             <div class='has-dropdown'>
               <%= link_to 'All Merchants', merchants_path, class: 'dropbtn hollow' %>
               <ul class="dropdown">
                 <% Merchant.all.each do |merchant| %>
-                  <li><%= link_to merchant.username, merchant_path(merchant) %></li>
+                <li><%= link_to merchant.username, merchant_path(merchant) %></li>
                 <% end %>
               </ul>
             </div>
             <% if session[:merchant_id] %>
-              <%= link_to 'Dashboard', orders_path, class: 'navbar-item button hollow' %>
+            <%= link_to 'Dashboard', orders_path, class: 'navbar-item button hollow' %>
             <% end %>
           </div>
           <div class="right">
@@ -79,5 +81,6 @@
       <h4 class='slogan'>It's a shop.. it's a store.. It's a SUPERSTORE!</h4>
       <p class='copyright'>Copyright, The Three Marketeers, 2018</p>
     </footer>
-  </body>
+  </div>
+</body>
 </html>
