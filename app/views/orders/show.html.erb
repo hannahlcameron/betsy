@@ -1,6 +1,6 @@
 <section>
   <h3>Order Confirmation</h3>
-  <p>Order Placed: <%= @order.updated_at %></p>
+  <p>Order Placed: <%= readable_date(@order.updated_at) %></p>
   <p>Order Total: <%= number_to_currency(@order.order_total) %></p>
   <p>Order Status: <%= @order.status %></p>
   <div>

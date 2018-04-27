@@ -37,6 +37,7 @@ class OrderitemsController < ApplicationController
 
   def destroy
     @orderitem.destroy
+    flash[:success] = 'Item successfully removed'
 
     redirect_back(fallback_location: root_path)
   end

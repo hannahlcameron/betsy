@@ -7,11 +7,11 @@ class ProductsController < ApplicationController
   def index
     @category = Category.find_by(name: params[:category])
     if @category
-      @products = Product.by_category(@category.name).where(retired: false)
+      @products = Product.by_category(@category.name).where(retired: false).where('stock > 0')
     elsif params[:search]
-      @products = Product.find_search(params[:search])
+      @products = Product.find_search(params[:search]).where('stock > 0')
     else
-      @products = Product.where(retired: false)
+      @products = Product.where(retired: false).where('stock > 0')
     end
   end
 
