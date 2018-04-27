@@ -135,6 +135,31 @@ describe OrderItem do
       end
     end
 
+    describe 'existing_oi?' do
+      it "will return true if order item's product is already associated with the order" do
+        product1 = Product.first
+        order = Order.create!
+
+        orderitem1 = OrderItem.create!(product_id: product1.id, quantity: 1, order_id: order.id)
+
+        orderitem2 = OrderItem.new(product_id: product1.id, quantity: 1, order_id: order.id)
+        result = OrderItem.existing_oi?(orderitem2)
+
+        result.must_equal orderitem1
+      end
+
+      it 'will return nil if that product is not associated with the order' do
+        product1 = Product.first
+        order = Order.create!
+
+        OrderItem.create!(product_id: product1.id, quantity: 1, order_id: order.id)
+
+        orderitem2 = OrderItem.new(product_id: Product.last.id, quantity: 1, order_id: order.id)
+        
+        result = OrderItem.existing_oi?(orderitem2)
+        result.must_equal nil
+      end
+    end
   end # business logic
 
 end

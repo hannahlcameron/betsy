@@ -9,8 +9,6 @@ class OrderitemsController < ApplicationController
     # order = Order.find(session[:cart_id])
 
     existing_oi = OrderItem.existing_oi?(@orderitem)
-    # if order.product_ids.include?(@orderitem.product_id)
-    #   existing_oi = order.order_items.find{ |orderitem| orderitem.product_id == @orderitem.product_id }
     unless existing_oi.nil?
       @orderitem = OrderItem.aggregate_orderitem(@orderitem, existing_oi)
     end
@@ -40,7 +38,7 @@ class OrderitemsController < ApplicationController
   def destroy
     @orderitem.destroy
 
-    redirect_to "/order/show"
+    redirect_back(fallback_location: root_path)
   end
 
   def ship
